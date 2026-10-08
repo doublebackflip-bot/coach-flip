@@ -65,7 +65,15 @@ export class Pose {
       case 'chin': {
         // chin is not a MediaPipe point: extrapolate from nose -> mouth (mouth-to-chin ~1.2x nose-to-mouth)
         const m = g('mouth'), no = g('nose');
-        return m.map((v, i) => (i === m.length - 1 ? Math.min(m[i], no[i]) : v + (v - no[i]) * 1.2));
+        const c = m.map((v, i) => (i === m.length - 1 ? Math.min(m[i], no[i]) : v + (v - no[i]) * 1.2));
+        // sanity: a "chin" far below where the eyes put it (or below the shoulder line) means the mouth/nose
+        // points were guessed (face covered by a glove/arm, or turned away) -> keep the point, but mark it unsure
+        const sh = g('mid_shoulder'), hp = g('mid_hip');
+        const torso = Math.hypot(sh[0] - hp[0], sh[1] - hp[1]);
+        // eyes are rarely covered by the gloves; eyes-to-chin is ~0.22 torso lengths
+        const ey = (g('left_eye')[1] + g('right_eye')[1]) / 2;
+        if (torso > 0 && (c[1] - (ey + 0.22 * torso) > 0.12 * torso || c[1] > sh[1] + 0.02 * torso)) c[c.length - 1] = Math.min(c[c.length - 1], 0.3);
+        return c;
       }
       case 'fist': {
         // glove/fist centre = halfway between wrist and knuckles (index/pinky points)

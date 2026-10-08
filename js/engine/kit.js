@@ -285,6 +285,7 @@ export function baseGlobals(extra = {}) {
     episode_gap_s: { value: 0.25, label: 'Merge fault moments closer than', unit: 's' },
     event_fail_fraction: { value: 0.25, label: 'Rep fault if failing this share of reps (swings, steps, kicks...)', unit: '0-1' },
     event_flag_halfwidth: { value: 2, label: 'Frames highlighted around a rep fault', unit: 'frames' },
+    judge_min_conf: { value: 0.6, label: 'Judge a moment only if the body parts it needs are tracked at least this confidently', unit: '0-1' },
     ...extra,
   };
 }
@@ -312,4 +313,50 @@ export function yawSeries(ctx, a, b) {
     out[i] += off; prev = out[i];
   }
   return smooth1(fillGaps(out, 3), 1);
+}
+
+// ---------------------------------------------------------------- which side leads (mirror-proof)
+/**
+ * Which side of the body is forward (the lead side of a fighting stance), read from the pose itself, so a
+ * mirrored video (selfie camera) or a wrong stance setting can't swap jab and cross.
+ * "Forward" = toward where the hands point (in a guard and when punching, the fists are in front of the body,
+ * toward the opponent). Works from the front, the side or a 3/4 angle: we compare how far the left and right
+ * shoulder / hip / ankle sit along that direction (MediaPipe world coordinates, top view x-z).
+ * Returns { side: 'left'|'right'|null, agree (share of frames voting that way), score, n }.
+ */
+export function inferLeadSide(frames, minVis = 0.5) {
+  const votes = [];
+  const mid = (A, a, b) => [0, 1, 2].map((d) => (A[a][d] + A[b][d]) / 2);
+  for (const f of frames) {
+    if (!f?.lm || !f.wlm) continue;
+    const W = f.wlm, v = (i) => f.lm[i][3];
+    if (Math.min(v(11), v(12), v(23), v(24), v(15), v(16)) < minVis) continue;
+    const sh = mid(W, 11, 12), hp = mid(W, 23, 24);
+    const torso3 = Math.hypot(sh[0] - hp[0], sh[1] - hp[1], sh[2] - hp[2]) || 0.5;
+    // forward = where the athlete faces: head direction (nose ahead of the ears) + hands direction, both unit
+    let u = [0, 0];
+    const hands = mid(W, 15, 16);
+    const hu = [hands[0] - sh[0], hands[2] - sh[2]], hl = Math.hypot(...hu);
+    if (hl >= 0.08 * torso3) u = [hu[0] / hl, hu[1] / hl];
+    if (Math.min(v(0), v(7), v(8)) >= minVis) {
+      const ear = mid(W, 7, 8), nu = [W[0][0] - ear[0], W[0][2] - ear[2]], nl = Math.hypot(...nu);
+      if (nl >= 0.03) u = [u[0] + nu[0] / nl, u[1] + nu[1] / nl];
+    }
+    const ul = Math.hypot(...u);
+    if (ul < 0.5) continue; // no usable forward direction (arms hanging, face hidden) or the two disagree
+    u = [u[0] / ul, u[1] / ul];
+    const along = (i) => W[i][0] * u[0] + W[i][2] * u[1];
+    const pairs = [[11, 12, 1], [23, 24, 1]];
+    if (Math.min(v(27), v(28)) >= minVis) pairs.push([27, 28, 1.5], [31, 32, 1]);
+    let s = 0, ws = 0;
+    for (const [a, b, w] of pairs) { s += w * (along(a) - along(b)); ws += w; }
+    votes.push(s / ws / torso3);
+  }
+  // overriding the coach's stance setting needs strong evidence: enough frames that vote, clearly, the same way
+  const seen = frames.filter((f) => f?.lm).length;
+  if (votes.length < Math.max(12, 0.25 * seen)) return { side: null, agree: 0, score: 0, n: votes.length };
+  const sorted = votes.slice().sort((a, b) => a - b), med = sorted[Math.floor(sorted.length / 2)];
+  const agree = votes.filter((x) => Math.sign(x) === Math.sign(med)).length / votes.length;
+  const side = Math.abs(med) >= 0.08 && agree >= 0.75 ? (med > 0 ? 'left' : 'right') : null;
+  return { side, agree: Math.round(agree * 100) / 100, score: Math.round(med * 1000) / 1000, n: votes.length };
 }

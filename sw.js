@@ -1,16 +1,17 @@
 // Offline support: precache the app shell, pose model and WASM so the app works at the gym
 // with no signal after the first visit.
-const VERSION = 'coachflip-v0.3.1';
+const VERSION = 'coachflip-v0.4.0';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
-  'js/app.js', 'js/kb.js', 'js/pose.js', 'js/recorder.js', 'js/render.js', 'js/store.js',
-  'js/engine/core.js', 'js/engine/geom.js', 'js/engine/landmarks.js', 'js/engine/kit.js',
+  'js/app.js', 'js/kb.js', 'js/pose.js', 'js/recorder.js', 'js/render.js', 'js/store.js', 'js/mp4info.js',
+  'js/engine/core.js', 'js/engine/geom.js', 'js/engine/landmarks.js', 'js/engine/kit.js', 'js/engine/occlusion.js', 'js/engine/tracking.js',
   'js/sports/registry.js',
   ...['boxing', 'softball', 'sprinting', 'distance_running', 'soccer', 'jumping', 'kickboxing', 'mma', 'bjj'].flatMap((s) => [`js/sports/${s}/module.js`, `data/${s}.json`]),
   'icons/icon-192.png', 'icons/icon-512.png',
   'vendor/mediapipe/vision_bundle.mjs',
   'vendor/mediapipe/wasm/vision_wasm_internal.js', 'vendor/mediapipe/wasm/vision_wasm_internal.wasm',
-  'models/pose_landmarker_lite.task',
+  // default model; lite and the 30 MB heavy model are cached the first time they are used (cache-first below)
+  'models/pose_landmarker_full.task',
 ];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));

@@ -79,7 +79,9 @@ function maxOver(ctx, a, b, needs, fn, skip) {
   return best;
 }
 /** true while that hand is itself throwing a punch (so "hand left the chin" is expected) */
-const throwing = (ctx, side) => (i) => ctx.events.some((ev) => ev.side === side && i >= ev.start && i <= ev.end);
+// (also true whenever that arm is straight out at punch height: a punch the event detector merged or missed
+// is still a punch, not a "dropped" guard hand - this is what drew the guard line along a punching arm)
+const throwing = (ctx, side) => (i) => ctx.events.some((ev) => ev.side === side && i >= ev.start && i <= ev.end) || !!ctx.boxing?.extendedAt(side, i);
 const at = (ctx, i, needs) => { const p = ctx.poses[i]; return p && p.vis(...needs) >= ctx.G.min_visibility ? p : null; };
 
 const ARM = (s) => [s + '_shoulder', s + '_elbow', s + '_wrist'];
@@ -95,7 +97,7 @@ const lo = (v, P, k) => P[k] - v;   // badness when smaller is worse
 function rearHandCheck(id, group, scope, kb, priority, label) {
   return {
     id, group, scope, kb, priority, basis: 'source', label, okLabel: 'Rear hand stayed at the chin',
-    needs: [...FIST('rear'), ...FACE],
+    needs: [...FIST('rear'), ...FACE, 'chin'],
     params: { max_fists: { value: 1.5, unit: 'fists', label: 'Max rear fist-to-chin distance', note: 'KB: ~1 fist; +0.5 margin for tracking noise' } },
     thresholdText: (P) => `rear fist within ${P.max_fists} fists of chin`,
     badness: (v, P) => hi(v, P, 'max_fists'),
@@ -130,6 +132,11 @@ function extensionEval(chk, s, e, ctx, P) {
 export const boxing = {
   id: 'boxing', name: 'Boxing', kbFile: 'data/boxing.json',
   roles: (stance) => (stance === 'southpaw' ? { lead: 'right', rear: 'left' } : { lead: 'left', rear: 'right' }),
+  /** stance implied by the body's forward side (see kit.inferLeadSide) */
+  stanceFromLead: (side) => (side === 'left' ? 'orthodox' : side === 'right' ? 'southpaw' : null),
+  /** a punch (out and back) takes at least this long in real time; shorter = the slow-mo setting is wrong */
+  minRealEventSeconds: 0.12,
+  occlusionAware: true,
   stances: [
     { id: 'orthodox', label: 'Orthodox', hint: 'left foot & left hand forward' },
     { id: 'southpaw', label: 'Southpaw', hint: 'right foot & right hand forward' },
@@ -171,6 +178,9 @@ export const boxing = {
     episode_gap_s: { value: 0.25, label: 'Merge fault moments closer than', unit: 's' },
     event_fail_fraction: { value: 0.25, label: 'Punch fault if failing this share of punches', unit: '0-1' },
     event_flag_halfwidth: { value: 2, label: 'Frames highlighted around a punch fault', unit: 'frames' },
+    judge_min_conf: { value: 0.6, label: 'Judge a moment only if the body parts it needs are tracked at least this confidently', unit: '0-1' },
+    view_front_max_deg: { value: 42, label: 'Front view: punches within this angle of the camera line', unit: 'deg' },
+    view_side_min_deg: { value: 62, label: 'Side view: punches at least this angle from the camera line', unit: 'deg' },
   },
 
   detectEvents(ctx) {
@@ -180,6 +190,7 @@ export const boxing = {
     const ext = { lead: series(ARM('lead'), (p) => ext3(p, 'lead')), rear: series(ARM('rear'), (p) => ext3(p, 'rear')) };
     // a straight arm hanging at the waist is not a punch (head and body shots are thrown at chest height or above)
     const atPunchHeight = (i, s) => poses[i] && below(poses[i], s + '_wrist', s + '_shoulder', ctx) < G.punch_max_below_shoulder;
+    ctx.boxing = { ext, extendedAt: (s, i) => ext[s][i] >= G.punch_ext_min - 0.05 && atPunchHeight(i, s) };
 
     if (ctx.isPhoto) {
       for (const s of ['lead', 'rear']) {
@@ -231,7 +242,11 @@ export const boxing = {
       let s0 = -1;
       for (let j = Math.max(0, i - W); j < i; j++) if (Number.isFinite(lift[j]) && (s0 < 0 || lift[j] > lift[s0])) s0 = j;
       if (s0 < 0 || lift[s0] - v < G.hook_prominence) continue;
-      if (events.some((e) => e.side === 'lead' && i >= e.start - 1 && i <= e.end + 1)) continue;
+      // not the retraction of a jab (elbow still up while the arm folds back) and not a straight arm
+      if (events.some((e) => e.side === 'lead' && i >= e.start - sec(0.1) && i <= e.end + sec(0.3))) continue;
+      if (ext.lead[i] >= G.punch_ext_min - 0.05) continue;
+      // a hook is bent, and the bend shows in the picture (2D) too, not just in the 3D estimate
+      if (!(elbow2(poses[i], 'lead') <= G.hook_max_elbow + 15)) continue;
       const amp = lift[s0] - v;
       let end = -1;
       for (let j = i + 1; j <= Math.min(N - 1, i + R); j++) if (lift[j] >= lift[s0] - 0.35 * amp) { end = j; break; }
@@ -253,13 +268,31 @@ export const boxing = {
       if (punching('lead') || punching('rear')) continue;
       guardFrames.push(i);
     }
+    // Camera angle from the punches: a straight punch thrown toward the camera barely shows in the picture
+    // (front view); thrown across it, it shows at full arm length (side view). angle = asin(shown / arm length).
+    // jabs go straight down the target line; crosses travel across the body to the centre line and read wider
+    const angOf = (list) => list.map((e) => {
+      const p = poses[e.peak]; if (!p || p.vis(...ARM(e.side)) < 0.5) return NaN;
+      const shown = dist(p.p2(e.side + '_shoulder'), p.p2(e.side + '_wrist'));
+      const full = G.arm_torso_ratio * ctx.unit.torso2 * 0.95;
+      return (Math.asin(Math.min(1, shown / full)) * 180) / Math.PI;
+    }).filter(Number.isFinite).sort((a, b) => a - b);
+    let view = null;
+    if (ctx.unit.torso2 > 0) {
+      let angs = angOf(events.filter((e) => e.type === 'lead_straight')), q = 0.5;
+      if (angs.length < 3) { angs = angOf(events.filter((e) => e.type.endsWith('_straight'))); q = 0.35; } // crosses read wider
+      if (angs.length >= 3) { // 3+ punches before trusting a camera-angle read
+        const a = Math.round(angs[Math.floor((angs.length - 1) * q)]);
+        view = { angle: a, n: angs.length, class: a <= G.view_front_max_deg ? 'front' : a >= G.view_side_min_deg ? 'side' : 'angled' };
+      }
+    }
     const n = (t) => events.filter((e) => e.type === t).length;
     const sk = ctx.skill.id;
     if (sk === 'jab' && !n('lead_straight') && n('rear_straight') >= 2)
       notes.push('Only rear-hand punches were found. Is the stance setting right (orthodox vs southpaw)?');
     if (sk === 'cross' && !n('rear_straight') && n('lead_straight') >= 2)
       notes.push('Only lead-hand punches were found. Is the stance setting right (orthodox vs southpaw)?');
-    return { events, guardFrames, notes };
+    return { events, guardFrames, notes, view };
   },
 
   checks: [
@@ -280,7 +313,7 @@ export const boxing = {
       },
     },
     {
-      id: 'guard_elbow_flare', group: 'guard', scope: 'guard', priority: 3, basis: 'estimated', views: ['front'],
+      id: 'guard_elbow_flare', angleSensitive: true, group: 'guard', scope: 'guard', priority: 3, basis: 'estimated', views: ['front'],
       kb: { skill: 'bx-stance-guard', checkpoint: 'bx-stance-guard-c03', fault: 'bx-stance-guard-f04' },
       label: 'Elbows flared out', okLabel: 'Elbows tucked in',
       needs: [...ARM('lead'), ...ARM('rear')],
@@ -325,7 +358,7 @@ export const boxing = {
     },
     // ---------------- STANCE ----------------
     {
-      id: 'stance_width', group: 'stance', scope: 'guard', priority: 3, basis: 'estimated',
+      id: 'stance_width', angleSensitive: true, group: 'stance', scope: 'guard', priority: 3, basis: 'estimated',
       kb: { skill: 'bx-stance-guard', checkpoint: 'bx-stance-guard-c01', fault: 'bx-stance-guard-f01' },
       label: 'Feet too narrow (in line) or too wide', okLabel: 'Stance width OK',
       needs: ['left_ankle', 'right_ankle', 'left_shoulder', 'right_shoulder', 'left_hip', 'right_hip'],
@@ -404,7 +437,7 @@ export const boxing = {
       evaluate(e, ctx, P) { return extensionEval(this, 'lead', e, ctx, P); },
     },
     {
-      id: 'jab_elbow_flare', group: 'jab', scope: 'event:lead_straight', priority: 3, basis: 'estimated',
+      id: 'jab_elbow_flare', angleSensitive: true, group: 'jab', scope: 'event:lead_straight', priority: 3, basis: 'estimated',
       kb: { skill: 'bx-jab', checkpoint: 'bx-jab-c01', fault: null, drills: ['BX-D-JAB-MITT'] },
       coach: {
         cue: "'Elbow down - straight out from the guard.'",
@@ -477,7 +510,7 @@ export const boxing = {
       id: 'cross_lead_hand', group: 'cross', scope: 'event:rear_straight', priority: 1, basis: 'estimated',
       kb: { skill: 'bx-cross', checkpoint: 'bx-cross-c04', fault: 'bx-cross-f03' },
       label: 'Lead hand drops on the cross', okLabel: 'Lead hand stayed up',
-      needs: [...FIST('lead'), ...FACE],
+      needs: [...FIST('lead'), ...FACE, 'chin'],
       params: { max_fists: { value: 2.0, unit: 'fists', label: 'Max lead fist-to-chin distance during the cross', note: 'KB: lead hand stays at face height' } },
       thresholdText: (P) => `lead fist within ${P.max_fists} fists of the chin`,
       badness: (v, P) => hi(v, P, 'max_fists'),
@@ -535,7 +568,7 @@ export const boxing = {
       },
     },
     {
-      id: 'cross_lean', group: 'cross', scope: 'event:rear_straight', priority: 2, basis: 'estimated',
+      id: 'cross_lean', angleSensitive: true, group: 'cross', scope: 'event:rear_straight', priority: 2, basis: 'estimated',
       kb: { skill: 'bx-cross', checkpoint: 'bx-cross-c03', fault: 'bx-cross-f02' },
       label: 'Leaning / over-committing', okLabel: 'Head stayed over the lead knee',
       needs: ['nose', 'lead_knee', 'lead_ankle', 'rear_ankle'], visReason: 'Legs not visible - film head to toe',
@@ -549,7 +582,7 @@ export const boxing = {
       },
     },
     {
-      id: 'cross_weight_shift', group: 'cross', scope: 'event:rear_straight', priority: 3, basis: 'estimated', temporal: true,
+      id: 'cross_weight_shift', angleSensitive: true, group: 'cross', scope: 'event:rear_straight', priority: 3, basis: 'estimated', temporal: true,
       kb: { skill: 'bx-cross', checkpoint: 'bx-cross-c03', fault: null, drills: ['BX-D-PIVOT-CROSS'], tipSources: ['BX9'] },
       coach: { cue: "'Push off the back foot - shift onto the lead leg as the hand goes.'", why: 'Straight punches thrown with a weight shift hit harder (BX9), and the rear leg is a key source of cross power (BX7).' },
       label: 'No weight shift into the cross', okLabel: 'Weight shifted forward',

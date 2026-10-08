@@ -94,6 +94,6 @@ export function drawFlags(g, flags, { banner = true } = {}) {
 export function renderFrame(canvas, source, frame, flags, opts = {}) {
   const g = canvas.getContext('2d');
   g.drawImage(source, 0, 0, canvas.width, canvas.height);
-  if (opts.skeleton !== false && frame?.lm) drawSkeleton(g, frame.lm, { color: flags?.length ? '#ffe0e0' : COLORS.bone });
+  if (opts.skeleton !== false && frame?.lm) drawSkeleton(g, frame.lm, { color: opts.raw ? '#ffb000' : flags?.length ? '#ffe0e0' : COLORS.bone });
   if (flags?.length) drawFlags(g, flags, opts);
 }

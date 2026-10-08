@@ -12,6 +12,25 @@ Privacy: videos, landmarks, and athlete data stay on the phone (IndexedDB). Noth
 
 This repo is the built static app only (no tests or test videos).
 
+## Better tracking (v0.4.0)
+* **Tap your athlete:** when there is more than one person in the picture (coach, sparring partner, people walking by), the app shows
+  one frame with everyone outlined. Tap your athlete; the app then follows only that person (by position, body shape and clothing
+  colour, so a coach walking past doesn't steal the skeleton). "Skip" picks the biggest, most central person.
+* The app crops the video around the athlete and runs the pose model on that close-up, then cleans the track (left/right flips,
+  impossible jumps, short gaps, jitter). The **Raw view** button on the results player shows the tracker's raw output for comparison.
+* **Tracking quality** (0-100) is shown with each result. When it is low, the app lists what to change when filming: distance (3-5 m,
+  athlete at least half the picture height), lighting, a plain background, phone steady (lean it on something), whole body in view.
+* Checks the app can't see well enough (a hand hidden behind the body, a 3/4 camera angle for a front-view check) are listed as
+  **"Not clear enough to judge"** instead of a fault. Each fault shows how confident the app is.
+* **Jab or cross is decided by the hand that actually punched** and by which side of the body is forward, so a southpaw, or an
+  orthodox boxer filmed with the selfie camera (mirrored video), no longer gets jab/cross and lead/rear hand swapped. The guard
+  check measures the non-punching hand against the face (chin), not the shoulder.
+* **Camera angle:** the app works out whether the clip is front, side or 3/4. At a 3/4 angle, checks that need a straight-on view
+  (weight shift, elbow flare and similar) say "not clear enough to judge" instead of guessing. Film straight from the front or side for those.
+* **Slow-motion** applies only to an uploaded clip that plays back slowed down. Clips recorded in the app are always treated as normal speed,
+  and real 120/240 fps files are detected from the file itself.
+* Settings → Pose model: **Full** (default), **Accurate (slower)** (heavy model, downloads 30 MB once; about 1.3x slower on a laptop, up to 2x on older phones), or **Lite** (fastest).
+
 ## Recording tips and troubleshooting (v0.3.1)
 * **Record video** records inside the app (live preview, 🔄 flip camera, stops by itself at 20 s). The first time, allow camera access.
   If you blocked it: iPhone, Settings → Safari → Camera → Allow (or "aA" → Website Settings); Android, lock icon → Permissions → Camera.
@@ -24,7 +43,7 @@ This repo is the built static app only (no tests or test videos).
 ## Third-party components and licenses
 * **MediaPipe Tasks Vision** 1.1.0 (`vendor/mediapipe/`, JS + WASM), © Google LLC, **Apache License 2.0**,
   https://github.com/google-ai-edge/mediapipe
-* **MediaPipe Pose Landmarker models** (`models/pose_landmarker_lite.task`, `pose_landmarker_full.task`), © Google LLC,
+* **MediaPipe Pose Landmarker models** (`models/pose_landmarker_lite.task`, `pose_landmarker_full.task`, `pose_landmarker_heavy.task`), © Google LLC,
   **Apache License 2.0**, https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker
 * **Coaching knowledge bases** (`data/*.json`): written for this app. Each checkpoint, fault, and drill cites its public
   sources (governing-body manuals, coaching federations, peer-reviewed papers), which are listed with URLs inside each JSON file

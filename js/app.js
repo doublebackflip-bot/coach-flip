@@ -2,10 +2,11 @@
 import { analyze, buildConfig } from './engine/core.js';
 import { indexKb, coachingFor } from './kb.js';
 import { SPORTS, sportEntry, loadSportModule } from './sports/registry.js';
-import { trackVideo, trackImage, loadVideo, releaseVideo } from './pose.js';
+import { trackVideo, trackImage, loadVideo, releaseVideo, scanPeople } from './pose.js';
 import { canRecordInApp, cameraSupport, openCamera, startRecording, stopStream, isIOS } from './recorder.js';
 import { renderFrame, sizeCanvas } from './render.js';
 import { store, uid } from './store.js';
+import { videoInfo, decideSlowmo } from './mp4info.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -17,17 +18,21 @@ const fmtDate = (ms) => new Date(ms).toLocaleString([], { month: 'short', day: '
 const S = {
   sportId: 'boxing', sport: null, kbx: null, athletes: [], athleteId: null,
   skillId: 'jab', view: 'front', slowmo: 1,
-  prefs: { fps: 20, model: 'lite', maxSeconds: 20, keepVideos: true },
+  prefs: { fps: 20, model: 'full', maxSeconds: 20, keepVideos: true, prefsV: 2 },
   overrides: {}, player: null, abort: null,
 };
 window.__coach = S; // handy for debugging / automated tests
-export const APP_VERSION = '0.3.1';
+export const APP_VERSION = '0.4.0';
 const isStandalone = () => window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
 
 // ---------------------------------------------------------------- boot
 async function boot() {
   if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
-  S.prefs = { ...S.prefs, ...(await store.getSetting('prefs', {})) };
+  const saved = await store.getSetting('prefs', {});
+  // v0.4: the default pose model moved from lite to full (more accurate). Older saved prefs still say 'lite'
+  // only because that was the default, so move them once; a later explicit choice is kept.
+  if ((saved.prefsV || 1) < 2) { if (saved.model === 'lite') delete saved.model; saved.prefsV = 2; }
+  S.prefs = { ...S.prefs, ...saved };
   await loadSport(await store.getSetting('lastSport', 'boxing'));
   S.athletes = (await store.athletes()).sort((a, b) => a.name.localeCompare(b.name));
   S.athleteId = await store.getSetting('lastAthlete', S.athletes[0]?.id ?? null);
@@ -68,7 +73,7 @@ async function loadSport(id) {
   if (!skillDef()) S.skillId = S.sport.skills[0].id;
   S.view = await store.getSetting('lastView:' + id, id === 'boxing' ? await store.getSetting('lastView', 'front') : (skillDef().view || S.sport.views[0].id));
   if (!S.sport.views.some((v) => v.id === S.view)) S.view = S.sport.views[0].id;
-  S.slowmo = await store.getSetting('slowmo:' + id, 1);
+  S.slowmo = 1; // never sticky: slow-mo is a property of one uploaded clip, not of the sport
   await store.setSetting('lastSport', id);
 }
 /** the athlete's stance for this sport (boxing: v0.1 field) */
@@ -127,9 +132,9 @@ async function home() {
     ${vHint ? `<li><b>${esc(views.find((v) => v.id === S.view).label)} view:</b> ${esc(vHint)}.</li>` : ''}
     ${sk?.view && sk.view !== S.view ? `<li><b>Tip:</b> this skill is best filmed from the ${esc(sk.view)}.</li>` : ''}</ul></div>
 
-  <label class="field">Is the video slow-motion?</label>
+  <label class="field">Uploading a slow-motion video?</label>
   <div class="seg three slowmo">${[[1, 'Normal', '24-60 fps'], [4, 'Slow-mo 4x', '120 fps'], [8, 'Slow-mo 8x', '240 fps']].map(([v, l, h]) => `<button class="opt" data-slowmo="${v}" aria-pressed="${S.slowmo === v}">${l}<small>${h}</small></button>`).join('')}</div>
-  <p class="hint">Pick slow-mo only if the clip plays back slowed down (e.g. a phone slo-mo video). It makes timing checks (contact time, sequencing) real-time accurate.</p>
+  <p class="hint">Only for an uploaded clip that plays back slowed down. Videos recorded with the Record button are always treated as normal speed, and real high-speed files (120/240 fps) are detected automatically. Resets after each analysis.</p>
 
   <button class="big primary" id="rec"><span class="em">🎥</span> Record video</button>
   <p class="hint center"><a href="#" id="rec-native">Use the phone's camera app instead</a></p>
@@ -156,7 +161,7 @@ async function home() {
     home();
   }));
   $$('[data-view]').forEach((b) => (b.onclick = async () => { S.view = b.dataset.view; await store.setSetting('lastView:' + S.sportId, S.view); home(); }));
-  $$('[data-slowmo]').forEach((b) => (b.onclick = async () => { S.slowmo = +b.dataset.slowmo; await store.setSetting('slowmo:' + S.sportId, S.slowmo); home(); }));
+  $$('[data-slowmo]').forEach((b) => (b.onclick = async () => { S.slowmo = +b.dataset.slowmo; home(); }));
   $('#rec').onclick = () => (canRecordInApp() ? recorder() : openPicker('pick-record'));
   $('#rec-native').onclick = (e) => { e.preventDefault(); openPicker('pick-record'); };
   $('#upl').onclick = () => openPicker('pick-video');
@@ -268,6 +273,64 @@ async function recorder(facing = S.prefs.facing || 'environment') {
 }
 
 // ---------------------------------------------------------------- analysis
+function progressScreen(a) {
+  window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>Checking…</h1></header>
+    <p class="summary">${esc(skillDef().label)} · ${esc(a.name)}</p>
+    <p class="hint" id="stage">Loading the pose tracker (first time can take a few seconds)…</p>
+    <div class="progress"><div id="bar"></div></div>
+    <p class="hint" id="count"></p>
+    <button class="big" id="cancel">Cancel</button>`;
+  $('#cancel').onclick = () => { S.abort?.abort(); home(); };
+}
+
+/** "Tap your athlete": one frame with everyone outlined. Resolves {box, t} | null (auto) | 'cancel'. */
+function pickAthleteScreen(scan, a) {
+  return new Promise((resolve) => {
+    const { canvas: src, people, t } = scan;
+    S.scan = { t, people: people.map((p) => p.box) }; // for automated tests
+    window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>Who is ${esc(a.name)}?</h1></header>
+      <p class="hint">${people.length} people in the picture. Tap the athlete so the app follows only them (coach, sparring partner and people in the background are ignored).</p>
+      <div class="player picker"><canvas id="pk" aria-label="Video frame with the people outlined"></canvas></div>
+      <div class="chips" id="pk-list">${people.map((p, i) => `<button class="chip" data-pk="${i}">${i + 1}${i === 0 ? '' : ''}</button>`).join('')}</div>
+      <button class="big primary" id="pk-go" disabled>Track the athlete I tapped</button>
+      <button class="big" id="pk-auto">Skip: pick the biggest, most central person</button>
+      <button class="btn" id="pk-cancel" style="width:100%">Cancel</button>`;
+    const cv = $('#pk'); cv.width = src.width; cv.height = src.height;
+    const g = cv.getContext('2d');
+    let sel = -1;
+    const draw = () => {
+      g.drawImage(src, 0, 0);
+      people.forEach((p, i) => {
+        const b = p.box, x = b.x0 * cv.width, y = b.y0 * cv.height, w = b.w * cv.width, h = b.h * cv.height;
+        const pad = 0.06 * h;
+        g.lineWidth = Math.max(3, cv.width / 200);
+        g.strokeStyle = i === sel ? '#3ddc84' : 'rgba(255,255,255,0.9)';
+        g.setLineDash(i === sel ? [] : [10, 6]);
+        g.strokeRect(x - pad, y - pad, w + 2 * pad, h + 2 * pad);
+        g.setLineDash([]);
+        const r = Math.max(16, cv.width / 40);
+        g.fillStyle = i === sel ? '#3ddc84' : 'rgba(0,0,0,0.7)';
+        g.beginPath(); g.arc(x + w / 2, y - pad - r * 1.1, r, 0, 2 * Math.PI); g.fill();
+        g.fillStyle = '#fff'; g.font = `bold ${Math.round(r * 1.2)}px system-ui,sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+        g.fillText(String(i + 1), x + w / 2, y - pad - r * 1.1);
+      });
+    };
+    const choose = (i) => { sel = i; draw(); $('#pk-go').disabled = sel < 0; $$('[data-pk]').forEach((b) => b.classList.toggle('on', +b.dataset.pk === sel)); };
+    cv.addEventListener('click', (ev) => {
+      const r = cv.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+      let best = -1, bd = Infinity;
+      people.forEach((p, i) => { const b = p.box, pad = 0.06 * b.h; const inside = x >= b.x0 - pad && x <= b.x1 + pad && y >= b.y0 - pad && y <= b.y1 + pad;
+        const d = Math.hypot(x - b.cx, y - b.cy) + (inside ? -10 + b.w * b.h : 0); if (d < bd) { bd = d; best = i; } });
+      choose(best);
+    });
+    $$('[data-pk]').forEach((b) => (b.onclick = () => choose(+b.dataset.pk)));
+    $('#pk-go').onclick = () => resolve(sel >= 0 ? { box: people[sel].box, t } : null);
+    $('#pk-auto').onclick = () => resolve(null);
+    $('#pk-cancel').onclick = () => resolve('cancel');
+    draw();
+  });
+}
+
 async function runAnalysis(file, kind, extra = {}) {
   stopPlayer(); stopCamera();
   if (!athlete()) await addAthlete('My athlete');
@@ -280,25 +343,38 @@ async function runAnalysis(file, kind, extra = {}) {
   }
   const url = URL.createObjectURL(file);
   S.abort = new AbortController();
-  window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>Checking…</h1></header>
-    <p class="summary">${esc(skillDef().label)} · ${esc(a.name)}</p>
-    <p class="hint" id="stage">Loading the pose tracker (first time can take a few seconds)…</p>
-    <div class="progress"><div id="bar"></div></div>
-    <p class="hint" id="count"></p>
-    <button class="big" id="cancel">Cancel</button>`;
-  $('#cancel').onclick = () => { S.abort.abort(); home(); };
+  progressScreen(a);
   try {
+    const fileInfo = isPhoto ? null : await videoInfo(file);
+    debug.fileInfo = fileInfo;
     const opts = { model: S.prefs.model };
     debug.stage = isPhoto ? 'track-image' : 'track-video';
+    // several people in the picture (coach, other boxers): let the coach tap the athlete once
+    let athletePick = null;
+    if (!isPhoto) {
+      debug.stage = 'scan-people';
+      $('#stage') && ($('#stage').textContent = 'Looking for the athlete…');
+      try {
+        const scan = await scanPeople(url, { model: S.prefs.model, durationHint: extra.durationHint });
+        debug.people = scan?.people?.length ?? 0;
+        if (scan?.people?.length >= 2) athletePick = await pickAthleteScreen(scan, a);
+        if (athletePick === 'cancel') { URL.revokeObjectURL(url); home(); return; }
+        progressScreen(a);
+      } catch (e) { console.warn('people scan failed', e); debug.scanError = String(e.message || e); }
+      debug.stage = 'track-video';
+    }
     const track = isPhoto ? await trackImage(url, opts) : await trackVideo(url, {
-      ...opts, fps: analysisFps(skillDef()), maxSeconds: S.prefs.maxSeconds, signal: S.abort.signal, durationHint: extra.durationHint, debug,
+      ...opts, athlete: athletePick || null, fps: analysisFps(skillDef()), maxSeconds: S.prefs.maxSeconds, signal: S.abort.signal, durationHint: extra.durationHint, debug,
       onProgress: (p, k, n) => { $('#bar') && ($('#bar').style.width = `${Math.round(p * 100)}%`); $('#stage') && ($('#stage').textContent = 'Tracking joints frame by frame…'); $('#count') && ($('#count').textContent = `${k} / ${n} frames`); },
     });
     debug.stage = 'analyze';
     $('#stage') && ($('#stage').textContent = 'Comparing with the expert checklist…');
     const stance = stanceOf(a);
-    const slowmo = isPhoto ? 1 : S.slowmo;
+    const sm = isPhoto ? { slowmo: 1, note: null } : decideSlowmo({ source: debug.path, chosen: S.slowmo, fileFps: fileInfo?.fps });
+    const slowmo = sm.slowmo; S.slowmo = 1;
+    debug.slowmo = slowmo;
     const result = analyze(track, { sport: S.sport, skillId: S.skillId, view: S.view, stance, overrides: S.overrides, isPhoto, slowmo });
+    if (sm.note) result.notes.push(sm.note);
     if (isPhoto && result.events.length && S.sportId === 'boxing') result.notes.push('Extension is judged as if this photo is the moment of impact.');
     if (track.meta.truncated) result.notes.push(`Only the first ${S.prefs.maxSeconds} s were analysed (change in Settings).`);
     if (!isPhoto && !track.frames.some((f) => f.lm)) result.notes.push('No athlete was found in any frame. Film the whole body, well lit, from 3-5 m away.');
@@ -337,7 +413,8 @@ async function openSession(session, url = null) {
   const r = session.result;
   const faults = r.checks.filter((c) => c.status === 'fault');
   const oks = r.checks.filter((c) => c.status === 'ok');
-  const skipped = r.checks.filter((c) => !['fault', 'ok'].includes(c.status));
+  const unclear = r.checks.filter((c) => c.status === 'unclear');
+  const skipped = r.checks.filter((c) => !['fault', 'ok', 'unclear'].includes(c.status));
   const used = new Set();
   const chkDefs = Object.fromEntries(S.sport.checks.map((c) => [c.id, c]));
   const sd = skillDef(session.skillId);
@@ -362,11 +439,12 @@ async function openSession(session, url = null) {
   ${session.isPhoto ? '' : `<div class="timeline" id="tl" aria-label="Timeline: red = problem frames"></div>
   <div class="controls"><button class="btn" id="prev" aria-label="Previous frame">◀︎ frame</button><button class="btn" id="play">▶ Play</button><button class="btn" id="next" aria-label="Next frame">frame ▶︎</button></div>
   <div class="speeds">${[0.25, 0.5, 1].map((s) => `<button class="opt" data-speed="${s}" aria-pressed="${s === 0.5}">${s === 1 ? '1x' : s === 0.5 ? '½ speed' : '¼ speed'}</button>`).join('')}
-    <button class="opt" id="skel" aria-pressed="true">Skeleton</button></div>`}` : '<p class="notes">Video was not saved for this session (Settings → keep videos). Results below.</p>'}
+    <button class="opt" id="skel" aria-pressed="true">Skeleton</button>${session.track?.raw ? '<button class="opt" id="rawsk" aria-pressed="false" title="Show the tracker\'s raw output instead of the cleaned skeleton">Raw view</button>' : ''}</div>`}` : '<p class="notes">Video was not saved for this session (Settings → keep videos). Results below.</p>'}
 
   ${checklistMode ? `<p class="summary">Coach checklist</p><p class="hint">Automatic checks aren't reliable for this skill from one phone camera${sd?.checklistWhy ? ` (${esc(sd.checklistWhy)})` : ''}. Step through the key moments above with the skeleton on, and tick each point below.</p>`
     : `<p class="summary ${faults.length ? 'bad' : 'good'}">${faults.length ? `${faults.length} thing${faults.length > 1 ? 's' : ''} to fix${faults.length > 3 ? ' (top 3 first)' : ''}` : (oks.length ? 'Looks good!' : 'Not enough to check')}</p>`}
   <p class="hint">${session.isPhoto ? 'Photo' : `Checked ${r.meta.frames} frames (${(r.meta.frames / r.meta.fps).toFixed(1)} s)`}; athlete found in ${Math.round((100 * r.meta.posed) / Math.max(1, r.meta.frames))}%. ${evText ? 'Found: ' + evText + '.' : ''}</p>
+  ${qualityHtml(session)}
   ${r.notes.length ? `<div class="notes">${r.notes.map(esc).join('<br>')}</div>` : ''}
   ${oks.length ? `<h2>Looks good</h2><div class="chips">${oks.map((c) => `<span class="chip good">✓ ${esc(c.okLabel)}${c.failed ? ` <span class="hint">(${esc(c.summary)})</span>` : ''}</span>`).join('')}</div>` : ''}
 
@@ -376,6 +454,7 @@ async function openSession(session, url = null) {
     ${faults.slice(3).map((c, i) => faultCard(c, i + 3, coachingFor(c, S.kbx, chkDefs[c.id], used))).join('')}</details>` : ''}
 
   ${checklistHtml(session, sd, r)}
+  ${unclear.length ? `<details ${unclear.length >= 3 ? 'open' : ''}><summary>Not clear enough to judge (${unclear.length})</summary><p class="hint">The body parts these need were hidden, guessed by the tracker, or the camera angle doesn't show them. No verdict rather than a wrong one.</p><ul>${unclear.map((c) => `<li><b>${esc(c.okLabel)}</b>: ${esc(c.reason || '')}</li>`).join('')}</ul></details>` : ''}
   ${skipped.length ? `<details><summary>Not checked this time (${skipped.length})</summary><ul>${skipped.map((c) => `<li><b>${esc(c.okLabel)}</b>: ${esc(c.reason || c.status)}</li>`).join('')}</ul></details>` : ''}
 
   <button class="big primary" id="again">🎥 Film another</button>
@@ -388,7 +467,7 @@ async function openSession(session, url = null) {
   $('#recheck').onclick = async () => {
     const a = S.athletes.find((x) => x.id === session.athleteId);
     const stance = a ? stanceOf(a) : session.stance;
-    session.result = analyze(session.track, { sport: S.sport, skillId: session.skillId, view: session.view, stance, overrides: S.overrides, isPhoto: session.isPhoto, slowmo: session.slowmo || 1 });
+    session.result = analyze(session.track, { sport: S.sport, skillId: session.skillId, view: session.view, stance, overrides: S.overrides, isPhoto: session.isPhoto, slowmo: /in-app|camera app/.test(session.source || '') ? 1 : session.slowmo || 1 });
     session.stance = stance; session.thumb = null;
     await store.putSession(session); openSession(session, url);
   };
@@ -410,6 +489,18 @@ async function openSession(session, url = null) {
       $('#cv')?.insertAdjacentHTML('beforebegin', `<p class="notes" id="player-note">Video replay isn't available for this clip on this phone (${esc(e.message || e)}). The results below are complete.</p>`);
     }
   }
+}
+
+/** "Tracking quality" card: how well the app could follow the athlete in this clip, with filming tips */
+function qualityHtml(session) {
+  const q = session.track?.quality || session.track?.meta?.quality;
+  if (!q || session.isPhoto) return '';
+  const label = q.level === 'good' ? 'Good' : q.level === 'ok' ? 'OK' : 'Low';
+  const tips = q.tips || [];
+  return `<div class="quality ${esc(q.level)}" id="quality"><div class="qhead"><span class="qscore">${q.score}</span><div><b>Tracking quality: ${label}</b>
+    <div class="hint">Athlete tracked in ${Math.round(100 * q.coverage)}% of the clip · joint confidence ${Math.round(100 * q.vis)}%${q.people > 1 ? ` · ${q.people} people in view (others ignored)` : ''}</div></div></div>
+    ${q.level !== 'good' && tips.length ? `<p class="hint"><b>For a more reliable check next time:</b></p><ul>${tips.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+    ${q.level === 'low' ? '<p class="hint">Results below are less certain; checks the app could not see well are listed as "not clear".</p>' : ''}</div>`;
 }
 
 const drillHtml = (d) => `<div class="drill"><h4>Drill: ${esc(d.name)}</h4>
@@ -455,7 +546,7 @@ function faultCard(c, i, k) {
   const beta = c.beta ? '<span class="beta" title="Estimated threshold - calibrate in Settings">BETA</span>' : '<span class="srcbadge" title="Threshold from the expert source (with a tracking margin)">SOURCE</span>';
   const drills = k.drills.map(drillHtml).join('');
   return `<article class="fault" id="f-${esc(c.id)}" data-check="${esc(c.id)}">
-    <h3>${i + 1}. ${esc(c.label)} ${beta}</h3>
+    <h3>${i + 1}. ${esc(c.label)} ${beta}${c.confidence ? ` <span class="conf ${esc(c.confidence)}" title="How sure the app is: tracking confidence of the body parts at the flagged moments">${esc(c.confidence)} confidence</span>` : ''}</h3>
     <p class="freq">${esc(c.summary)}</p>
     ${c.instances?.length ? `<div class="moments">${c.instances.slice(0, 6).map((x) => `<button class="btn small" data-seek="${x.t}">▶ ${fmtT(x.t)}</button>`).join('')}</div>` : ''}
     ${k.cue ? `<p class="cue">Say: ${esc(k.cue)}</p>` : ''}
@@ -499,7 +590,8 @@ async function startPlayer(session, url) {
   const fps = r.meta.fps, maxT = frames.at(-1).t + 1 / fps;
   const idxAt = (t) => { let lo = 0, hi = frames.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (frames[m].t <= t + 1e-3) lo = m; else hi = m - 1; } return lo; };
   let raf = 0, stopped = false;
-  const draw = () => { const i = idxAt(v.currentTime); renderFrame(cv, v, frames[i], flagsAt(i), { skeleton }); caption(i); head(v.currentTime); };
+  let showRaw = false; const raw = session.track.raw;
+  const draw = () => { const i = idxAt(v.currentTime); renderFrame(cv, v, showRaw && raw?.[i] ? raw[i] : frames[i], flagsAt(i), { skeleton, raw: showRaw }); caption(i); head(v.currentTime); };
   const seek = async (t) => { v.pause(); v.currentTime = Math.max(0, Math.min(t, maxT - 0.001)); await new Promise((res) => v.addEventListener('seeked', res, { once: true })); draw(); playBtn(); };
   const loop = () => { if (stopped) return; if (v.currentTime >= maxT) { v.pause(); } draw(); if (!v.paused) raf = requestAnimationFrame(loop); else playBtn(); };
   const playBtn = () => { const b = $('#play'); if (b) b.textContent = v.paused ? '▶ Play' : '❚❚ Pause'; };
@@ -525,6 +617,7 @@ async function startPlayer(session, url) {
   $('#next').onclick = () => seek(v.currentTime + 1 / fps);
   $$('[data-speed]').forEach((b) => (b.onclick = () => { v.playbackRate = +b.dataset.speed; $$('[data-speed]').forEach((x) => x.setAttribute('aria-pressed', x === b)); }));
   $('#skel').onclick = (e) => { skeleton = !skeleton; e.target.setAttribute('aria-pressed', skeleton); draw(); };
+  $('#rawsk')?.addEventListener('click', (e) => { showRaw = !showRaw; e.target.setAttribute('aria-pressed', showRaw); draw(); });
   S.player = { stop() { stopped = true; cancelAnimationFrame(raf); releaseVideo(v); }, seek, video: v, canvas: cv,
     focus(id) { focus = id; paintTimeline(); draw(); } };
 
@@ -572,7 +665,8 @@ async function settings() {
     <label class="field" for="fps">Frames per second to analyse</label>
     <select id="fps">${[[12, 'Fast (12)'], [20, 'Normal (20)'], [30, 'Detailed (30, slower)']].map(([v, l]) => `<option value="${v}" ${S.prefs.fps == v ? 'selected' : ''}>${l}</option>`).join('')}</select>
     <label class="field" for="model">Pose model</label>
-    <select id="model"><option value="lite" ${S.prefs.model === 'lite' ? 'selected' : ''}>Lite: fast (recommended on phones)</option><option value="full" ${S.prefs.model === 'full' ? 'selected' : ''}>Full: more accurate, slower</option></select>
+    <select id="model"><option value="full" ${S.prefs.model === 'full' ? 'selected' : ''}>Full: accurate (recommended)</option><option value="heavy" ${S.prefs.model === 'heavy' ? 'selected' : ''}>Accurate (slower): heavy model, 30 MB download once</option><option value="lite" ${S.prefs.model === 'lite' ? 'selected' : ''}>Lite: fastest, for older phones</option></select>
+    <p class="hint">Accurate (slower) takes longer per clip (about 1.3x on a laptop, can be up to 2x on older phones). It helps with small or partly hidden athletes.</p>
     <label class="field" for="maxs">Max clip length analysed</label>
     <select id="maxs">${[10, 20, 30].map((v) => `<option value="${v}" ${S.prefs.maxSeconds == v ? 'selected' : ''}>${v} seconds</option>`).join('')}</select>
     <label class="switch"><input type="checkbox" id="keep" ${S.prefs.keepVideos ? 'checked' : ''}/> Keep videos on this phone (for replay)</label>
