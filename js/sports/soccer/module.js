@@ -127,6 +127,7 @@ const soccer = {
     { id: 'right', label: 'Right-footed', hint: 'kicks with the right foot' },
     { id: 'left', label: 'Left-footed', hint: 'kicks with the left foot' },
   ],
+  bodyView: true,   // v0.5: camera angle read from the chest direction (js/engine/view.js)
   views: [
     { id: 'side', label: 'Side', hint: 'Perpendicular to the shot, kicking-foot side' },
     { id: 'front', label: 'Front', hint: 'From the target (goal) or straight at the player' },

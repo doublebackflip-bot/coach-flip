@@ -233,6 +233,7 @@ const jumping = {
   id: 'jumping', name: 'Jumping',
   roles: () => ({}),
   stances: null,
+  bodyView: true,   // v0.5: camera angle read from the chest direction (js/engine/view.js)
   views: [
     { id: 'side', label: 'Side', hint: 'Perpendicular to the runway at the board / take-off spot' },
     { id: 'front', label: 'Front', hint: 'Facing the jumper (landings, high-jump lean)' },

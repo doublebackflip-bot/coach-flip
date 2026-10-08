@@ -6,6 +6,7 @@ import { Pose, smoothFrames } from './landmarks.js';
 import { median, dist, round } from './geom.js';
 import { inferLeadSide } from './kit.js';
 import { markOcclusion } from './occlusion.js';
+import { bodyView } from './view.js';
 
 export function buildConfig(sport, overrides = {}) {
   const cfg = { globals: {}, checks: {} };
@@ -83,7 +84,7 @@ function analyzeOnce(input, { sport, skillId, view, stance, overrides = {}, isPh
   const ctx = { poses, frames, meta, fps, videoFps, slowmo, cfg, G, view, stance, skill, unit, isPhoto, sport,
     sec: (s) => Math.max(1, Math.round(s * fps)), rt: (i) => frames[i].t / slowmo };
   const result = {
-    engine_version: '0.4.0', sport: sport.id, skill: skill.id, view, stance, isPhoto, mode: skill.mode || 'auto',
+    engine_version: '0.5.0', sport: sport.id, skill: skill.id, view, stance, isPhoto, mode: skill.mode || 'auto',
     meta: { ...meta, fps: videoFps, realFps: round(fps, 1), slowmo, frames: frames.length, posed: okPoses.length },
     unit: { torso_px: round(torso2, 1), fist_px: round(unit.fist2, 1) },
     events: [], checks: [], frameFlags: {}, notes: [], keyframes: [], metrics: [],
@@ -95,7 +96,15 @@ function analyzeOnce(input, { sport, skillId, view, stance, overrides = {}, isPh
     return result;
   }
 
+  // v0.5: camera angle from the body (chest direction) for sports that don't read it from the movement. Done before
+  // the events so a wrong pick ("side" filmed from behind) is corrected before anything is measured.
+  let bodyV = null;
+  if (sport.bodyView && !isPhoto && skill.mode !== 'checklist' && skill.viewCheck !== false) {
+    bodyV = bodyView(ctx);
+    if (bodyV?.class && bodyV.class !== view && sport.views?.some((v) => v.id === bodyV.class)) { ctx.view = bodyV.class; result.view = bodyV.class; }
+  }
   const ev = skill.mode === 'checklist' ? { events: [], guardFrames: [] } : sport.detectEvents(ctx);
+  if (!ev.view && bodyV?.class) ev.view = bodyV;
   ctx.events = ev.events; ctx.guardFrames = ev.guardFrames || [];
   ctx.frameSets = { guard: ctx.guardFrames, ...(ev.frameSets || {}) };
   result.events = ev.events.map((e) => ({ ...e, t: round(frames[e.peak].t, 3) }));
@@ -103,14 +112,27 @@ function analyzeOnce(input, { sport, skillId, view, stance, overrides = {}, isPh
   if (ev.notes) result.notes.push(...ev.notes);
   // camera angle read from the movement (sport-specific, e.g. how much a straight punch shows across the picture)
   if (ev.view && !isPhoto) {
-    result.viewDetected = ev.view;
+    const V = ev.view;
+    result.viewDetected = V;
     const vlabel = (v) => sport.views?.find((x) => x.id === v)?.label?.toLowerCase() || v;
-    if (ev.view.class === 'angled') {
+    const supported = (v) => sport.views?.some((x) => x.id === v);
+    const body = V.basis === 'body';
+    if (V.class === 'angled') {
       ctx.angled = true;
-      result.notes.push(`Camera looks about ${ev.view.angle}° off the line of the punches (a 3/4 view). Checks that need a square-on view are marked "not clear". For the most checks, film straight-on (front) or exactly from the side.`);
-    } else if (ev.view.class !== view && sport.views?.some((v) => v.id === ev.view.class)) {
-      result.notes.push(`This looks like a ${vlabel(ev.view.class)} view (punches about ${ev.view.angle}° from the camera line), not ${vlabel(view)}: analysed as ${vlabel(ev.view.class)}.`);
-      ctx.view = ev.view.class; result.view = ev.view.class;
+      result.notes.push(V.note || (body
+        ? `Camera looks about ${V.angle}° off square-on (a 3/4 view). Checks that need a square-on view are marked "not clear". For the most checks, film exactly from the side or straight-on.`
+        : `Camera looks about ${V.angle}° off the line of the punches (a 3/4 view). Checks that need a square-on view are marked "not clear". For the most checks, film straight-on (front) or exactly from the side.`));
+    } else if (!supported(V.class)) {
+      // e.g. filmed from behind when the sport has no rear view: view-dependent checks can't be judged
+      ctx.angled = true; ctx.gateReason = V.gateReason || 'Not clear enough to judge from behind the athlete';
+      result.notes.push(V.note || `The camera looks to be behind the athlete (back to the camera), not a ${vlabel(view)} view. Checks that need the ${vlabel(view)} view are marked "not clear". Film from the ${vlabel(sport.views?.[0]?.id)} for the full check.`);
+    } else if (ctx.view !== view) {
+      // already switched before / while detecting the events (body view, softball batting)
+      result.view = ctx.view;
+      result.notes.push(V.note || `This looks like a ${vlabel(ctx.view)} view, not ${vlabel(view)}: analysed as ${vlabel(ctx.view)}.`);
+    } else if (V.class !== view) {
+      result.notes.push(V.note || `This looks like a ${vlabel(V.class)} view (punches about ${V.angle}° from the camera line), not ${vlabel(view)}: analysed as ${vlabel(V.class)}.`);
+      ctx.view = V.class; result.view = V.class;
     }
   }
   if (ev.metrics) result.metrics.push(...ev.metrics);
@@ -132,7 +154,7 @@ function analyzeOnce(input, { sport, skillId, view, stance, overrides = {}, isPh
       // parts that are simply out of the picture -> "not visible" (more useful advice than "camera angle")
       const seen = chk.needs?.length ? ctx.poses.filter((p) => p && p.vis(...chk.needs) >= G.min_visibility).length / (ctx.poses.length || 1) : 1;
       if (seen < 0.2) result.checks.push({ ...base, status: 'not_visible', reason: chk.visReason || 'Body parts needed for this check were not visible' });
-      else result.checks.push({ ...base, status: 'unclear', reason: `Not clear enough to judge from this camera angle (~${result.viewDetected?.angle}° off square-on)` });
+      else result.checks.push({ ...base, status: 'unclear', reason: ctx.gateReason || `Not clear enough to judge from this camera angle (~${result.viewDetected?.angle}° off square-on)` });
       continue;
     }
     if (chk.views && !chk.views.includes(ctx.view)) { result.checks.push({ ...base, status: 'wrong_view', reason: `Needs a ${chk.views.join('/')} view` }); continue; }

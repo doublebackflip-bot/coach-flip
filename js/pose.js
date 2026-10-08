@@ -131,7 +131,7 @@ export async function loadVideo(url, { durationHint = null, retry = true } = {})
       await waitAny(video, ['durationchange', 'seeked', 'timeupdate'], 4000);
       if (!Number.isFinite(video.duration) || video.duration <= 0) await waitAny(video, ['durationchange', 'seeked'], 3000);
       video._duration = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : null;
-      video.currentTime = 0; await waitEvent(video, 'seeked', 3000);
+      video.currentTime = t0s; await waitEvent(video, 'seeked', 3000);
     }
   }
   if (Number.isFinite(video.duration) && video.duration > 0) video._duration = video.duration;
@@ -183,7 +183,7 @@ function autoLevels(g, S) {
  * People in one frame (for the "tap your athlete" screen): {canvas, t, people:[{box, lm}]}.
  * Tries a few moments near the start until someone is found.
  */
-export async function scanPeople(url, { model = 'full', durationHint = null, times = [0.4, 1.2, 0, 2.5], maxWidth = 720, delegate = 'auto' } = {}) {
+export async function scanPeople(url, { model = 'full', durationHint = null, times = [0.4, 1.2, 0, 2.5], maxWidth = 720, delegate = 'auto', start = 0, end = Infinity } = {}) {
   const video = await loadVideo(url, { durationHint });
   try {
     const { lmk } = await landmarkerWithFallback('IMAGE', model === 'heavy' ? 'full' : model, { numPoses: 4, delegate }, {});
@@ -193,7 +193,7 @@ export async function scanPeople(url, { model = 'full', durationHint = null, tim
     const g = canvas.getContext('2d');
     let out = null;
     for (const t0 of times) {
-      const t = Math.min(t0, Math.max(0, video._duration - 0.05));
+      const t = Math.max(start, Math.min(start + t0, end - 0.05, Math.max(0, video._duration - 0.05)));
       video.currentTime = t; await waitEvent(video, 'seeked', 4000);
       g.drawImage(video, 0, 0, canvas.width, canvas.height);
       const ps = people(lmk.detect(canvas)).filter((p) => p.box.h > 0.08);
@@ -217,8 +217,8 @@ export async function scanPeople(url, { model = 'full', durationHint = null, tim
  */
 export async function trackVideo(url, opts = {}) {
   const { fps = 20, maxSeconds = 20, model = 'full', maxWidth = 960, onProgress, signal, durationHint = null, debug = {},
-    athlete = null, roi: useRoi = true, cropSize = 384, preprocess = false, numPoses = 4, cropPoses = 1, cropMode = 'VIDEO',
-    conf = CONF, delegate = 'auto', clean = true, keepRawWorld = false, cleanOpts = {} } = opts;
+    athlete = null, roi: useRoi = true, cropSize = 512, preprocess = false, numPoses = 4, cropPoses = 1, cropMode = 'VIDEO',
+    conf = CONF, delegate = 'auto', clean = true, keepRawWorld = false, cleanOpts = {}, start: trimStart = 0, end: trimEnd = null } = opts;
   const video = await loadVideo(url, { durationHint });
   debug.video = videoInfo(video); debug.duration = video._duration;
   try {
@@ -235,8 +235,12 @@ export async function trackVideo(url, opts = {}) {
     const cc = document.createElement('canvas'); cc.width = cc.height = cropSize;
     const cg = cc.getContext('2d', { willReadFrequently: true });
     const total = video._duration;
-    const duration = Math.min(total, maxSeconds);
+    // trimmed range [t0, t0 + duration): only this part is analysed (at most maxSeconds of it)
+    const t0s = Math.max(0, Math.min(trimStart || 0, Math.max(0, total - 0.2)));
+    const endS = Math.min(total, trimEnd ?? total);
+    const duration = Math.max(0.1, Math.min(endS - t0s, maxSeconds));
     const n = Math.max(1, Math.floor(duration * fps));
+    const tOf = (k) => Math.round((t0s + k / fps) * 1000) / 1000;
     const frames = new Array(n).fill(null);
     const st = { ref: null, roi: null, lost: 0, lastK: null, seed: athlete?.box || null, crowd: [], luma: [], viaCrop: 0, viaFull: 0, reacquired: 0, rejectedOthers: 0 };
     let blanks = 0, seen = 0;
@@ -255,7 +259,7 @@ export async function trackVideo(url, opts = {}) {
       return cands;
     };
     const detect = (k) => {
-      const t = Math.round((k / fps) * 1000) / 1000;
+      const t = tOf(k);
       let found = null;
       // a) crop around the athlete
       if (useRoi && st.ref) {
@@ -280,7 +284,9 @@ export async function trackVideo(url, opts = {}) {
           else i = pickAthlete(cands, { W, H });
           if (i >= 0) found = cands[i];
         } else {
-          const m = matchCandidate(cands, st.ref, { W, H, lost: st.lost });
+          const why = debug.why && st.lost && debug.why.length < 300 ? [] : null;
+          const m = matchCandidate(cands, st.ref, { W, H, lost: st.lost, why });
+          if (why) debug.why.push({ k, n: cands.length, why, box: st.ref.box });
           if (m) { found = cands[m.i]; if (st.lost) st.reacquired++; if (cands.length > 1) st.rejectedOthers += cands.length - 1; }
         }
         if (found) st.viaFull++;
@@ -300,20 +306,20 @@ export async function trackVideo(url, opts = {}) {
       let best = null;
       for (const ts of [0, 0.6, 1.2, 2.0, 3.0]) {
         if (ts > duration - 0.05) break;
-        video.currentTime = ts; if (!(await waitEvent(video, 'seeked', 3000))) break;
+        video.currentTime = t0s + ts; if (!(await waitEvent(video, 'seeked', 3000))) break;
         const cands = fullDetect();
         const i = pickAthlete(cands, { W, H });
         if (i < 0) continue;
         const b = cands[i].box, off = Math.min(1, Math.hypot(b.cx - 0.5, b.cy - 0.5) / 0.5);
         const vis = cands[i].lm.reduce((a, p) => a + p[3], 0) / cands[i].lm.length;
         const score = b.w * b.h * (1 - 0.6 * off) * vis;
-        if (!best || score > best.score) best = { score, box: b, t: ts };
+        if (!best || score > best.score) best = { score, box: b, t: t0s + ts };
       }
       st.luma = []; st.crowd = [];
       if (best) { st.seed = best.box; seedT = best.t; debug.autoPick = { t: best.t, box: best.box }; }
     }
     // processing order: from the frame where the athlete was picked to the end, then back to the start
-    const k0 = seedT != null ? Math.max(0, Math.min(n - 1, Math.round(seedT * fps))) : 0;
+    const k0 = seedT != null ? Math.max(0, Math.min(n - 1, Math.round((seedT - t0s) * fps))) : 0;
     const order = []; for (let k = k0; k < n; k++) order.push(k); for (let k = k0 - 1; k >= 0; k--) order.push(k);
     let firstFound = null;   // athlete state nearest the picked frame, to restart the backward pass from
     // 1) seek frame by frame (exact timing). Give up and switch to play-through if seeks hang or frames come out blank.
@@ -322,7 +328,7 @@ export async function trackVideo(url, opts = {}) {
       const k = order[step];
       if (signal?.aborted) throw new DOMException('Cancelled', 'AbortError');
       if (k === k0 - 1) { st.ref = firstFound?.ref || st.ref; st.lastK = firstFound?.k ?? st.lastK; st.roi = null; st.lost = 0; }
-      video.currentTime = Math.min(k / fps, Math.max(0, total - 0.001));
+      video.currentTime = Math.min(t0s + k / fps, Math.max(0, total - 0.001));
       let ok = await waitEvent(video, 'seeked', 3000);
       // still seeking = slow decoder (4K, far from a keyframe), not a broken one: give it more time
       if (!ok && video.seeking) ok = await waitEvent(video, 'seeked', 8000);
@@ -337,7 +343,7 @@ export async function trackVideo(url, opts = {}) {
       debug.fallback = `seek failed (timeouts ${timeouts}, blank ${blanks}) -> play-through`;
       for (let j = 0; j < n; j++) frames[j] = null;
       seen = 0; st.ref = null; st.roi = null; st.lost = 0; st.lastK = null;
-      video.currentTime = 0; await waitEvent(video, 'seeked', 3000);
+      video.currentTime = t0s; await waitEvent(video, 'seeked', 3000);
       video.playbackRate = 0.5;
       let maxT = 0, lastProgress = performance.now();
       await new Promise((resolve, reject) => {
@@ -347,7 +353,7 @@ export async function trackVideo(url, opts = {}) {
           if (done) return;
           if (signal?.aborted) { done = true; video.pause(); reject(new DOMException('Cancelled', 'AbortError')); return; }
           if (mediaTime > maxT + 1e-3) { maxT = mediaTime; lastProgress = performance.now(); }
-          const idx = Math.round(mediaTime * fps);
+          const idx = Math.round((mediaTime - t0s) * fps);
           if (idx >= next && idx < n) {
             const d0 = performance.now(); detect(idx); next = idx + 1;
             // slow phone: slow the video down so the tracker still sees (almost) every frame
@@ -355,7 +361,7 @@ export async function trackVideo(url, opts = {}) {
             const rate = Math.max(0.1, Math.min(0.5, (0.9 / fps) / (avg / 1000)));
             if (Math.abs(rate - video.playbackRate) > 0.05) { try { video.playbackRate = rate; } catch (_) { /* ignore */ } }
           }
-          if (mediaTime >= duration - 0.5 / fps || video.ended) { finish(); return; }
+          if (mediaTime >= t0s + duration - 0.5 / fps || video.ended) { finish(); return; }
           schedule();
         };
         const schedule = () => video.requestVideoFrameCallback
@@ -369,18 +375,19 @@ export async function trackVideo(url, opts = {}) {
         video.play().then(schedule).catch((e) => { done = true; reject(new VideoError('This phone would not play the video for tracking.', { stage: 'play', error: String(e) })); });
       });
       maxT = Math.max(maxT, video.currentTime || 0);
-      if (maxT < Math.min(1, duration * 0.5)) throw new VideoError("This phone couldn't step through this video for tracking (it stalls). Use the in-app Record button, or on iPhone set Settings → Camera → Formats → Most Compatible.", { stage: 'playthrough-stalled', reachedSeconds: maxT, video: videoInfo(video) });
+      if (maxT - t0s < Math.min(1, duration * 0.5)) throw new VideoError("This phone couldn't step through this video for tracking (it stalls). Use the in-app Record button, or on iPhone set Settings → Camera → Formats → Most Compatible.", { stage: 'playthrough-stalled', reachedSeconds: maxT, video: videoInfo(video) });
       if (blankFrame(video)) throw new VideoError("The video plays but this phone shows a black picture to the app (can't read its frames). Try the in-app Record button.", { stage: 'blank-frames', video: videoInfo(video) });
     }
-    for (let j = 0; j < n; j++) frames[j] ??= { t: Math.round((j / fps) * 1000) / 1000, lm: null, wlm: null };
+    for (let j = 0; j < n; j++) frames[j] ??= { t: tOf(j), lm: null, wlm: null };
     debug.mode = mode;
     const crowd = st.crowd.slice().sort((a, b) => a - b);
-    const meta = { width: W, height: H, fps, duration: total, analyzedSeconds: duration, truncated: total > maxSeconds + 0.05, capture: mode,
+    const meta = { width: W, height: H, fps, duration: total, analyzedSeconds: duration, truncated: endS - t0s > maxSeconds + 0.05, capture: mode,
+      trim: { start: t0s, end: Math.round((t0s + duration) * 1000) / 1000 },
       sourceWidth: SW, sourceHeight: SH, model: `pose_landmarker_${usedModel}`, delegate: (crop || full).lmk._delegate,
       extractor: 'mediapipe-tasks-vision (browser)', pipeline: useRoi ? 'v4-roi' : 'v4-lock', preprocess: !!preprocess,
       people: crowd.length ? crowd[crowd.length >> 1] : null, maxPeople: crowd.length ? crowd[crowd.length - 1] : null,
       luma: st.luma.length ? Math.round(st.luma.reduce((a, b) => a + b, 0) / st.luma.length) : null,
-      lock: { viaCrop: st.viaCrop, viaFull: st.viaFull, reacquired: st.reacquired, othersIgnored: st.rejectedOthers, seeded: !!athlete, autoPick: debug.autoPick || null, cols: debug.cols || undefined },
+      lock: { viaCrop: st.viaCrop, viaFull: st.viaFull, reacquired: st.reacquired, othersIgnored: st.rejectedOthers, seeded: !!athlete, autoPick: debug.autoPick || null, cols: debug.cols || undefined, why: debug.why || undefined },
       ms: Math.round(performance.now() - t0) };
     const raw = frames.map((f) => ({ t: f.t, lm: f.lm, ...(keepRawWorld ? { wlm: f.wlm } : {}) }));
     if (!clean) return { meta, frames, raw };
@@ -425,4 +432,21 @@ export async function trackImage(url, { model = 'full', maxWidth = 1280, tap = n
     meta: { width: W, height: H, fps: 1, model: `pose_landmarker_${used}`, delegate: lmk._delegate, extractor: 'mediapipe-tasks-vision (browser)', people: cands.length, pipeline: 'v4-roi' },
     frames: [best ? { t: 0, lm: best.lm, wlm: best.wlm } : { t: 0, lm: null, wlm: null }],
   };
+}
+
+/**
+ * Device speed probe for the "Auto" model setting: median time (ms) of the full model on a 256 px image, after a
+ * warm-up run. ~5 inferences, well under a second on a recent phone.
+ */
+export async function probeSpeed({ delegate = 'auto' } = {}) {
+  const { lmk } = await landmarkerWithFallback('IMAGE', 'full', { numPoses: 1, delegate }, {});
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  const g = c.getContext('2d'); const img = g.createImageData(256, 256);
+  for (let i = 0; i < img.data.length; i += 4) { img.data[i] = img.data[i + 1] = img.data[i + 2] = (i * 2654435761) % 255; img.data[i + 3] = 255; }
+  g.putImageData(img, 0, 0);
+  lmk.detect(c);
+  const ms = [];
+  for (let k = 0; k < 4; k++) { const t = performance.now(); lmk.detect(c); ms.push(performance.now() - t); }
+  ms.sort((a, b) => a - b);
+  return { ms: Math.round(ms[ms.length >> 1] * 10) / 10, delegate: lmk._delegate };
 }

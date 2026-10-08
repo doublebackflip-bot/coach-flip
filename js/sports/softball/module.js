@@ -7,6 +7,7 @@ import {
   D, r1, hi, lo, band, at, maxOver, minOver, series, fillGaps, smooth1, peaks, speed, ang3, elbowMax, knee, joint,
   trunkLean, ahead, width2, turnFromWidth, mid2, dotAt, segAt, medianSign, baseGlobals, facing, ARM, LEGS, HIPS, SHOULDERS, mk, yawSeries,
 } from '../../engine/kit.js';
+import { lineDepthAngle, bodyYaw } from '../../engine/view.js';
 
 const T = (ctx) => ctx.unit.torso2;
 const hands = (p) => mid2(p, 'lead_wrist', 'rear_wrist');
@@ -70,6 +71,34 @@ function detectSwings(ctx) {
     swings.push({ type: 'swing', side: 'lead', start, load, toeTouch, rotStart: s0, peak, end: Math.min(N - 1, Math.max(s1, peak + sec(0.5))), dir, turn: Math.round(total), stride: r1(stride), noStride });
   }
   return swings;
+}
+
+/** Batting camera angle from the stance (v0.5): which way the rear -> lead line (shoulders + hips, 3D) points.
+ *  ~0 deg = across the picture (side view, facing the hitter's chest); lead side toward the camera = front (pitcher
+ *  line); lead side AWAY from the camera = behind the batter / catcher side (no supported view: checks gated). */
+function battingView(ctx, frames) {
+  const a = [], yaws = [];
+  for (const i of frames) {
+    const p = ctx.poses[i]; if (!p || p.vis(...SHOULDERS, ...HIPS) < 0.5) continue;
+    const v = (lineDepthAngle(p, 'rear_shoulder', 'lead_shoulder') + lineDepthAngle(p, 'rear_hip', 'lead_hip')) / 2;
+    if (Number.isFinite(v)) a.push(v);
+    const y = bodyYaw(p); if (Number.isFinite(y)) yaws.push(Math.abs(y));
+  }
+  if (a.length < 3) return null;
+  const m = median(a), am = Math.abs(m);
+  // back to the camera (closed side, straight behind the batter): the shoulder line is across the picture as in the
+  // side view, but the chest faces away
+  const back = yaws.length >= 3 && median(yaws) >= 120;
+  const cls = back ? 'rear' : am <= 30 ? 'side' : m <= -45 ? 'front' : m >= 45 ? 'rear' : 'angled';
+  const angle = Math.round(cls === 'front' || cls === 'rear' ? 90 - am : am);
+  const v = { class: cls, angle: back ? Math.round(180 - median(yaws)) : angle, lineDeg: Math.round(m), chestYaw: yaws.length ? Math.round(median(yaws)) : null, n: a.length, basis: 'batting' };
+  if (cls === 'rear') {
+    v.note = `The camera looks to be behind the batter (${back ? 'the batter\'s back is to the camera' : `the lead shoulder points away from the camera, about ${Math.round(am)}° out of the picture`}), not the side view. Checks that need the side view are marked "not clear enough to judge", and no extension, back-heel or head faults are called from this angle. For the full check, film from the open side facing the hitter's chest, square to the plate, at hip height.`;
+    v.gateReason = 'Not clear enough to judge from behind the batter: film from the side (facing the chest)';
+  } else if (cls === 'angled') {
+    v.note = `Camera looks about ${Math.round(am)}° off the side view (a 3/4 angle). Checks that need a square-on view are marked "not clear enough to judge". For the full check, film from the open side facing the hitter's chest, square to the plate.`;
+  } else v.note = `This looks like a ${cls === 'front' ? 'front (pitcher line)' : 'side'} view (the batter's shoulders/hips point about ${Math.round(am)}° ${m < 0 ? 'toward' : 'away from'} the camera), not the view picked: analysed as ${cls}.`;
+  return v;
 }
 
 // ---------------------------------------------------------------- pitching / throwing / fielding events
@@ -270,7 +299,7 @@ const batChecks = [
     },
   }),
   mk({
-    id: 'bat_rear_heel', group: 'swing', scope: 'event:swing', priority: 4, temporal: true,
+    id: 'bat_rear_heel', angleSensitive: true, group: 'swing', scope: 'event:swing', priority: 4, temporal: true,
     kb: { skill: sk('bat-swing'), checkpoint: 'sb-bat-swing-c02', fault: 'sb-bat-swing-f02' },
     label: 'Back foot stays flat (no pivot)', okLabel: 'Back heel came up and turned',
     needs: ['rear_heel', 'rear_foot_index'], visReason: 'Back foot not visible - film head to toe',
@@ -299,7 +328,7 @@ const batChecks = [
     },
   }),
   mk({
-    id: 'bat_shoulder_drop', group: 'swing', scope: 'event:swing', priority: 3,
+    id: 'bat_shoulder_drop', angleSensitive: true, group: 'swing', scope: 'event:swing', priority: 3,
     kb: { skill: sk('bat-swing'), checkpoint: 'sb-bat-swing-c04', fault: 'sb-bat-swing-f03' },
     label: 'Back shoulder drops (uppercut)', okLabel: 'Shoulders stayed level enough',
     needs: SHOULDERS,
@@ -314,21 +343,25 @@ const batChecks = [
   }),
   // finish
   mk({
-    id: 'bat_head_pull', group: 'finish', scope: 'event:swing', priority: 2, temporal: true,
+    id: 'bat_head_pull', angleSensitive: true, group: 'finish', scope: 'event:swing', priority: 2, temporal: true,
     kb: { skill: sk('bat-finish'), checkpoint: 'sb-bat-swing-c05', fault: 'sb-bat-finish-f01' },
     label: 'Head pulls off the ball', okLabel: 'Head stayed still to contact',
     needs: ['nose', ...SHOULDERS],
     params: { max_move: { value: 0.3, unit: 'x torso', label: 'Head may move between toe-touch and contact by', note: 'KB: within a few cm' } },
-    thresholdText: (P) => `head moves less than ${P.max_move}x torso from toe-touch to contact`,
+    thresholdText: (P) => `head (relative to the hips) moves less than ${P.max_move}x torso from toe-touch to contact`,
     badness: (v, P) => hi(v, P, 'max_move'),
     evaluate(e, ctx, P) {
       const p0 = at(ctx, e.toeTouch, this.needs), p1 = at(ctx, e.peak, this.needs); if (!p0 || !p1) return null;
-      const v = dist(p0.p2('nose'), p1.p2('nose')) / T(ctx);
+      // v0.5: head (nose) relative to the hip centre, in 3D, from toe-touch to contact. The stride and
+      // the body's own forward shift cancel out, and so does the camera angle; only the head leaving the spine counts.
+      const head3 = (p) => p.p3('nose')?.slice(0, 3) || null;   // the nose: turning the eyes off the ball counts too
+      const h0 = head3(p0), h1 = head3(p1), t3 = ctx.unit.torso3;
+      const v = h0 && h1 && t3 ? dist(h0, h1) / t3 : dist(p0.p2('nose'), p1.p2('nose')) / T(ctx);
       return { value: v, pass: v <= P.max_move, frame: e.peak, text: `head moved ${r1(v)}x torso`, draw: [segAt(p1, p0.p2('nose'), p1.p2('nose'), 'head moved'), D.dot(p1, 'nose')] };
     },
   }),
   mk({
-    id: 'bat_extension', group: 'finish', scope: 'event:swing', priority: 5,
+    id: 'bat_extension', angleSensitive: true, group: 'finish', scope: 'event:swing', priority: 5,
     kb: { skill: sk('bat-finish'), checkpoint: 'sb-bat-finish-c01', fault: null, drills: ['SB-D-HOLD-FINISH', 'SB-D-TEE-ROAD'] },
     coach: { cue: "'Through the ball, not around it - long arms after contact.'", why: 'Both arms should extend through the ball just after contact; cutting the extension short pulls the barrel out of the hitting zone early (KB: elbows near full extension shortly after contact).' },
     label: 'No extension through the ball', okLabel: 'Arms extended through contact',
@@ -537,6 +570,7 @@ const throwChecks = [
 
 export const softball = {
   id: 'softball', name: 'Softball', kbFile: 'data/softball.json',
+  bodyView: true,   // v0.5: camera angle read from the body (batting: from the stance line, see battingView)
   roles: (stance) => (stance === 'left'
     ? { lead: 'right', rear: 'left', throw: 'left', glove: 'right' }
     : { lead: 'left', rear: 'right', throw: 'right', glove: 'left' }),
@@ -555,13 +589,13 @@ export const softball = {
     'One athlete in frame; avoid filming into the sun.',
   ],
   skills: [
-    { id: 'batting', label: 'Batting swing', kbSkill: 'sb-bat-swing', kbSkills: ['sb-bat-stance-load', 'sb-bat-stride', 'sb-bat-swing', 'sb-bat-finish'], checks: ['swing', 'stride', 'load', 'stance', 'finish'], all: true, view: 'side', minFps: 30,
+    { id: 'batting', label: 'Batting swing', kbSkill: 'sb-bat-swing', kbSkills: ['sb-bat-stance-load', 'sb-bat-stride', 'sb-bat-swing', 'sb-bat-finish'], checks: ['swing', 'stride', 'load', 'stance', 'finish'], all: true, view: 'side', viewCheck: false, minFps: 30,
       filming: ['Side view from the open side (facing the hitter\'s chest), hip height, square to the plate.', 'Use SLOW-MO (120-240 fps) if your phone has it, then set "Slow-mo" below. At normal speed contact is only 1-2 frames.', 'Tee or soft toss is fine: 2-4 swings per clip, reset between swings.'] },
     { id: 'pitching', label: 'Windmill pitch', kbSkill: 'sb-pitch-windmill', checks: ['pitch'], view: 'side', beta: true, minFps: 30,
       filming: ['Side view from the glove side, 10-15 m away, whole body and the stride in frame.', 'Slow-mo (120-240 fps) strongly recommended - the arm circle is very fast.', 'Behind the pitcher (rear view) is best for the power line: use the coach checklist for that.'] },
     { id: 'fielding', label: 'Fielding ground balls', kbSkill: 'sb-field-groundball', checks: ['field'], view: 'side', beta: true,
       filming: ['Side view at ground level, 3-5 m away, so the glove and both feet are visible.', 'Rolled or short-hop balls; one fielder in frame; 3-5 reps.'] },
-    { id: 'throwing', label: 'Overhand throw', kbSkill: 'sb-throw-overhand', checks: ['throw'], view: 'front', beta: true, minFps: 30,
+    { id: 'throwing', label: 'Overhand throw', kbSkill: 'sb-throw-overhand', checks: ['throw'], view: 'front', viewCheck: false, beta: true, minFps: 30,
       filming: ['Side view (from the glove side) for the shoulder turn, OR front view from the target for arm slot and follow-through.', 'Slow-mo helps: the release lasts a few hundredths of a second.'] },
   ],
   frameLabels: { stance: 'stance frames' },
@@ -583,7 +617,11 @@ export const softball = {
         ctx.dirP = medianSign(ctx, HIPS, (p) => p.p2('lead_hip')[0] - p.p2('rear_hip')[0]);
         return { events: [], frameSets: { stance: [0] }, notes: ['Photo: stance checks only. Film a swing for the rest.'] };
       }
-      const events = detectSwings(ctx);
+      let events = detectSwings(ctx);
+      // camera angle from the stance frames (before each load), else from the whole clip
+      const sf = []; for (const e of events) for (let i = e.start; i <= e.load; i++) sf.push(i);
+      const view = battingView(ctx, sf.length >= 3 ? sf : ctx.poses.map((_, i) => i));
+      if (view && (view.class === 'side' || view.class === 'front') && view.class !== ctx.view) { ctx.view = view.class; events = detectSwings(ctx); }
       const stance = new Set();
       for (const e of events) for (let i = e.start; i <= e.load; i++) if (ctx.poses[i]) stance.add(i);
       if (!events.length) {
@@ -592,7 +630,7 @@ export const softball = {
       }
       if (events.some((e) => e.noStride)) notes.push('No stride seen on some swings (no-stride hitters are fine): toe-touch was estimated.');
       if (ctx.fps < 60) notes.push(`Clip is ${Math.round(ctx.fps)} fps: contact timing is approximate. Slow-mo makes the swing checks more precise.`);
-      return { events, frameSets: { stance: [...stance].sort((a, b) => a - b) }, notes };
+      return { events, frameSets: { stance: [...stance].sort((a, b) => a - b) }, notes, view };
     }
     if (ctx.isPhoto) return { events: [], notes: ['This skill needs a video: use the coach checklist with the photo.'] };
     const events = skill === 'pitching' ? detectPitches(ctx) : skill === 'throwing' ? detectThrows(ctx) : detectFielding(ctx);
@@ -612,3 +650,4 @@ export const softball = {
   checks: [...batChecks, ...pitchChecks, ...fieldChecks, ...throwChecks],
 };
 export default softball;
+export { battingView as _battingView };   // for the tests

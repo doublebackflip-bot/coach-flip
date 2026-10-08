@@ -314,6 +314,7 @@ const sprinting = {
   id: 'sprinting', name: 'Sprinting',
   roles: () => ({}),
   stances: null,
+  bodyView: true,   // v0.5: camera angle read from the chest direction (js/engine/view.js)
   views: [
     { id: 'side', label: 'Side', hint: 'Perpendicular to the lane, level with the athlete' },
     { id: 'front', label: 'Front', hint: 'Straight down the lane (arm action only)' },

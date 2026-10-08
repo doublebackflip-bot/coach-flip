@@ -224,6 +224,7 @@ const distance = {
   id: 'distance_running', name: 'Distance running',
   roles: () => ({}),
   stances: null,
+  bodyView: true,   // v0.5: camera angle read from the chest direction (js/engine/view.js)
   views: [
     { id: 'side', label: 'Side', hint: 'Perpendicular to the runner, hip height' },
     { id: 'rear', label: 'Rear', hint: 'From behind (treadmill is ideal)' },

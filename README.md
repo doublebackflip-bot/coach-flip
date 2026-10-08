@@ -12,6 +12,23 @@ Privacy: videos, landmarks, and athlete data stay on the phone (IndexedDB). Noth
 
 This repo is the built static app only (no tests or test videos).
 
+## New in v0.5.0
+* **Trim before analysis:** after recording or picking a video, drag the two red handles on the filmstrip to keep only the part to
+  critique (cuts the walk-in and the end). "Play selection" previews it; "Use whole clip" skips trimming. Only the chosen part is
+  tracked and checked, and the results player only shows that part. Clips longer than the max length (Settings, 20 s default)
+  start with the first 20 s selected.
+* **Graphics no longer cover the athlete:** the fault name sits in a bar above the video. Measurements ("4.6 fists", "126°") are
+  small see-through tags placed beside the athlete with a thin line to the joint, only for the fault you selected. Lines are thin.
+  **Labels** button turns the tags off; **touch and hold** the video to see the plain picture.
+* **More accurate on fast punches:** clips are analysed at their own frame rate up to 30 fps (was 20), and the smoothing keeps the
+  full reach of a punch (peak kept 96% instead of 87%). The crop around the athlete is now 512 px.
+* **New look:** dark gym background, red accent, Oswald headings (all bundled, works offline).
+* **Camera angle check:** the app reads where the camera really was from the body. A softball swing filmed from behind the batter
+  (e.g. down a cage) is no longer judged as a side view: extension, back heel, head and other side-view checks say "not clear
+  enough to judge" instead of calling false faults, with a note on how to film. A side/front mix-up is corrected automatically.
+  Also on for sprinting, distance running, soccer and jumping. Head movement in the swing is now measured relative to the hips in 3D.
+* **Re-finds the athlete** after losing them for a moment (close-up clips at 25-30 fps could lose the athlete for good).
+
 ## Better tracking (v0.4.0)
 * **Tap your athlete:** when there is more than one person in the picture (coach, sparring partner, people walking by), the app shows
   one frame with everyone outlined. Tap your athlete; the app then follows only that person (by position, body shape and clothing
@@ -29,7 +46,7 @@ This repo is the built static app only (no tests or test videos).
   (weight shift, elbow flare and similar) say "not clear enough to judge" instead of guessing. Film straight from the front or side for those.
 * **Slow-motion** applies only to an uploaded clip that plays back slowed down. Clips recorded in the app are always treated as normal speed,
   and real 120/240 fps files are detected from the file itself.
-* Settings → Pose model: **Full** (default), **Accurate (slower)** (heavy model, downloads 30 MB once; about 1.3x slower on a laptop, up to 2x on older phones), or **Lite** (fastest).
+* Settings → Pose model: **Auto** (default, uses Full), **Full**, **Accurate (slower)** (heavy model, downloads 30 MB once; about 1.2-1.3x slower on a laptop, up to 2x on older phones; in our tests not more accurate overall), or **Lite** (fastest).
 
 ## Recording tips and troubleshooting (v0.3.1)
 * **Record video** records inside the app (live preview, 🔄 flip camera, stops by itself at 20 s). The first time, allow camera access.
@@ -43,6 +60,9 @@ This repo is the built static app only (no tests or test videos).
 ## Third-party components and licenses
 * **MediaPipe Tasks Vision** 1.1.0 (`vendor/mediapipe/`, JS + WASM), © Google LLC, **Apache License 2.0**,
   https://github.com/google-ai-edge/mediapipe
+* **Oswald** font (`fonts/oswald-var.woff2`, Latin subset), © The Oswald Project Authors, **SIL Open Font License 1.1** (`fonts/OFL-Oswald.txt`),
+  https://github.com/googlefonts/OswaldFont
+* Background art `img/gym_bg.webp` / `gym_bg_small.jpg`: AI-generated for this app.
 * **MediaPipe Pose Landmarker models** (`models/pose_landmarker_lite.task`, `pose_landmarker_full.task`, `pose_landmarker_heavy.task`), © Google LLC,
   **Apache License 2.0**, https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker
 * **Coaching knowledge bases** (`data/*.json`): written for this app. Each checkpoint, fault, and drill cites its public

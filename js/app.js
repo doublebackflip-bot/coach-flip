@@ -2,7 +2,7 @@
 import { analyze, buildConfig } from './engine/core.js';
 import { indexKb, coachingFor } from './kb.js';
 import { SPORTS, sportEntry, loadSportModule } from './sports/registry.js';
-import { trackVideo, trackImage, loadVideo, releaseVideo, scanPeople } from './pose.js';
+import { trackVideo, trackImage, loadVideo, releaseVideo, scanPeople, probeSpeed } from './pose.js';
 import { canRecordInApp, cameraSupport, openCamera, startRecording, stopStream, isIOS } from './recorder.js';
 import { renderFrame, sizeCanvas } from './render.js';
 import { store, uid } from './store.js';
@@ -18,11 +18,12 @@ const fmtDate = (ms) => new Date(ms).toLocaleString([], { month: 'short', day: '
 const S = {
   sportId: 'boxing', sport: null, kbx: null, athletes: [], athleteId: null,
   skillId: 'jab', view: 'front', slowmo: 1,
-  prefs: { fps: 20, model: 'full', maxSeconds: 20, keepVideos: true, prefsV: 2 },
+  prefs: { fps: 0, model: 'auto', maxSeconds: 20, keepVideos: true, labels: true, prefsV: 3 },
   overrides: {}, player: null, abort: null,
 };
 window.__coach = S; // handy for debugging / automated tests
-export const APP_VERSION = '0.4.0';
+export const APP_VERSION = '0.5.0';
+const savePrefs = () => store.setSetting('prefs', S.prefs).catch(() => {});
 const isStandalone = () => window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
 
 // ---------------------------------------------------------------- boot
@@ -32,6 +33,8 @@ async function boot() {
   // v0.4: the default pose model moved from lite to full (more accurate). Older saved prefs still say 'lite'
   // only because that was the default, so move them once; a later explicit choice is kept.
   if ((saved.prefsV || 1) < 2) { if (saved.model === 'lite') delete saved.model; saved.prefsV = 2; }
+  // v0.5: frame rate "Auto" (clip's own up to 30) and model "Auto" replace the old defaults (20 fps, full)
+  if (saved.prefsV < 3) { if (saved.fps === 20) delete saved.fps; if (saved.model === 'full') delete saved.model; saved.prefsV = 3; }
   S.prefs = { ...S.prefs, ...saved };
   await loadSport(await store.getSetting('lastSport', 'boxing'));
   S.athletes = (await store.athletes()).sort((a, b) => a.name.localeCompare(b.name));
@@ -87,7 +90,11 @@ const skillDef = (id = S.skillId) => S.sport.skills.find((s) => s.id === id);
 const kbSkill = (id = S.skillId) => S.kbx.skills[skillDef(id)?.kbSkill || skillDef(id)?.kbSkills?.[0]] || null;
 const kbSkillsOf = (sd) => [...new Set([...(sd?.kbSkills || []), sd?.kbSkill].filter(Boolean))].map((id) => S.kbx.skills[id]).filter(Boolean);
 const isChecklist = (sd) => sd?.mode === 'checklist';
-const analysisFps = (sd) => Math.min(30, Math.max(S.prefs.fps, sd?.minFps || 0));
+// frames per second analysed: "Auto" (0) = the clip's own frame rate up to 30 (fast punches), at least 20
+const analysisFps = (sd, fileFps = null) => {
+  const auto = !S.prefs.fps ? Math.min(30, Math.max(20, Math.round(fileFps && fileFps < 100 ? fileFps : 30))) : S.prefs.fps;
+  return Math.min(30, Math.max(auto, sd?.minFps || 0));
+};
 
 // ---------------------------------------------------------------- home
 async function home() {
@@ -331,6 +338,122 @@ function pickAthleteScreen(scan, a) {
   });
 }
 
+
+/**
+ * Trim before analysis: the video, a filmstrip with two draggable handles (start/end), live preview while dragging,
+ * play-selection, time readout, "Use whole clip". Pointer events (work with touch on iOS Safari 13+ and Android Chrome).
+ * Resolves {start, end, whole} or 'cancel'.
+ */
+function trimScreen(url, a, { durationHint = null } = {}) {
+  return new Promise(async (resolve) => {
+    const maxS = S.prefs.maxSeconds || 20;
+    window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>Trim the clip</h1></header>
+      <p class="hint">Drag the two handles so only the part to critique is analysed (cut the walk-in, the set-up and the end).</p>
+      <div class="player trimv"><video id="tv" playsinline muted preload="auto" webkit-playsinline></video></div>
+      <div class="trim" id="trim" aria-label="Clip timeline with start and end handles">
+        <canvas class="strip" id="strip"></canvas>
+        <div class="shade" id="sh0"></div><div class="shade" id="sh1"></div><div class="sel" id="sel"></div>
+        <div class="ph" id="ph"></div>
+        <button class="handle" id="h0" aria-label="Start of the part to analyse"><span></span></button>
+        <button class="handle" id="h1" aria-label="End of the part to analyse"><span></span></button>
+      </div>
+      <p class="trimtime" id="tt">Loading the video…</p>
+      <p class="notes" id="tlong" hidden></p>
+      <div class="row"><button class="btn" id="tplay">▶ Play selection</button><button class="btn" id="twhole">Use whole clip</button></div>
+      <button class="big primary" id="tgo" disabled>Analyse this part</button>
+      <button class="btn" id="tcancel" style="width:100%">Cancel</button>`;
+    const v = $('#tv'); v.muted = true; v.playsInline = true; v.src = url;
+    let dur = 0, st = 0, en = 0, playing = false, raf = 0, seekBusy = false, pendingSeek = null;
+    const done = (val) => { cancelAnimationFrame(raf); try { v.pause(); v.removeAttribute('src'); v.load(); } catch (_) { /* ignore */ } resolve(val); };
+    $('#tcancel').onclick = () => done('cancel');
+    await new Promise((res) => { if (v.readyState >= 1) res(); else { v.addEventListener('loadedmetadata', res, { once: true }); v.addEventListener('error', res, { once: true }); setTimeout(res, 6000); } });
+    dur = Number.isFinite(v.duration) && v.duration > 0 ? v.duration : (durationHint || 0);
+    if (!dur) { done({ start: 0, end: null, whole: true, unknown: true }); return; }   // can't read the length: analyse it all
+    en = Math.min(dur, maxS);
+    if (dur > maxS + 0.05) { const n = $('#tlong'); n.hidden = false; n.textContent = `This clip is ${dur.toFixed(1)} s. Up to ${maxS} s can be analysed at once (Settings), so the first ${maxS} s are selected: drag to choose the part.`; }
+    const MIN = Math.min(0.5, dur);
+    const box = () => $('#trim').getBoundingClientRect();
+    const fmt = (t) => `${t.toFixed(1)} s`;
+    const paint = () => {
+      const p0 = (100 * st) / dur, p1 = (100 * en) / dur;
+      $('#h0').style.left = `${p0}%`; $('#h1').style.left = `${p1}%`;
+      $('#sel').style.left = `${p0}%`; $('#sel').style.width = `${p1 - p0}%`;
+      $('#sh0').style.width = `${p0}%`; $('#sh1').style.left = `${p1}%`; $('#sh1').style.width = `${100 - p1}%`;
+      $('#tt').innerHTML = `<b>${fmt(st)}</b> → <b>${fmt(en)}</b> · <b>${fmt(en - st)}</b> of ${fmt(dur)}`;
+      $('#tgo').disabled = en - st < MIN - 1e-3;
+      S.trimState = { start: st, end: en, duration: dur };   // for automated tests
+    };
+    const ph = (t) => { $('#ph').style.left = `${(100 * t) / dur}%`; };
+    // live preview: show the frame under the handle being dragged (one seek at a time, latest wins)
+    const preview = (t) => {
+      pendingSeek = t; if (seekBusy) return;
+      seekBusy = true; const go = pendingSeek; pendingSeek = null;
+      v.currentTime = Math.max(0, Math.min(dur - 0.01, go)); ph(go);
+      const fin = () => { seekBusy = false; if (pendingSeek !== null) preview(pendingSeek); };
+      v.addEventListener('seeked', fin, { once: true }); setTimeout(() => { if (seekBusy) fin(); }, 700);
+    };
+    const drag = (which) => (ev) => {
+      ev.preventDefault(); stopPlay();
+      const h = ev.currentTarget; h.setPointerCapture?.(ev.pointerId); h.classList.add('on');
+      const move = (e) => {
+        const b = box(), t = Math.max(0, Math.min(dur, ((e.clientX - b.left) / b.width) * dur));
+        if (which === 0) { st = Math.min(t, en - MIN); if (en - st > maxS) en = st + maxS; st = Math.max(0, st); }
+        else { en = Math.max(t, st + MIN); if (en - st > maxS) st = en - maxS; en = Math.min(dur, en); }
+        paint(); preview(which === 0 ? st : en);
+      };
+      const up = () => { h.classList.remove('on'); h.removeEventListener('pointermove', move); h.removeEventListener('pointerup', up); h.removeEventListener('pointercancel', up); };
+      h.addEventListener('pointermove', move); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
+      move(ev);
+    };
+    $('#h0').addEventListener('pointerdown', drag(0)); $('#h1').addEventListener('pointerdown', drag(1));
+    // tap on the strip = move the nearest handle there
+    $('#strip').addEventListener('pointerdown', (ev) => { const b = box(), t = ((ev.clientX - b.left) / b.width) * dur; (Math.abs(t - st) <= Math.abs(t - en) ? $('#h0') : $('#h1')).dispatchEvent(new PointerEvent('pointerdown', { clientX: ev.clientX, pointerId: ev.pointerId, bubbles: true })); });
+    const stopPlay = () => { if (playing) { playing = false; v.pause(); cancelAnimationFrame(raf); $('#tplay').textContent = '▶ Play selection'; } };
+    const loop = () => { if (!playing) return; ph(v.currentTime); if (v.currentTime >= en || v.ended) { stopPlay(); v.currentTime = st; ph(st); return; } raf = requestAnimationFrame(loop); };
+    $('#tplay').onclick = async () => {
+      if (playing) { stopPlay(); return; }
+      v.currentTime = st; await new Promise((r) => { v.addEventListener('seeked', r, { once: true }); setTimeout(r, 800); });
+      playing = true; $('#tplay').textContent = '❚❚ Pause'; await v.play().catch(() => { playing = false; }); loop();
+    };
+    $('#twhole').onclick = () => { stopPlay(); st = 0; en = Math.min(dur, maxS); paint(); preview(0); done({ start: 0, end: en, whole: true }); };
+    $('#tgo').onclick = () => { stopPlay(); done({ start: +st.toFixed(3), end: +en.toFixed(3), whole: st < 0.05 && en > Math.min(dur, maxS) - 0.05 }); };
+    paint(); preview(0);
+    // filmstrip: a few frames from a second (hidden) copy of the video; best effort, never blocks trimming
+    (async () => {
+      let tv = null;
+      try {
+        const cv = $('#strip'); if (!cv) return;
+        const n = 8, b = box(); cv.width = Math.round(b.width * (window.devicePixelRatio || 1)); cv.height = Math.round(b.height * (window.devicePixelRatio || 1));
+        const g = cv.getContext('2d'); g.fillStyle = '#222'; g.fillRect(0, 0, cv.width, cv.height);
+        tv = await loadVideo(url, { durationHint: dur, retry: false });
+        const w = cv.width / n, ar = tv.videoWidth / tv.videoHeight || 1;
+        for (let i = 0; i < n; i++) {
+          if (!document.body.contains(cv)) break;
+          tv.currentTime = Math.min(dur - 0.05, ((i + 0.5) / n) * dur);
+          await new Promise((r) => { tv.addEventListener('seeked', r, { once: true }); setTimeout(r, 1500); });
+          // cover-crop each tile
+          const sw = Math.min(tv.videoWidth, tv.videoHeight * (w / cv.height)), sx = (tv.videoWidth - sw) / 2;
+          g.drawImage(tv, sx, 0, sw, tv.videoHeight, i * w, 0, w + 1, cv.height);
+        }
+        void ar;
+      } catch (e) { console.warn('filmstrip', e); }
+      finally { if (tv) releaseVideo(tv); }
+    })();
+  });
+}
+
+/**
+ * Pose model for this analysis. "Auto" (default) = Full. Measured for v0.5 (bench, athlete tapped, 3 hand-labelled
+ * clips): the heavy model was NOT more accurate after clean-up (PCK 0.74 vs 0.79; better on 2 clips, worse on 1)
+ * and ~20% slower, so Auto does not switch to heavy even on fast phones. Settings can still force heavy / full / lite.
+ * The speed probe is kept for the Settings screen (shows how fast this phone runs the model).
+ */
+const HEAVY_MS = 28;
+async function chooseModel(debug = {}) {
+  if (S.prefs.model && S.prefs.model !== 'auto') return S.prefs.model;
+  return 'full';
+}
+
 async function runAnalysis(file, kind, extra = {}) {
   stopPlayer(); stopCamera();
   if (!athlete()) await addAthlete('My athlete');
@@ -343,11 +466,20 @@ async function runAnalysis(file, kind, extra = {}) {
   }
   const url = URL.createObjectURL(file);
   S.abort = new AbortController();
+  // trim first (before the athlete picker): only the chosen part is analysed
+  let trim = null;
+  if (!isPhoto) {
+    trim = await trimScreen(url, a, { durationHint: extra.durationHint });
+    if (trim === 'cancel') { URL.revokeObjectURL(url); home(); return; }
+    debug.trim = trim;
+  }
   progressScreen(a);
   try {
     const fileInfo = isPhoto ? null : await videoInfo(file);
     debug.fileInfo = fileInfo;
-    const opts = { model: S.prefs.model };
+    const model = await chooseModel(debug);
+    const opts = { model };
+    const range = trim && !trim.unknown ? { start: trim.start, end: trim.end } : {};
     debug.stage = isPhoto ? 'track-image' : 'track-video';
     // several people in the picture (coach, other boxers): let the coach tap the athlete once
     let athletePick = null;
@@ -355,7 +487,7 @@ async function runAnalysis(file, kind, extra = {}) {
       debug.stage = 'scan-people';
       $('#stage') && ($('#stage').textContent = 'Looking for the athlete…');
       try {
-        const scan = await scanPeople(url, { model: S.prefs.model, durationHint: extra.durationHint });
+        const scan = await scanPeople(url, { model, durationHint: extra.durationHint, ...range });
         debug.people = scan?.people?.length ?? 0;
         if (scan?.people?.length >= 2) athletePick = await pickAthleteScreen(scan, a);
         if (athletePick === 'cancel') { URL.revokeObjectURL(url); home(); return; }
@@ -364,7 +496,7 @@ async function runAnalysis(file, kind, extra = {}) {
       debug.stage = 'track-video';
     }
     const track = isPhoto ? await trackImage(url, opts) : await trackVideo(url, {
-      ...opts, athlete: athletePick || null, fps: analysisFps(skillDef()), maxSeconds: S.prefs.maxSeconds, signal: S.abort.signal, durationHint: extra.durationHint, debug,
+      ...opts, ...range, athlete: athletePick || null, fps: analysisFps(skillDef(), fileInfo?.fps), maxSeconds: S.prefs.maxSeconds, signal: S.abort.signal, durationHint: extra.durationHint, debug,
       onProgress: (p, k, n) => { $('#bar') && ($('#bar').style.width = `${Math.round(p * 100)}%`); $('#stage') && ($('#stage').textContent = 'Tracking joints frame by frame…'); $('#count') && ($('#count').textContent = `${k} / ${n} frames`); },
     });
     debug.stage = 'analyze';
@@ -376,12 +508,13 @@ async function runAnalysis(file, kind, extra = {}) {
     const result = analyze(track, { sport: S.sport, skillId: S.skillId, view: S.view, stance, overrides: S.overrides, isPhoto, slowmo });
     if (sm.note) result.notes.push(sm.note);
     if (isPhoto && result.events.length && S.sportId === 'boxing') result.notes.push('Extension is judged as if this photo is the moment of impact.');
-    if (track.meta.truncated) result.notes.push(`Only the first ${S.prefs.maxSeconds} s were analysed (change in Settings).`);
+    if (track.meta.truncated) result.notes.push(`Only ${S.prefs.maxSeconds} s were analysed (change in Settings).`);
+    if (trim && !trim.whole && track.meta.trim) result.notes.push(`Trimmed: ${track.meta.trim.start.toFixed(1)}–${track.meta.trim.end.toFixed(1)} s of the clip analysed.`);
     if (!isPhoto && !track.frames.some((f) => f.lm)) result.notes.push('No athlete was found in any frame. Film the whole body, well lit, from 3-5 m away.');
     const session = {
       id: uid(), athleteId: a.id, athleteName: a.name, createdAt: Date.now(), sport: S.sportId,
       skillId: S.skillId, skillLabel: skillDef().label, view: S.view, stance, slowmo, isPhoto, checklist: {},
-      mediaType: file.type, fileName: file.name, source: debug.path, track, result, hasMedia: !!S.prefs.keepVideos,
+      mediaType: file.type, fileName: file.name, source: debug.path, track, result, hasMedia: !!S.prefs.keepVideos, trim: track.meta?.trim || null, model: track.meta?.model,
     };
     debug.stage = 'save';
     if (S.prefs.keepVideos) {
@@ -432,14 +565,15 @@ async function openSession(session, url = null) {
     <div style="flex:1"><h1 style="font-size:1.25rem">${esc(skillDef(session.skillId)?.label)} · ${esc(session.view)} view</h1>
     <div class="sub">${esc(S.sport.name)} · ${esc(session.athleteName)}${session.stance ? ' · ' + esc(session.stance) : ''}${session.slowmo > 1 ? ` · slow-mo ${session.slowmo}x` : ''} · ${fmtDate(session.createdAt)}</div></div></header>
 
-  ${url ? `<div class="player"><canvas id="cv"></canvas></div>
-  <div class="caption" id="cap"></div>
+  ${url ? `<div class="caption" id="cap" aria-live="polite"></div>
+  <div class="player"><canvas id="cv"></canvas><div class="hold-hint" id="holdhint" hidden>Overlays hidden</div></div>
+  <p class="hint tiny">Touch and hold the video to see it without graphics.</p>
   ${kf.length > 1 && !session.isPhoto ? `<div class="chips keys" id="keys" aria-label="Key moments">${kf.map((k) => `<button class="chip" data-key="${k.t}">${esc(k.label)}</button>`).join('')}</div>` : ''}
   ${faults.length ? `<div class="chips focus" id="focus">${faults.map((c, i) => `<button class="chip" data-focus="${esc(c.id)}">${i + 1}. ${esc(c.label)}</button>`).join('')}<button class="chip" data-focus="">All</button></div>` : ''}
   ${session.isPhoto ? '' : `<div class="timeline" id="tl" aria-label="Timeline: red = problem frames"></div>
   <div class="controls"><button class="btn" id="prev" aria-label="Previous frame">◀︎ frame</button><button class="btn" id="play">▶ Play</button><button class="btn" id="next" aria-label="Next frame">frame ▶︎</button></div>
   <div class="speeds">${[0.25, 0.5, 1].map((s) => `<button class="opt" data-speed="${s}" aria-pressed="${s === 0.5}">${s === 1 ? '1x' : s === 0.5 ? '½ speed' : '¼ speed'}</button>`).join('')}
-    <button class="opt" id="skel" aria-pressed="true">Skeleton</button>${session.track?.raw ? '<button class="opt" id="rawsk" aria-pressed="false" title="Show the tracker\'s raw output instead of the cleaned skeleton">Raw view</button>' : ''}</div>`}` : '<p class="notes">Video was not saved for this session (Settings → keep videos). Results below.</p>'}
+    <button class="opt" id="skel" aria-pressed="true">Skeleton</button><button class="opt" id="lbls" aria-pressed="${S.prefs.labels !== false}">Labels</button>${session.track?.raw ? '<button class="opt" id="rawsk" aria-pressed="false" title="Show the tracker\'s raw output instead of the cleaned skeleton">Raw view</button>' : ''}</div>`}` : '<p class="notes">Video was not saved for this session (Settings → keep videos). Results below.</p>'}
 
   ${checklistMode ? `<p class="summary">Coach checklist</p><p class="hint">Automatic checks aren't reliable for this skill from one phone camera${sd?.checklistWhy ? ` (${esc(sd.checklistWhy)})` : ''}. Step through the key moments above with the skeleton on, and tick each point below.</p>`
     : `<p class="summary ${faults.length ? 'bad' : 'good'}">${faults.length ? `${faults.length} thing${faults.length > 1 ? 's' : ''} to fix${faults.length > 3 ? ' (top 3 first)' : ''}` : (oks.length ? 'Looks good!' : 'Not enough to check')}</p>`}
@@ -570,7 +704,18 @@ async function startPlayer(session, url) {
   let focus = r.checks.find((c) => c.status === 'fault')?.id ?? null;
   const flagsAt = (i) => { const f = (r.frameFlags[i] || []).filter((x) => !focus || x.check === focus); return f.length ? f : null; };
   const markFocus = () => $$('[data-focus]').forEach((b) => b.classList.toggle('on', (b.dataset.focus || null) === focus));
-  let skeleton = true;
+  let skeleton = true, hold = false;
+  // measurement text only for the one fault in focus ("All" = lines only), and only when Labels is on
+  const labelsOn = () => S.prefs.labels !== false && !!focus;
+  const ropts = (extra = {}) => ({ skeleton, labels: labelsOn(), overlays: !hold, ...extra });
+  const keepLayout = (lay, i) => { window.__coach.lastLabels = lay ? { ...lay, W: cv.width, H: cv.height, i } : null; };
+  // touch and hold the picture = raw frame without any graphics
+  let holdTimer = 0;
+  const holdOn = () => { hold = true; $('#holdhint')?.removeAttribute('hidden'); S.player?.redraw?.(); };
+  const holdOff = () => { clearTimeout(holdTimer); if (hold) { hold = false; $('#holdhint')?.setAttribute('hidden', ''); S.player?.redraw?.(); } };
+  cv.addEventListener('pointerdown', () => { clearTimeout(holdTimer); holdTimer = setTimeout(holdOn, 350); });
+  for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) cv.addEventListener(ev, holdOff);
+  cv.addEventListener('contextmenu', (e) => e.preventDefault());
   const caption = (i) => {
     const f = flagsAt(i);
     $('#cap').innerHTML = f ? f.map((x) => `<div class="bad">⚠ ${esc(x.label)}${x.text ? ' - ' + esc(x.text) : ''}</div>`).filter((v, j, arr) => arr.indexOf(v) === j).join('')
@@ -579,20 +724,23 @@ async function startPlayer(session, url) {
   if (session.isPhoto) {
     const img = new Image(); img.src = url; await img.decode();
     sizeCanvas(cv, img.naturalWidth, img.naturalHeight);
-    const redraw = () => { renderFrame(cv, img, frames[0], flagsAt(0)); caption(0); markFocus(); };
+    const redraw = () => { keepLayout(renderFrame(cv, img, frames[0], flagsAt(0), ropts()), 0); caption(0); markFocus(); };
+    S.player = { stop() {}, seek() {}, img, canvas: cv, redraw, focus(id) { focus = id; redraw(); } };
     redraw();
-    S.player = { stop() {}, seek() {}, img, canvas: cv, focus(id) { focus = id; redraw(); } };
+    $('#lbls')?.addEventListener('click', (e) => { S.prefs.labels = S.prefs.labels === false; e.target.setAttribute('aria-pressed', S.prefs.labels); savePrefs(); redraw(); });
     await ensureThumb(session, cv);
     return;
   }
   const v = await loadVideo(url, { durationHint: session.track?.meta?.duration });
   sizeCanvas(cv, v.videoWidth, v.videoHeight);
-  const fps = r.meta.fps, maxT = frames.at(-1).t + 1 / fps;
+  // only the analysed (trimmed) part of the clip is shown and scrubbed
+  const fps = r.meta.fps, minT = frames[0]?.t || 0, maxT = frames.at(-1).t + 1 / fps, span = Math.max(1e-3, maxT - minT);
+  const pct = (t) => (100 * (t - minT)) / span;
   const idxAt = (t) => { let lo = 0, hi = frames.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (frames[m].t <= t + 1e-3) lo = m; else hi = m - 1; } return lo; };
   let raf = 0, stopped = false;
   let showRaw = false; const raw = session.track.raw;
-  const draw = () => { const i = idxAt(v.currentTime); renderFrame(cv, v, showRaw && raw?.[i] ? raw[i] : frames[i], flagsAt(i), { skeleton, raw: showRaw }); caption(i); head(v.currentTime); };
-  const seek = async (t) => { v.pause(); v.currentTime = Math.max(0, Math.min(t, maxT - 0.001)); await new Promise((res) => v.addEventListener('seeked', res, { once: true })); draw(); playBtn(); };
+  const draw = () => { const i = idxAt(v.currentTime); keepLayout(renderFrame(cv, v, showRaw && raw?.[i] ? raw[i] : frames[i], flagsAt(i), ropts({ raw: showRaw })), i); caption(i); head(v.currentTime); };
+  const seek = async (t) => { v.pause(); v.currentTime = Math.max(minT, Math.min(t, maxT - 0.001)); await new Promise((res) => v.addEventListener('seeked', res, { once: true })); draw(); playBtn(); };
   const loop = () => { if (stopped) return; if (v.currentTime >= maxT) { v.pause(); } draw(); if (!v.paused) raf = requestAnimationFrame(loop); else playBtn(); };
   const playBtn = () => { const b = $('#play'); if (b) b.textContent = v.paused ? '▶ Play' : '❚❚ Pause'; };
 
@@ -601,29 +749,30 @@ async function startPlayer(session, url) {
   const paintTimeline = () => {
   const runs = []; const idxs = Object.keys(r.frameFlags).map(Number).filter((i) => flagsAt(i)).sort((a, b) => a - b);
   for (const i of idxs) { const last = runs.at(-1); if (last && i - last[1] <= 1) last[1] = i; else runs.push([i, i]); }
-  tl.innerHTML = runs.map(([a, b]) => `<div class="mk" style="left:${(100 * frames[a].t) / maxT}%;width:${(100 * (frames[b].t - frames[a].t + 1 / fps)) / maxT}%"></div>`).join('')
-    + r.events.map((e) => `<div class="ev" style="left:${(100 * e.t) / maxT}%"></div>`).join('') + '<div class="head" id="head"></div>';
+  tl.innerHTML = runs.map(([a, b]) => `<div class="mk" style="left:${pct(frames[a].t)}%;width:${(100 * (frames[b].t - frames[a].t + 1 / fps)) / span}%"></div>`).join('')
+    + r.events.map((e) => `<div class="ev" style="left:${pct(e.t)}%"></div>`).join('') + '<div class="head" id="head"></div>';
   head(v.currentTime); markFocus();
   };
-  function head(t) { const h = $('#head'); if (h) h.style.left = `${Math.min(100, (100 * t) / maxT)}%`; }
+  function head(t) { const h = $('#head'); if (h) h.style.left = `${Math.max(0, Math.min(100, pct(t)))}%`; }
   paintTimeline();
-  const scrub = (ev) => { const b = tl.getBoundingClientRect(); seek(((ev.clientX - b.left) / b.width) * maxT); };
+  const scrub = (ev) => { const b = tl.getBoundingClientRect(); seek(minT + ((ev.clientX - b.left) / b.width) * span); };
   tl.addEventListener('pointerdown', (ev) => { scrub(ev); tl.setPointerCapture(ev.pointerId); });
   tl.addEventListener('pointermove', (ev) => { if (ev.buttons) scrub(ev); });
 
   v.playbackRate = 0.5;
-  $('#play').onclick = async () => { if (v.paused) { if (v.currentTime >= maxT - 0.05) v.currentTime = 0; await v.play().catch(() => {}); loop(); } else v.pause(); playBtn(); };
+  $('#play').onclick = async () => { if (v.paused) { if (v.currentTime >= maxT - 0.05 || v.currentTime < minT) v.currentTime = minT; await v.play().catch(() => {}); loop(); } else v.pause(); playBtn(); };
   $('#prev').onclick = () => seek(v.currentTime - 1 / fps);
   $('#next').onclick = () => seek(v.currentTime + 1 / fps);
   $$('[data-speed]').forEach((b) => (b.onclick = () => { v.playbackRate = +b.dataset.speed; $$('[data-speed]').forEach((x) => x.setAttribute('aria-pressed', x === b)); }));
   $('#skel').onclick = (e) => { skeleton = !skeleton; e.target.setAttribute('aria-pressed', skeleton); draw(); };
   $('#rawsk')?.addEventListener('click', (e) => { showRaw = !showRaw; e.target.setAttribute('aria-pressed', showRaw); draw(); });
-  S.player = { stop() { stopped = true; cancelAnimationFrame(raf); releaseVideo(v); }, seek, video: v, canvas: cv,
+  $('#lbls')?.addEventListener('click', (e) => { S.prefs.labels = S.prefs.labels === false; e.target.setAttribute('aria-pressed', S.prefs.labels); savePrefs(); draw(); });
+  S.player = { stop() { stopped = true; cancelAnimationFrame(raf); releaseVideo(v); }, seek, video: v, canvas: cv, redraw: draw, range: [minT, maxT],
     focus(id) { focus = id; paintTimeline(); draw(); } };
 
   // open on the worst moment of the most important fault so the coach sees it immediately
   const first = r.checks.find((c) => c.status === 'fault' && c.instances?.length);
-  await seek(first ? first.instances[0].t : 0);
+  await seek(first ? first.instances[0].t : minT);
   await ensureThumb(session, cv);
 }
 
@@ -663,10 +812,11 @@ async function settings() {
   <form id="sf">
     <h2>Analysis</h2>
     <label class="field" for="fps">Frames per second to analyse</label>
-    <select id="fps">${[[12, 'Fast (12)'], [20, 'Normal (20)'], [30, 'Detailed (30, slower)']].map(([v, l]) => `<option value="${v}" ${S.prefs.fps == v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <select id="fps">${[[0, 'Auto: the clip\'s own rate, up to 30 (recommended)'], [12, 'Fast (12)'], [20, 'Normal (20)'], [30, 'Detailed (30, slower)']].map(([v, l]) => `<option value="${v}" ${S.prefs.fps == v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <p class="hint">30 frames a second catches the fastest point of quick punches better than 20; it takes about 1.5x longer.</p>
     <label class="field" for="model">Pose model</label>
-    <select id="model"><option value="full" ${S.prefs.model === 'full' ? 'selected' : ''}>Full: accurate (recommended)</option><option value="heavy" ${S.prefs.model === 'heavy' ? 'selected' : ''}>Accurate (slower): heavy model, 30 MB download once</option><option value="lite" ${S.prefs.model === 'lite' ? 'selected' : ''}>Lite: fastest, for older phones</option></select>
-    <p class="hint">Accurate (slower) takes longer per clip (about 1.3x on a laptop, can be up to 2x on older phones). It helps with small or partly hidden athletes.</p>
+    <select id="model">${[['auto', 'Auto (recommended)'], ['full', 'Full: accurate'], ['heavy', 'Accurate (slower): heavy model, 30 MB download once'], ['lite', 'Lite: fastest, for older phones']].map(([v, l]) => `<option value="${v}" ${(S.prefs.model || 'auto') === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <p class="hint">Auto uses Full: in our tests the heavy model was not more accurate once the track is cleaned up, and it is slower (about 1.2-1.3x on a laptop, up to 2x on older phones). Try Accurate (slower) for a small or far-away athlete. <button class="btn small" type="button" id="probe">Time this phone</button> <span id="probe-out">${S.speed ? `${S.speed.ms} ms per frame (${esc(S.speed.delegate || '')})` : ''}</span></p>
     <label class="field" for="maxs">Max clip length analysed</label>
     <select id="maxs">${[10, 20, 30].map((v) => `<option value="${v}" ${S.prefs.maxSeconds == v ? 'selected' : ''}>${v} seconds</option>`).join('')}</select>
     <label class="switch"><input type="checkbox" id="keep" ${S.prefs.keepVideos ? 'checked' : ''}/> Keep videos on this phone (for replay)</label>
@@ -690,6 +840,7 @@ async function settings() {
   <h2>About</h2>
   <p class="hint">Coach Flip v${APP_VERSION} · ${esc(S.sport.name)}. Expert knowledge base: ${S.kbx.kb.sources.length} sources (${esc(S.kbx.kb.sources.filter((s) => s.verification === 'full_text_reviewed').map((s) => s.author_or_org).filter(Boolean).join(', '))} reviewed in full). Pose tracking: Google MediaPipe Pose Landmarker (Apache-2.0), running on this phone.</p>`;
   $('#back').onclick = home;
+  $('#probe').onclick = async () => { $('#probe-out').textContent = 'timing…'; try { S.speed = await probeSpeed(); $('#probe-out').textContent = `${S.speed.ms} ms per frame (${S.speed.delegate || ''})${S.speed.ms <= HEAVY_MS ? ': fast enough for Accurate (slower)' : ''}`; } catch (e) { $('#probe-out').textContent = String(e.message || e); } };
   $('#reset').onclick = async () => { S.overrides = {}; await store.setSetting('overrides:' + S.sportId, {}); settings(); };
   $$('[data-del-ath]').forEach((b) => (b.onclick = async () => {
     if (!confirm('Delete this athlete and all their sessions?')) return;

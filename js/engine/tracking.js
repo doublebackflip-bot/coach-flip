@@ -99,9 +99,15 @@ export function histDist(a, b) {
  * Returns {i, score, iou, d, sh} or null.
  */
 export const COLOUR_REJECT = 0.58;
-export function matchCandidate(cands, ref, { W = 1, H = 1, lost = 0 } = {}) {
+export const LONG_LOSS = 10, REACQUIRE_COLOUR = 0.35;
+
+export function matchCandidate(cands, ref, { W = 1, H = 1, lost = 0, why = null } = {}) {
   if (!ref || !cands?.length) return null;
-  const pb = shift(ref.box, (ref.vx || 0) * (lost + 1), (ref.vy || 0) * (lost + 1));
+  // predict where the athlete is now; extrapolate at most a few frames (a long loss must not fling the box off-screen)
+  const steps = Math.min(lost + 1, 4);
+  const pb = shift(ref.box, (ref.vx || 0) * steps, (ref.vy || 0) * steps);
+  // lost for a while (10+ frames): position and size are stale, so re-acquire by clothing colour alone
+  const long = lost >= LONG_LOSS;
   const diag = hyp(pb.w * W, pb.h * H) || 1;
   const gate = lost ? Math.min(2.5, 0.6 + 0.2 * lost) : 0.6;
   let best = null;
@@ -111,6 +117,13 @@ export function matchCandidate(cands, ref, { W = 1, H = 1, lost = 0 } = {}) {
     const sz = Math.abs(Math.log((c.box.w * c.box.h + 1e-6) / (pb.w * pb.h + 1e-6)));
     const sh = ref.lm ? shapeDist(c.lm, ref.lm, W, H) : 0;
     const col = ref.hist && c.hist ? histDist(c.hist, ref.hist) : null;   // clothing colour
+    if (why) why.push({ lost, io: +io.toFixed(2), d: +d.toFixed(2), gate: +gate.toFixed(2), sz: +sz.toFixed(2), col: col === null ? null : +col.toFixed(2), vx: +(ref.vx || 0).toFixed(4), vy: +(ref.vy || 0).toFixed(4) });
+    if (long) {
+      if (col === null ? cands.length > 1 : col > REACQUIRE_COLOUR) return;   // only a clear clothing match (or the only person)
+      const score = -2 * (col ?? 0.2) - 0.1 * Math.min(d, 3) - 0.1 * sz;
+      if (!best || score > best.score) best = { i, score, iou: io, d, sh, col, reacquire: true };
+      return;
+    }
     if (io < 0.15 && d > gate) return;
     if (sz > (lost ? 1.2 : 1.1)) return;
     if (col !== null && col > COLOUR_REJECT) return;                     // clearly different clothes = someone else
@@ -312,7 +325,7 @@ function oneEuro(xs, fps, { minCutoff, beta, dCutoff = 1.0 }, weights) {
 export const EURO = {
   core: { minCutoff: 1.4, beta: 0.6 },   // shoulders, hips, face
   mid: { minCutoff: 2.2, beta: 1.0 },    // elbows, knees
-  fast: { minCutoff: 3.0, beta: 1.6 },   // wrists, hands, ankles, feet: punches and kicks must not lag
+  fast: { minCutoff: 4.5, beta: 5.0 },   // wrists, hands, ankles, feet: punches and kicks must not lag
 };
 /** forward + backward One Euro = no lag (zero phase), possible because the analysis is offline */
 export function smoothZeroPhase(F, W, H, T, fps, params = EURO) {
