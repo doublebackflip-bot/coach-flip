@@ -1,0 +1,803 @@
+{
+  "sport": "Kickboxing (incl. Muay Thai-style kicking)",
+  "sport_id": "kickboxing",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers kickboxing stance/guard, roundhouse kick (body/head), low kick to the thigh, teep (push kick), shin check, and punch-kick combination flow. Punch mechanics reuse the boxing KB (USA Boxing sources). Knees/elbows/clinch not yet covered.",
+  "source_gap_notes": "Only ~9 strong sources: roundhouse-kick biomechanics and kickboxing match analysis are well studied, but teep and shin-check cues rely on tier-2/3 coaching resources (Evolve University; Muay Thai Bible). WAKO coaching manuals are not publicly available (rules only).",
+  "sources": [
+    {
+      "id": "KB1",
+      "name": "Gavagan CJ, Sayers MGL - Biomechanical analysis of the roundhouse kick of expert practitioners: Muay Thai vs Karate vs Taekwondo (PLOS One 2017)",
+      "type": "peer_reviewed",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0182645",
+      "author_or_org": "Gavagan CJ, Sayers MGL",
+      "year": 2017,
+      "credibility": "3D motion capture of experts; Muay Thai kick characterized by rapid forward pelvic axial rotation, hip abduction/flexion, knee extension and forward COM movement.",
+      "verification": "search_snippet",
+      "covers": [
+        "roundhouse kick",
+        "pelvis rotation"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB2",
+      "name": "Kinematic Comparison of the Roundhouse Kick (J Strength Cond Res 2021)",
+      "type": "peer_reviewed",
+      "url": "https://journals.lww.com/nsca-jscr/fulltext/2021/01000/kinematic_comparison_of_the_roundhouse_kick.28.aspx",
+      "author_or_org": null,
+      "year": 2021,
+      "credibility": "NSCA journal; Muay Thai showed greater peak hip angular velocity with a shorter body-to-target distance than Taekwondo/Karate.",
+      "verification": "search_snippet",
+      "covers": [
+        "roundhouse kick",
+        "hip velocity",
+        "distance"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB3",
+      "name": "Lower limb kinematics during roundhouse kick among novices in Muay Thai (J Fundamental and Applied Sciences)",
+      "type": "peer_reviewed",
+      "url": "https://www.ajol.info/index.php/jfas/article/view/165914",
+      "author_or_org": null,
+      "year": null,
+      "credibility": "Novice roundhouse kinematics - useful for typical beginner patterns.",
+      "verification": "search_snippet",
+      "covers": [
+        "roundhouse kick",
+        "novices"
+      ],
+      "usage_note": "Background: describes novice kicking patterns; not cited for a specific item."
+    },
+    {
+      "id": "KB4",
+      "name": "Ouergui I et al. - Technical and tactical analysis of high level kickboxing matches (Int J Performance Analysis in Sport 2013)",
+      "type": "peer_reviewed",
+      "url": "https://ideas.repec.org/a/taf/rpanxx/v13y2013i2p294-309.html",
+      "author_or_org": "Ouergui I et al.",
+      "year": 2013,
+      "credibility": "45 elite matches: straight punches, roundhouse kicks, blocks/parries and foot defense most frequent; winners used more hooks, foot defense, clinches and combinations.",
+      "verification": "search_snippet",
+      "covers": [
+        "tactics",
+        "technique frequency",
+        "combinations"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB5",
+      "name": "Kickboxing review: anthropometric, psychophysiological and activity profiles and injury epidemiology (Biology of Sport, PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5424459/",
+      "author_or_org": "Slimani M et al.",
+      "year": 2017,
+      "credibility": "Review of kickboxing demands (aerobic/anaerobic power, limb power, activity:rest ratios) and injuries.",
+      "verification": "search_snippet",
+      "covers": [
+        "physical demands",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB6",
+      "name": "Time-Motion Analysis of Elite Male Kickboxing Competition (J Strength Cond Res)",
+      "type": "peer_reviewed",
+      "url": "https://paulogentil.com/pdf/Time-Motion%20Analysis%20of%20Elite%20Male%20Kickboxing%20Competition.pdf",
+      "author_or_org": "Ouergui I et al.",
+      "year": 2014,
+      "credibility": "Activity/rest structure of elite bouts - informs drill work:rest design.",
+      "verification": "search_snippet",
+      "covers": [
+        "conditioning",
+        "work:rest"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB7",
+      "name": "WAKO Low Kick Rules v17.4 (WAKO USA)",
+      "type": "international_federation",
+      "url": "https://wakousa.org/wp-content/uploads/2025/05/Low-Kick-Rules.pdf",
+      "author_or_org": "WAKO",
+      "year": 2025,
+      "credibility": "World Association of Kickboxing Organizations rules: legal targets (e.g., low kicks to the thigh) and scoring.",
+      "verification": "search_snippet",
+      "covers": [
+        "rules",
+        "legal targets"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB8",
+      "name": "Evolve University - 4 Tips For A Powerful Muay Thai Roundhouse Kick",
+      "type": "elite_coach_academy",
+      "url": "https://evolve-university.com/blog/4-tips-for-a-powerful-muay-thai-roundhouse-kick/",
+      "author_or_org": "Evolve University",
+      "year": null,
+      "credibility": "Evolve MMA (Singapore) Muay Thai world-champion instructors; step-and-pivot, arm action, drive-through cues.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "roundhouse kick",
+        "base",
+        "pivot",
+        "arm action"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB9",
+      "name": "Evolve University - Muay Thai Fundamentals course",
+      "type": "elite_coach_academy",
+      "url": "https://evolve-university.com/courses/muay-thai/albums/muay-thai-fundamentals/",
+      "author_or_org": "Evolve University",
+      "year": null,
+      "credibility": "Course outline taught by Muay Thai world champions: stance, footwork, kicks, punches, knees, elbows, defense.",
+      "verification": "search_snippet",
+      "covers": [
+        "stance",
+        "kicks",
+        "defense"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB10",
+      "name": "Muay Thai Bible - Shin Block / Check and Teep as Defense technique guides",
+      "type": "coaching_website",
+      "url": "https://www.muaythaibible.com/techniques/shin-block-check",
+      "author_or_org": null,
+      "year": null,
+      "credibility": "Community technique encyclopedia; used ONLY for teep/check cues where tier-1 sources were not found. Tier 3.",
+      "verification": "search_snippet",
+      "covers": [
+        "check",
+        "teep"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "KB11",
+      "name": "USA Boxing - The Sweet Science 101",
+      "type": "governing_body",
+      "url": "https://d36m266ykvepgv.cloudfront.net/uploads/media/U3ycXujQ3J/o/the-sweet-science-101.pdf",
+      "author_or_org": "USA Boxing",
+      "year": null,
+      "credibility": "Used for punch mechanics inside kickboxing combinations (see boxing KB).",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "punches"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "kb-stance",
+      "name": "Kickboxing stance and guard",
+      "category": "fundamentals",
+      "recommended_camera": "Front and side views, full body.",
+      "phases": [
+        "stance",
+        "guard"
+      ],
+      "checkpoints": [
+        {
+          "id": "kb-stance-c01",
+          "description": "Balanced base: one foot ahead of the other, hips more square to the opponent than a boxing stance, light on the feet so either leg can kick or check.",
+          "phase": "stance",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "lead_hip",
+            "rear_hip"
+          ],
+          "measurable_angle_or_rule": "hip line ~20-45 deg to opponent (more square than boxing); weight roughly centered between feet",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "KB8",
+            "KB9"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-stance-c02",
+          "description": "Hands high protecting the head; elbows in to cover the body.",
+          "phase": "guard",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "nose",
+            "lead_elbow",
+            "rear_elbow"
+          ],
+          "measurable_angle_or_rule": "both wrists at or above chin height; elbows within ~1 fist of the torso",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "KB11",
+            "KB9"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "kb-stance-f01",
+          "name": "Too bladed / heavy on the lead leg",
+          "video_signs": "Side-on boxing stance with weight forward; lead thigh exposed to low kicks and slow to check.",
+          "correction_cue": "'Square up a little, weight centered - ready to lift either leg.'",
+          "why_it_matters": "A more square, centered stance allows quick checks and kicks off both legs.",
+          "drill_ids": [
+            "KB-D-CHECK-REACT"
+          ],
+          "source_ids": [
+            "KB8"
+          ]
+        }
+      ],
+      "drills": [],
+      "pro_tips": [
+        {
+          "tip": "A good base is the foundation for kick power - without it you feel unstable as weight shifts for the kick and are easier to sweep.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "KB8"
+          ]
+        },
+        {
+          "tip": "Elite kickboxing bouts run at roughly a 1:1 activity-to-rest ratio (national/amateur bouts ~1:2 to 1:5) - match pad-round work:rest to the athlete's competition level.",
+          "kind": "training",
+          "source_ids": [
+            "KB5",
+            "KB6"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "kb-roundhouse",
+      "name": "Roundhouse kick (body/head)",
+      "category": "kicks",
+      "recommended_camera": "Front view (as the opponent) and side view; 120-240 fps; also top-down if possible to measure pelvis rotation.",
+      "phases": [
+        "step-out",
+        "chamber / swing",
+        "impact",
+        "recovery"
+      ],
+      "checkpoints": [
+        {
+          "id": "kb-roundhouse-c01",
+          "description": "Step the lead (support) foot out at ~45 degrees before kicking, toward the outside of the opponent.",
+          "phase": "step-out",
+          "body_landmarks": [
+            "support_ankle",
+            "support_foot_index",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "support foot displaced laterally and turned out ~45 deg from the stance position before the kick",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "top",
+          "source_ids": [
+            "KB8"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "kb-roundhouse-c02",
+          "description": "Rise onto the ball of the support foot and pivot it so the heel turns toward the target.",
+          "phase": "swing",
+          "body_landmarks": [
+            "support_heel",
+            "support_foot_index"
+          ],
+          "measurable_angle_or_rule": "support heel lifts and rotates; support foot rotation ~90-180 deg from stance by impact",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "KB8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-roundhouse-c03",
+          "description": "Rapid forward pelvic axial rotation drives the kick (pelvis turns over), with hip abduction/flexion followed by knee extension.",
+          "phase": "swing",
+          "body_landmarks": [
+            "support_hip",
+            "kick_hip",
+            "kick_knee",
+            "kick_ankle"
+          ],
+          "measurable_angle_or_rule": "pelvis rotation (hip line) ~80-180 deg through the kick; peak pelvis rotation velocity precedes peak knee extension velocity",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "top",
+          "source_ids": [
+            "KB1",
+            "KB2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-roundhouse-c04",
+          "description": "Same-side arm swings down/back toward the kick for counterbalance while the opposite hand stays at the face.",
+          "phase": "swing",
+          "body_landmarks": [
+            "kick_side_wrist",
+            "support_side_wrist",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "non-kicking-side wrist within ~1 fist of the face during the kick",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "KB8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-roundhouse-c05",
+          "description": "Strike with the shin and drive through the target rather than stopping at it; return to a stable stance.",
+          "phase": "impact",
+          "body_landmarks": [
+            "kick_knee",
+            "kick_ankle"
+          ],
+          "measurable_angle_or_rule": "kicking leg continues past the target line after contact; feet return to stance width",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "KB8",
+            "KB1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "kb-roundhouse-f01",
+          "name": "Flat, planted support foot (no pivot)",
+          "video_signs": "Support heel stays on the floor and toes point at the opponent; kick stops short, knee feels torqued.",
+          "correction_cue": "'Up on the ball of the foot and turn the heel to the target.'",
+          "why_it_matters": "Without the pivot the hips can't turn over - less power and more knee strain.",
+          "drill_ids": [
+            "KB-D-PIVOT-WALL",
+            "KB-D-HEAVYBAG-RH"
+          ],
+          "source_ids": [
+            "KB8"
+          ]
+        },
+        {
+          "id": "kb-roundhouse-f02",
+          "name": "No hip turnover (snapping from the knee)",
+          "video_signs": "Kick is thrown like a flick from the knee with the hips square; little follow-through.",
+          "correction_cue": "'Turn the hips over - kick through, like swinging a bat.'",
+          "why_it_matters": "Pelvic rotation is the main power contributor in the Muay Thai kick.",
+          "drill_ids": [
+            "KB-D-HEAVYBAG-RH"
+          ],
+          "source_ids": [
+            "KB1",
+            "KB2",
+            "KB8"
+          ]
+        },
+        {
+          "id": "kb-roundhouse-f03",
+          "name": "Arm thrown backward / guard dropped",
+          "video_signs": "Kicking-side arm flings behind the body; opposite hand drops from the face.",
+          "correction_cue": "'Reach toward the kick; other glove on your cheek.'",
+          "why_it_matters": "A rear-flung arm pulls the shoulder out of alignment and exposes the head to counters.",
+          "drill_ids": [
+            "KB-D-PIVOT-WALL"
+          ],
+          "source_ids": [
+            "KB8"
+          ]
+        },
+        {
+          "id": "kb-roundhouse-f04",
+          "name": "Kicking from too far away / reaching",
+          "video_signs": "Athlete leans back and reaches with the foot instead of the shin.",
+          "correction_cue": "'Step in - land the shin, not the foot.'",
+          "why_it_matters": "Muay Thai kicks are thrown at a shorter distance to land the shin with full hip rotation.",
+          "drill_ids": [
+            "KB-D-HEAVYBAG-RH"
+          ],
+          "source_ids": [
+            "KB2"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "KB-D-PIVOT-WALL",
+          "name": "Step-and-pivot wall drill",
+          "origin": "adapted",
+          "setup": "Stand facing a wall or post, hands on it lightly for balance.",
+          "steps": [
+            "Step the support foot out 45 deg.",
+            "Rise onto the ball and pivot the heel toward the target while turning the hips over.",
+            "Swing the kicking leg slowly to target height and return.",
+            "Then repeat without the wall, adding the arm swing and guard."
+          ],
+          "dosage": "3 sets x 10 slow reps each side",
+          "fixes": "Flat support foot; arm thrown backward",
+          "why": "Removing the impact and speed lets the athlete groove the step-pivot-hip sequence that Evolve's coaches identify as essential for power.",
+          "equipment": [
+            "wall or post"
+          ],
+          "source_ids": [
+            "KB8"
+          ]
+        },
+        {
+          "id": "KB-D-HEAVYBAG-RH",
+          "name": "Heavy-bag kick-through drill",
+          "origin": "adapted",
+          "setup": "Heavy bag; mark a target line on the bag at body or thigh height.",
+          "steps": [
+            "Throw single roundhouse kicks, landing with the lower shin.",
+            "Kick 'through' the bag - imagine the target is behind it.",
+            "Return to stance and reset; then add a jab-cross before each kick."
+          ],
+          "dosage": "4 rounds x 2 min, alternating sides",
+          "fixes": "No hip turnover; kicking from too far",
+          "why": "Driving through a heavy target trains full pelvic rotation and correct striking distance under real impact.",
+          "equipment": [
+            "heavy bag",
+            "shin guards optional"
+          ],
+          "source_ids": [
+            "KB8",
+            "KB1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Muay Thai roundhouse experts generate the kick with rapid pelvis rotation and move their centre of mass forward into the target.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "KB1"
+          ]
+        },
+        {
+          "tip": "Muay Thai stylists showed greater peak hip angular velocity and a shorter body-to-target distance than Karate/Taekwondo stylists - close the range before kicking.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "KB2"
+          ]
+        },
+        {
+          "tip": "In elite kickboxing, straight punches and roundhouse kicks are the most frequently used techniques, and winners use more combinations - drill kicks at the end of punch combinations.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "KB4"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "kb-low-kick",
+      "name": "Low kick (roundhouse to the thigh)",
+      "category": "kicks",
+      "recommended_camera": "Front view and side view.",
+      "phases": [
+        "set-up",
+        "swing",
+        "impact",
+        "recovery"
+      ],
+      "checkpoints": [
+        {
+          "id": "kb-low-kick-c01",
+          "description": "Same hip-turnover mechanics as the roundhouse but aimed down at the thigh (between hip and knee); strike with the shin.",
+          "phase": "impact",
+          "body_landmarks": [
+            "kick_knee",
+            "kick_ankle",
+            "opponent_thigh"
+          ],
+          "measurable_angle_or_rule": "impact point above the opponent's knee and below the hip (WAKO low-kick legal target); kicking shin roughly horizontal-to-downward",
+          "rule_basis": "rules",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "KB7",
+            "KB8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-low-kick-c02",
+          "description": "Hands stay up during the kick; often set up behind punches.",
+          "phase": "swing",
+          "body_landmarks": [
+            "support_side_wrist",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "opposite wrist at face during kick",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "KB8",
+            "KB4"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "kb-low-kick-f01",
+          "name": "Kicking with the foot/instep at close range",
+          "video_signs": "Contact made with the foot or ankle instead of the shin.",
+          "correction_cue": "'Shin, not foot - step in.'",
+          "why_it_matters": "The foot is fragile and easily checked; the shin is the striking surface.",
+          "drill_ids": [
+            "KB-D-HEAVYBAG-RH"
+          ],
+          "source_ids": [
+            "KB8"
+          ]
+        },
+        {
+          "id": "kb-low-kick-f02",
+          "name": "Telegraphed low kick",
+          "video_signs": "Kick thrown alone from a static stance, with an obvious step.",
+          "correction_cue": "'Hide it behind punches: 1-2, low kick.'",
+          "why_it_matters": "Unset-up kicks are easily checked or countered.",
+          "drill_ids": [
+            "KB-D-COMBO"
+          ],
+          "source_ids": [
+            "KB4"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "KB-D-COMBO",
+          "name": "Jab-cross-low kick combination flow",
+          "origin": "adapted",
+          "setup": "Pad holder with Thai pads, or heavy bag.",
+          "steps": [
+            "Jab, cross, then low kick with the side the cross loaded.",
+            "Return to stance with guard up.",
+            "Pad holder occasionally returns a jab to check the guard."
+          ],
+          "dosage": "4 rounds x 2 min; work:rest matched to bout demands",
+          "fixes": "Telegraphed kicks; dropped guard",
+          "why": "Punch-kick flows mirror the combination patterns used by winning elite kickboxers and make kicks harder to read.",
+          "equipment": [
+            "Thai pads or heavy bag"
+          ],
+          "source_ids": [
+            "KB4",
+            "KB6"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Check the legal target for your rule set: WAKO low-kick rules permit kicks to the thigh; full-contact rules do not.",
+          "kind": "rules",
+          "source_ids": [
+            "KB7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "kb-teep",
+      "name": "Teep (push kick)",
+      "category": "kicks",
+      "recommended_camera": "Side view.",
+      "phases": [
+        "chamber",
+        "extension",
+        "retraction"
+      ],
+      "checkpoints": [
+        {
+          "id": "kb-teep-c01",
+          "description": "Lift the knee first (chamber), then extend through the ball of the foot into the hips/abdomen; keep the hands high.",
+          "phase": "extension",
+          "body_landmarks": [
+            "kick_hip",
+            "kick_knee",
+            "kick_ankle",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "knee rises to roughly hip height before extension; hip extension on impact",
+          "rule_basis": "coaching_website",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "KB10"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-teep-c02",
+          "description": "Retract immediately and return to stance.",
+          "phase": "retraction",
+          "body_landmarks": [
+            "kick_ankle"
+          ],
+          "measurable_angle_or_rule": "foot returns to stance position quickly (< ~0.5 s after impact)",
+          "rule_basis": "coaching_website",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "KB10"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "kb-teep-f01",
+          "name": "Leaning far back / pushing without chamber",
+          "video_signs": "Leg extends without knee lift; torso leans back heavily.",
+          "correction_cue": "'Knee up first, then push through the target.'",
+          "why_it_matters": "Without a chamber the kick is weak and easily caught.",
+          "drill_ids": [
+            "KB-D-TEEP-PAD"
+          ],
+          "source_ids": [
+            "KB10"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "KB-D-TEEP-PAD",
+          "name": "Teep-on-entry pad drill",
+          "origin": "adapted",
+          "setup": "Pad holder with a belly pad/kick shield steps forward at random.",
+          "steps": [
+            "Kicker in stance; holder steps in.",
+            "Kicker lifts the lead knee first, then teeps into the pad with the ball of the foot, hands high.",
+            "Retract immediately to stance; alternate lead and rear teeps."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Leaning back / no chamber",
+          "why": "Timing the teep to the holder's entry rehearses its main job - stopping forward pressure - while the chamber cue keeps it strong.",
+          "equipment": [
+            "belly pad or kick shield"
+          ],
+          "source_ids": [
+            "KB10"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Use the teep to stop forward pressure and measure range (tier-3 source; verify with your coach's system).",
+          "kind": "pro_tip",
+          "source_ids": [
+            "KB10"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "kb-check",
+      "name": "Shin check (low-kick defense)",
+      "category": "defense",
+      "recommended_camera": "Front view.",
+      "phases": [
+        "read",
+        "lift",
+        "reset"
+      ],
+      "checkpoints": [
+        {
+          "id": "kb-check-c01",
+          "description": "Read the hip/shoulder turn, lift the targeted leg's knee and turn the shin outward so the shin meets the kick; hands stay at the chin.",
+          "phase": "lift",
+          "body_landmarks": [
+            "lead_knee",
+            "lead_ankle",
+            "lead_hip",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "checking knee lifts to ~hip height and angles outward; wrists remain at face",
+          "rule_basis": "coaching_website",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "KB10"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "kb-check-c02",
+          "description": "Supporting leg stays slightly bent; reset to stance immediately.",
+          "phase": "lift",
+          "body_landmarks": [
+            "rear_knee"
+          ],
+          "measurable_angle_or_rule": "support knee angle < ~170 deg during the check",
+          "rule_basis": "coaching_website",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "KB10"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "kb-check-f01",
+          "name": "Late lift / dropped guard / straight support leg",
+          "video_signs": "Knee lifts after the kick lands; hands drop; support leg locked.",
+          "correction_cue": "'Lift early, hands home, soft support knee.'",
+          "why_it_matters": "Late checks take the full kick; dropped hands invite punches.",
+          "drill_ids": [
+            "KB-D-CHECK-REACT"
+          ],
+          "source_ids": [
+            "KB10"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "KB-D-CHECK-REACT",
+          "name": "Reaction check drill",
+          "origin": "adapted",
+          "setup": "Partner with shin guards throws light low kicks at random intervals.",
+          "steps": [
+            "Defender stands in stance.",
+            "On the partner's hip turn, lift and check.",
+            "Return a cross or low kick immediately after the check."
+          ],
+          "dosage": "3 rounds x 2 min, light contact",
+          "fixes": "Late check; heavy lead leg; dropped guard",
+          "why": "Random, light kicks train reading the hip turn and reacting early, then link the check to a counter.",
+          "equipment": [
+            "shin guards",
+            "gloves"
+          ],
+          "source_ids": [
+            "KB10"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Foot defense (checks/evasions) was more frequent among winners in elite kickboxing matches.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "KB4"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

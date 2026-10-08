@@ -1,0 +1,757 @@
+{
+  "sport": "Sprinting (track)",
+  "sport_id": "sprinting",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers the block start/set position, acceleration (first ~10-30 m) and maximal-velocity mechanics incl. arm action. Bend running, relays and hurdles are not covered.",
+  "source_gap_notes": "Well supported by peer-reviewed reviews (sprint start, acceleration, max velocity) and World Athletics biomechanics reports; drill content comes from Vince Anderson (Texas A&M / USATF coaching education) and SimpliFaster. USATF coach-education manuals themselves are not freely available online.",
+  "sources": [
+    {
+      "id": "SP1",
+      "name": "Bezodis NE, Willwacher S, Salo AIT - The Biomechanics of the Track and Field Sprint Start: A Narrative Review (Sports Medicine 2019)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6684547/",
+      "author_or_org": "Bezodis NE et al.",
+      "year": 2019,
+      "credibility": "Authoritative review of block set-up, block phase and first steps.",
+      "verification": "search_snippet",
+      "covers": [
+        "block start",
+        "set position",
+        "first steps"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP2",
+      "name": "Biomechanical Performance Factors in the Track and Field Sprint Start: A Systematic Review (IJERPH 2022)",
+      "type": "peer_reviewed",
+      "url": "https://www.mdpi.com/1660-4601/19/7/4074",
+      "author_or_org": null,
+      "year": 2022,
+      "credibility": "Systematic review: rapid hip extension, strong rear-leg force, short first flight and longer first stance associated with better starts.",
+      "verification": "search_snippet",
+      "covers": [
+        "block start"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP3",
+      "name": "Alt T et al. - A novel guideline for the analysis of linear acceleration mechanics: 'shin roll' (Sports Biomechanics 2022)",
+      "type": "peer_reviewed",
+      "url": "https://www.tandfonline.com/doi/abs/10.1080/14763141.2022.2094827",
+      "author_or_org": "Alt T et al.",
+      "year": 2022,
+      "credibility": "Conceptual framework with 4 key positions (shin block, touchdown, heel lock, propulsion pose) for sagittal video analysis of acceleration.",
+      "verification": "search_snippet",
+      "covers": [
+        "acceleration",
+        "shin angle",
+        "video analysis"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP4",
+      "name": "Sportsmith - 'Shin roll' and its importance in acceleration (interview with Tobias Alt)",
+      "type": "practitioner_article",
+      "url": "https://www.sportsmith.co/articles/shin-roll-acceleration/",
+      "author_or_org": "Tobias Alt",
+      "year": null,
+      "credibility": "Author of SP3 explains assessment (>=100 fps, camera 6-10 m away), drills and cues.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "acceleration",
+        "video setup",
+        "cues"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP5",
+      "name": "Haugen T et al. - The Training and Development of Elite Sprint Performance (Sports Medicine - Open 2019)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6872694/",
+      "author_or_org": "Haugen T et al.",
+      "year": 2019,
+      "credibility": "Integrates science and best practice: max velocity determinants, training doses (e.g., 20-40 m flying sprints).",
+      "verification": "search_snippet",
+      "covers": [
+        "max velocity",
+        "training"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP6",
+      "name": "Haugen T, McGhie D, Ettema G - Sprint running: from fundamental mechanics to practice - a review (Eur J Appl Physiol 2019)",
+      "type": "peer_reviewed",
+      "url": "https://doi.org/10.1007/s00421-019-04139-0",
+      "author_or_org": "Haugen T et al.",
+      "year": 2019,
+      "credibility": "Review of sprint mechanics (ground contact, step rate/length, force application). DOI from SP4's reference list.",
+      "verification": "search_snippet",
+      "covers": [
+        "mechanics"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP7",
+      "name": "Morin JB, Edouard P, Samozino P - Technical ability of force application as a determinant of sprint performance (MSSE 2011)",
+      "type": "peer_reviewed",
+      "url": "https://doi.org/10.1249/MSS.0b013e318216ea37",
+      "author_or_org": "Morin JB et al.",
+      "year": 2011,
+      "credibility": "Ability to orient ground force horizontally distinguishes better accelerators. DOI from SP4's reference list.",
+      "verification": "search_snippet",
+      "covers": [
+        "acceleration",
+        "force orientation"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP8",
+      "name": "Vince Anderson - Three Foundational Exercises Explained (Ins & Outs, Acceleration/Stick drill, V-Max Wicket drill)",
+      "type": "elite_coach",
+      "url": "https://na.eventscloud.com/file_uploads/efc2b25033817ef7bbe7d50e90c45fa7_VinceAnderson-ThreeImportantExercisesExplained.pdf",
+      "author_or_org": "Vince Anderson",
+      "year": 2019,
+      "credibility": "Texas A&M sprint/hurdle coach; originator of the modern wicket drill; USATF Level 2 school lineage.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "wickets",
+        "stick drill",
+        "cues",
+        "spacing"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP9",
+      "name": "SimpliFaster - How to Improve Front-Side Mechanics and Force Production with the Wicket Drill",
+      "type": "practitioner_article",
+      "url": "https://simplifaster.com/articles/wicket-drill/",
+      "author_or_org": "SimpliFaster",
+      "year": null,
+      "credibility": "Widely read coaching publication; wicket drill set-up and rationale.",
+      "verification": "search_snippet",
+      "covers": [
+        "wickets",
+        "front-side mechanics"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SP10",
+      "name": "World Athletics - Biomechanical Report, Men's 100m, 2017 IAAF World Championships London",
+      "type": "international_federation",
+      "url": "https://worldathletics.org/download/download?filename=51b04ff3-8549-4747-b066-5bd77aeaee38.pdf&urlslug=Men%27s+100m+-+2017+IAAF+World+Championships+Biomechanical+report",
+      "author_or_org": "World Athletics (Leeds Beckett biomechanics team)",
+      "year": 2017,
+      "credibility": "Official step length/frequency data for elite finalists.",
+      "verification": "search_snippet",
+      "covers": [
+        "step length",
+        "step frequency"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "sp-block-start",
+      "name": "Block start and set position",
+      "category": "start",
+      "recommended_camera": "Side view, camera perpendicular at hip height ~6-10 m away, >=100 fps (ideally 240).",
+      "phases": [
+        "on your marks",
+        "set",
+        "block clearance",
+        "first steps"
+      ],
+      "checkpoints": [
+        {
+          "id": "sp-block-start-c01",
+          "description": "Set position: hips rise slightly above shoulder height; shoulders over or slightly in front of the hands; weight forward onto the hands.",
+          "phase": "set",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "lead_wrist"
+          ],
+          "measurable_angle_or_rule": "hip height > shoulder height; shoulder x-position at or ahead of wrists",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-block-start-c02",
+          "description": "Front-leg knee roughly 90 deg and rear-leg knee more open (~110-135 deg) in the set position (commonly reported ranges; individualize).",
+          "phase": "set",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "lead_ankle",
+            "rear_hip",
+            "rear_knee",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "front knee ~85-100 deg; rear knee ~110-135 deg",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-block-start-c03",
+          "description": "Block clearance: forceful extension pushing BOTH blocks, rapid hip extension and a strong rear-leg push.",
+          "phase": "block clearance",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "rear_knee",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "front leg reaches near-full extension at block exit; trunk forms a straight line with the push leg",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP2",
+            "SP1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-block-start-c04",
+          "description": "First steps are short with a low flight time and a relatively long first stance; feet land behind/under the hips, not out in front.",
+          "phase": "first steps",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "first touchdown foot position at or behind the hip vertical; short flight before first contact",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP2",
+            "SP1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sp-block-start-f01",
+          "name": "Popping up out of the blocks",
+          "video_signs": "Trunk rises quickly to upright in the first 1-2 steps; head lifts.",
+          "correction_cue": "'Push, don't jump - stay low and let the body rise gradually.'",
+          "why_it_matters": "Rising early directs force vertically instead of horizontally.",
+          "drill_ids": [
+            "SP-D-STICK",
+            "SP-D-BLOCK-3STEP"
+          ],
+          "source_ids": [
+            "SP1",
+            "SP4"
+          ]
+        },
+        {
+          "id": "sp-block-start-f02",
+          "name": "Reaching first step",
+          "video_signs": "First foot lands well in front of the hips; braking visible.",
+          "correction_cue": "'Step down under the hips - piston the legs.'",
+          "why_it_matters": "Landing in front of the centre of mass creates braking.",
+          "drill_ids": [
+            "SP-D-STICK",
+            "SP-D-BLOCK-3STEP"
+          ],
+          "source_ids": [
+            "SP2"
+          ]
+        },
+        {
+          "id": "sp-block-start-f03",
+          "name": "Weak rear-leg push / single-leg start",
+          "video_signs": "Rear foot leaves the block almost immediately with little push.",
+          "correction_cue": "'Push both blocks.'",
+          "why_it_matters": "Rear-leg force contributes significantly to block velocity.",
+          "drill_ids": [
+            "SP-D-BLOCK-3STEP"
+          ],
+          "source_ids": [
+            "SP2",
+            "SP1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SP-D-BLOCK-3STEP",
+          "name": "Block clearance to 3-5 steps",
+          "origin": "adapted",
+          "setup": "Blocks set to the athlete's measured spacing; film from the side at >=100 fps.",
+          "steps": [
+            "Set position: check hips above shoulders, knee angles.",
+            "On the command, push BOTH blocks and drive out low.",
+            "Run only 3-5 steps, focusing on feet landing under/behind the hips.",
+            "Review video for block exit posture and first-step placement."
+          ],
+          "dosage": "6-8 reps, full recovery (~2-3 min)",
+          "fixes": "Popping up; reaching first step; weak rear-leg push",
+          "why": "Short reps keep quality maximal on the variables reviews associate with good starts: strong push from both legs, short first flight, feet landing behind the hips.",
+          "equipment": [
+            "starting blocks"
+          ],
+          "source_ids": [
+            "SP2",
+            "SP1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Different whole-body strategies can produce similar start times - use the research ranges as guides, not rigid rules.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SP1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sp-acceleration",
+      "name": "Acceleration (drive phase)",
+      "category": "acceleration",
+      "recommended_camera": "Side view, perpendicular, camera 6-10 m away, >=100 fps (per Alt/Sportsmith).",
+      "phases": [
+        "shin block",
+        "touchdown",
+        "heel lock",
+        "propulsion pose"
+      ],
+      "checkpoints": [
+        {
+          "id": "sp-acceleration-c01",
+          "description": "Forward lean that rises gradually over the first ~10-30 m; push leg, trunk and head roughly in line at toe-off.",
+          "phase": "propulsion pose",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "nose",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "trunk lean from vertical decreases progressively step by step (e.g., ~45 deg at step 1 rising toward upright by ~30 m)",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP1",
+            "SP3"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-acceleration-c02",
+          "description": "Shin roll: the shin rotates forward progressively from late swing (shin block) through stance to the propulsion pose; positive (forward-inclined) shin angle at touchdown in early steps.",
+          "phase": "touchdown",
+          "body_landmarks": [
+            "swing_knee",
+            "swing_ankle",
+            "stance_knee",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "shin-to-ground angle decreases from shin block -> touchdown -> heel lock -> propulsion pose; measure at each key frame",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP3",
+            "SP4"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-acceleration-c03",
+          "description": "Foot touches down near/under (slightly behind) the centre of mass in early steps, minimizing braking.",
+          "phase": "touchdown",
+          "body_landmarks": [
+            "stance_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "touchdown ankle at or slightly behind the hip vertical during the first ~6-8 steps",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP3",
+            "SP7"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-acceleration-c04",
+          "description": "Big, aggressive arm action ('hard splits with the hands').",
+          "phase": null,
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "lead_shoulder",
+            "rear_shoulder"
+          ],
+          "measurable_angle_or_rule": "large shoulder flexion/extension amplitude; hands don't cross the midline",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP8"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sp-acceleration-f01",
+          "name": "Overstriding / reaching in acceleration",
+          "video_signs": "Foot lands well in front of the hips with the shin vertical or angled back.",
+          "correction_cue": "'Push the ground behind you - rock and roll.'",
+          "why_it_matters": "Reaching causes braking and wastes the horizontal force needed to accelerate.",
+          "drill_ids": [
+            "SP-D-STICK",
+            "SP-D-KNIGHT"
+          ],
+          "source_ids": [
+            "SP3",
+            "SP4"
+          ]
+        },
+        {
+          "id": "sp-acceleration-f02",
+          "name": "Excessive vertical bounce",
+          "video_signs": "Hips rise quickly; looks like bounding upward rather than driving forward.",
+          "correction_cue": "'Horizontal bounce - grow down the track.'",
+          "why_it_matters": "Accelerating requires patience to rotate the COM forward rather than lifting it.",
+          "drill_ids": [
+            "SP-D-STICK"
+          ],
+          "source_ids": [
+            "SP4",
+            "SP8"
+          ]
+        },
+        {
+          "id": "sp-acceleration-f03",
+          "name": "Bent-at-the-waist lean",
+          "video_signs": "Lean comes from hip flexion (bent over) rather than a straight line from ankle to head.",
+          "correction_cue": "'Lean from the ankles - straight line from heel to head.'",
+          "why_it_matters": "Posture before power: forces can only be expressed well if segments are aligned.",
+          "drill_ids": [
+            "SP-D-KNIGHT"
+          ],
+          "source_ids": [
+            "SP4"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SP-D-STICK",
+          "name": "Acceleration 'stick' (tape) drill",
+          "origin": "from_source",
+          "setup": "Lay sticks/tape marks starting ~0.65 m from the start line and increasing ~0.15 m per stride (adjust to the athlete). Provide 2-3 lanes with different spacings.",
+          "steps": [
+            "Start from a crouch or 3-point stance.",
+            "Accelerate hitting each space with a push, not a reach.",
+            "Ask: 'Where did you feel yourself stop pushing and start running?'",
+            "Progress from grass to track, flats to spikes, then add resistance/hills."
+          ],
+          "dosage": "2-3 x (10, 20, 30 m); total 120-300 m; rest ~1 min per 10 m",
+          "fixes": "Overstriding; vertical bounce; popping up",
+          "why": "Marks enforce progressively lengthening steps so the athlete must push longer and harder instead of reaching - Anderson describes it as a measurable 'push harder and push longer' drill.",
+          "equipment": [
+            "sticks or tape"
+          ],
+          "source_ids": [
+            "SP8"
+          ]
+        },
+        {
+          "id": "SP-D-KNIGHT",
+          "name": "Elevated knight-to-tripod shin-roll drill",
+          "origin": "from_source",
+          "setup": "Half-kneeling (elevated knight) position, then into a tripod.",
+          "steps": [
+            "Start in an elevated half-kneeling lunge with hip extensors pre-activated.",
+            "Rock forward over the front foot (ankle rocker) as the shin rolls forward.",
+            "Move into the elevated tripod position slowly.",
+            "Then perform short wall drills / resisted marches emphasizing the same shin roll."
+          ],
+          "dosage": "3 sets x 4-6 slow reps per side",
+          "fixes": "Bent-at-the-waist lean; overstriding",
+          "why": "Slow, controlled practice of the shin roll and ankle rocker teaches the rotation-then-extension pattern before adding speed (from Alt's framework).",
+          "equipment": [
+            "box or bench optional"
+          ],
+          "source_ids": [
+            "SP4",
+            "SP3"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Film acceleration at >=100 fps with the camera 6-10 m away to reduce perspective distortion, and compare key positions between legs to spot asymmetries.",
+          "kind": "video_setup",
+          "source_ids": [
+            "SP4"
+          ]
+        },
+        {
+          "tip": "Cue 'rock 'n' roll' (ankle rocker + shin roll) or 'kick your swing foot through your stance knee' to promote forward shin rotation.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SP4"
+          ]
+        },
+        {
+          "tip": "Better accelerators orient their ground force more horizontally - technique of force application matters, not just strength.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SP7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sp-max-velocity",
+      "name": "Maximal velocity mechanics",
+      "category": "max_velocity",
+      "recommended_camera": "Side view, perpendicular, at 30-60 m mark, >=120 fps; panning or fixed camera ~10 m away.",
+      "phases": [
+        "touchdown",
+        "stance",
+        "toe-off",
+        "swing / recovery"
+      ],
+      "checkpoints": [
+        {
+          "id": "sp-max-velocity-c01",
+          "description": "Tall posture ('sprint tall'): hips high, trunk near vertical, head neutral.",
+          "phase": "stance",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "nose",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "trunk within ~5-10 deg of vertical; hip height at mid-stance close to standing hip height",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP8",
+            "SP9"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-max-velocity-c02",
+          "description": "Step down from above: foot strikes the ground close to under the hips rather than reaching out in front.",
+          "phase": "touchdown",
+          "body_landmarks": [
+            "stance_ankle",
+            "mid_hip",
+            "swing_knee"
+          ],
+          "measurable_angle_or_rule": "horizontal distance from touchdown ankle to hip vertical small (e.g., < ~30-40 cm at elite speeds); shin near vertical at touchdown",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP8",
+            "SP9"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-max-velocity-c03",
+          "description": "Short ground contact time and high step rate characterize maximal velocity; elite athletes balance step length and frequency differently.",
+          "phase": "stance",
+          "body_landmarks": [
+            "stance_ankle",
+            "swing_ankle"
+          ],
+          "measurable_angle_or_rule": "ground contact roughly 0.08-0.11 s at elite speeds (measure frames on/off); step frequency ~4.3-5.0 Hz in elite 100 m finalists",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SP5",
+            "SP6",
+            "SP10"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "sp-max-velocity-c04",
+          "description": "Front-side mechanics: the swing thigh comes through quickly and high in front while the back-side kick is limited.",
+          "phase": "swing",
+          "body_landmarks": [
+            "swing_hip",
+            "swing_knee",
+            "stance_hip"
+          ],
+          "measurable_angle_or_rule": "swing thigh approaches ~horizontal in front at toe-off of the opposite leg",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SP9",
+            "SP8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sp-max-velocity-c05",
+          "description": "Relaxed, linear arm action from the shoulder; hands don't cross the midline.",
+          "phase": null,
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "lead_shoulder",
+            "rear_shoulder"
+          ],
+          "measurable_angle_or_rule": "wrists stay on their own side of the body midline in the front view",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SP8"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sp-max-velocity-f01",
+          "name": "Overstriding at top speed",
+          "video_signs": "Foot reaches out ahead of the body with a long, braking contact.",
+          "correction_cue": "'Step down from above - not out.'",
+          "why_it_matters": "Anderson designed the wicket drill as a reaction to 'epidemic overstriding'.",
+          "drill_ids": [
+            "SP-D-WICKET"
+          ],
+          "source_ids": [
+            "SP8",
+            "SP9"
+          ]
+        },
+        {
+          "id": "sp-max-velocity-f02",
+          "name": "Sitting / low hips (back-side mechanics)",
+          "video_signs": "Hips sink, trunk leans forward or back, long backside recovery behind the body.",
+          "correction_cue": "'Sprint tall - hips high.'",
+          "why_it_matters": "A collapsed posture lengthens ground contact and reduces force application.",
+          "drill_ids": [
+            "SP-D-WICKET",
+            "SP-D-INOUT"
+          ],
+          "source_ids": [
+            "SP8"
+          ]
+        },
+        {
+          "id": "sp-max-velocity-f03",
+          "name": "Tension and crossing arms",
+          "video_signs": "Shoulders shrugged, fists clenched, arms swinging across the body.",
+          "correction_cue": "'Relax the face and shoulders; hands cheek to hip.'",
+          "why_it_matters": "Tension slows limb turnover; crossing arms creates rotation.",
+          "drill_ids": [
+            "SP-D-INOUT"
+          ],
+          "source_ids": [
+            "SP8"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SP-D-WICKET",
+          "name": "V-Max wicket drill (Vince Anderson)",
+          "origin": "from_source",
+          "setup": "6-inch mini-hurdles/slats placed with progressive spacing after a run-in (e.g., ~3'11\" building to 5'5\" wicket spacing for younger/developing athletes; ~4'4\" to 5'10\" for faster). Provide 2-3 lanes with different spacings.",
+          "steps": [
+            "Accelerate through a 6-stride run-in into tall sprint posture BEFORE the wickets.",
+            "Run the wickets stepping down from above; don't look down - feel and listen.",
+            "Keep getting more; don't settle.",
+            "Run out past the last wicket to transfer the pattern."
+          ],
+          "dosage": "Start 2 x (12, 14, 16 strides), progress to 6 x 18 strides; 4-6 reps/session, 2-4 sessions/week; rest 2-3 min",
+          "fixes": "Overstriding; sitting; low hips",
+          "why": "Spacing forces a set step length so athletes must step down under the body with good posture; Anderson cites 18 strides in ~3.65 s as excellent proficiency.",
+          "equipment": [
+            "6-in mini hurdles or slats",
+            "tape measure"
+          ],
+          "source_ids": [
+            "SP8",
+            "SP9"
+          ]
+        },
+        {
+          "id": "SP-D-INOUT",
+          "name": "Ins and Outs",
+          "origin": "from_source",
+          "setup": "Cone zones: ~25 m acceleration, then alternating 'in' (max) and 'out' (maintain) zones of 10-15 m (e.g., 70 m: 25 acc / 15 in / 15 out / 15 in).",
+          "steps": [
+            "Accelerate aggressively.",
+            "'In' zones: maximal sprint.",
+            "'Out' zones: keep posture and rhythm/frequency, reduce only force into the ground ('freewheel' downhill).",
+            "Finish and coast."
+          ],
+          "dosage": "2-3 x 70 m to start; 70-120 m, 2-6 reps; rest 5-10 min; introduce 6-7 weeks into training",
+          "fixes": "Sitting; tension",
+          "why": "Alternating intensities while holding posture and frequency teaches relaxation at speed and posture retention.",
+          "equipment": [
+            "cones"
+          ],
+          "source_ids": [
+            "SP8"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Elite 100 m finalists differ: in the London 2017 final Bolt averaged ~2.70 m steps at ~4.39 Hz while Coleman averaged ~2.33 m at ~4.95 Hz - there is no single ideal combination.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SP10"
+          ]
+        },
+        {
+          "tip": "Maximal velocity is a major determinant of 100 m performance; it's trained with flying sprints (e.g., 20-40 m run-in, 10-30 m fly) and long recoveries.",
+          "kind": "training",
+          "source_ids": [
+            "SP5"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

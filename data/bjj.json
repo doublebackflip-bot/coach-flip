@@ -1,0 +1,887 @@
+{
+  "sport": "Brazilian Jiu-Jitsu (BJJ)",
+  "sport_id": "bjj",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers posture in closed guard (top), guard retention / hip escape (shrimp), trap-and-roll (upa) mount escape, armbar from closed guard, triangle choke, guard passing fundamentals and the technical stand-up. Leg locks are covered only as a safety note.",
+  "source_gap_notes": "Fewer than 10 strong technique sources: peer-reviewed BJJ research is mostly injury epidemiology plus one armlock kinematics study; technique cues come from Gracie University, John Danaher (via BJJ Fanatics/BJJ Universe summaries) and Grapplearts. Many top instructionals are paywalled, so only public summaries were used. Video analysis of BJJ is harder for 2D pose models (two entangled bodies, gi occlusion).",
+  "sources": [
+    {
+      "id": "BJ1",
+      "name": "IBJJF Rule Book (v6, 2024) and Books & Videos page",
+      "type": "international_federation",
+      "url": "https://ibjjf.com/books-videos/",
+      "author_or_org": "IBJJF",
+      "year": 2024,
+      "credibility": "International BJJ Federation official rules incl. illegal techniques by age and belt.",
+      "verification": "search_snippet",
+      "covers": [
+        "rules",
+        "illegal techniques",
+        "safety"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ2",
+      "name": "Gracie University - public lessons and Gracie Combatives curriculum (incl. trap-and-roll, technical stand-up)",
+      "type": "elite_coach_academy",
+      "url": "https://www.gracieuniversity.com/Pages/Public/Lesson?enc=xfLm48LaoWVCdDz5w390jQ%3D%3D",
+      "author_or_org": "Gracie University",
+      "year": null,
+      "credibility": "Gracie family (Ryron/Rener Gracie) online academy; foundational self-defense BJJ curriculum.",
+      "verification": "search_snippet",
+      "covers": [
+        "mount escape",
+        "technical stand-up",
+        "fundamentals"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ3",
+      "name": "Grapplearts - A Powerful Guard Pass Defense Used by Carlson Gracie",
+      "type": "coaching_website",
+      "url": "https://www.grapplearts.com/powerful-guard-pass-defense-used-carlson-gracie/",
+      "author_or_org": "Stephan Kesting",
+      "year": null,
+      "credibility": "Stephan Kesting (BJJ black belt, long-running instructional publisher) with Rob Biernacki: frame-and-hip-escape guard defense, solo elbow/hand shrimp drills, partner drills, Carlson Gracie fight example.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "guard retention",
+        "frames",
+        "hip escape"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ4",
+      "name": "Grapplearts - The Four Variations of the BJJ Technical Standup",
+      "type": "coaching_website",
+      "url": "https://www.grapplearts.com/the-four-variations-of-the-bjj-technical-standup/",
+      "author_or_org": "Stephan Kesting",
+      "year": null,
+      "credibility": "Technical stand-up variations.",
+      "verification": "search_snippet",
+      "covers": [
+        "technical stand-up"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ5",
+      "name": "Grapplearts - triangle choke articles (leg length; 'A Simple Tweak for a Killer Triangle')",
+      "type": "coaching_website",
+      "url": "https://www.grapplearts.com/simple-tweak-killer-triangle-choke/",
+      "author_or_org": "Stephan Kesting",
+      "year": null,
+      "credibility": "Triangle angle and finishing details.",
+      "verification": "search_snippet",
+      "covers": [
+        "triangle"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ6",
+      "name": "BJJ Fanatics - What is Guard Retention? (John Danaher)",
+      "type": "elite_coach",
+      "url": "https://bjjfanatics.com/blogs/news/guard-retention-with-john-danaher",
+      "author_or_org": "John Danaher (via BJJ Fanatics)",
+      "year": null,
+      "credibility": "Summary of John Danaher's guard-retention principles (posture, connection, distance, frames). Danaher coached multiple world/ADCC champions.",
+      "verification": "search_snippet",
+      "covers": [
+        "guard retention"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ7",
+      "name": "BJJ Universe - Five Tips for Passing Any Guard (John Danaher)",
+      "type": "elite_coach",
+      "url": "https://bjjuniverse.com/five-tips-to-pass-any-guard-by-john-danaher/",
+      "author_or_org": "John Danaher (via BJJ Universe)",
+      "year": null,
+      "credibility": "Summary of Danaher's guard-passing principles.",
+      "verification": "search_snippet",
+      "covers": [
+        "guard passing",
+        "posture"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ8",
+      "name": "Armlock in the closed guard: kinematic consequences to the kinetics of the technical gesture",
+      "type": "peer_reviewed",
+      "url": "https://cyberleninka.ru/article/n/armlock-in-the-closed-guard-kinematic-consequences-to-the-kinetics-of-the-technical-gesture",
+      "author_or_org": null,
+      "year": null,
+      "credibility": "Film-based kinematics: 'climbing the guard' gave the shortest path to the armlock lever zone (~44 deg vs ~84 deg total displacement with foot-on-hip); relies on hip/trunk extension.",
+      "verification": "search_snippet",
+      "covers": [
+        "armbar"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ9",
+      "name": "Biomechanical differences in BJJ athletes: the role of combat style (Int J Sports Phys Ther, PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5294948/",
+      "author_or_org": null,
+      "year": 2017,
+      "credibility": "Compares guard vs pass players' physical/biomechanical profiles.",
+      "verification": "search_snippet",
+      "covers": [
+        "athlete profile"
+      ],
+      "usage_note": "Background: athlete profiling by combat style; not cited for a specific item."
+    },
+    {
+      "id": "BJ10",
+      "name": "Injury Patterns, Risk Factors and Return to Sport in BJJ: survey of 1140 athletes (PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8721390/",
+      "author_or_org": null,
+      "year": 2021,
+      "credibility": "Knee, shoulder, elbow leading injury sites; submissions, takedowns and sparring main mechanisms.",
+      "verification": "search_snippet",
+      "covers": [
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ11",
+      "name": "Scoggin JF et al. - Assessment of Injuries During BJJ Competition (OJSM 2014)",
+      "type": "peer_reviewed",
+      "url": "https://journals.sagepub.com/doi/full/10.1177/2325967114522184",
+      "author_or_org": "Scoggin JF et al.",
+      "year": 2014,
+      "credibility": "Competition injury rates and mechanisms (armbar most common orthopedic injury mechanism).",
+      "verification": "search_snippet",
+      "covers": [
+        "injury",
+        "competition"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BJ12",
+      "name": "Knee Injury in Competitive BJJ Athletes: Implications for Training (Sports Health 2026)",
+      "type": "peer_reviewed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41549501/",
+      "author_or_org": null,
+      "year": 2026,
+      "credibility": "IBJJF brown/black belts: knee injury incidence 26.5 vs 2.2 per 1,000 matches with vs without heel-hook exposure (RR ~12).",
+      "verification": "search_snippet",
+      "covers": [
+        "injury",
+        "heel hook"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "bj-guard-retention",
+      "name": "Guard retention and hip escape (shrimp)",
+      "category": "guard",
+      "recommended_camera": "Side view at mat level, perpendicular to the athletes.",
+      "phases": [
+        "frame",
+        "hip escape",
+        "re-guard"
+      ],
+      "checkpoints": [
+        {
+          "id": "bj-guard-retention-c01",
+          "description": "Frame before moving: sit up or turn to your side and use the skeleton (a straight arm, elbow or shoulder, with the hand/elbow planted at the right angle) so bones, not muscles, carry the passer's weight.",
+          "phase": "frame",
+          "body_landmarks": [
+            "lead_shoulder",
+            "rear_shoulder",
+            "lead_elbow",
+            "lead_wrist",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "shoulder line tilted > ~45 deg from the mat (on side); framing elbow extended",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ3",
+            "BJ6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bj-guard-retention-c02",
+          "description": "Hip escape: bring the feet back toward the hips, plant them, and drive the hips backward away from the passer (a backward shrimp) to create space.",
+          "phase": "hip escape",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_ankle",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "hip midpoint moves away from the passer by > ~1 hip-width while shoulders stay roughly in place",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ3",
+            "BJ6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bj-guard-retention-c03",
+          "description": "Re-insert a knee, shin or foot hook between you and the passer to recover guard.",
+          "phase": "re-guard",
+          "body_landmarks": [
+            "lead_knee",
+            "lead_ankle",
+            "opponent_hip"
+          ],
+          "measurable_angle_or_rule": "a knee/shin occupies the space between chests within ~1 s after the hip escape",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "low",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ3",
+            "BJ6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bj-guard-retention-c04",
+          "description": "Danaher's principles: keep head above the hips when seated, maintain connection with knees/elbows, manage distance and use frames.",
+          "phase": null,
+          "body_landmarks": [
+            "nose",
+            "mid_hip",
+            "lead_knee",
+            "lead_elbow"
+          ],
+          "measurable_angle_or_rule": "seated: head above hips; knees and elbows close (connected) to protect the chest",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ6"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bj-guard-retention-f01",
+          "name": "Flat on the back",
+          "video_signs": "Both shoulders on the mat, facing the ceiling; passer lands chest-to-chest.",
+          "correction_cue": "'Get on your side - frame and shrimp.'",
+          "why_it_matters": "Flat positions remove the ability to frame and move the hips.",
+          "drill_ids": [
+            "BJ-D-SHRIMP",
+            "BJ-D-RETENTION-ROUNDS"
+          ],
+          "source_ids": [
+            "BJ3",
+            "BJ6"
+          ]
+        },
+        {
+          "id": "bj-guard-retention-f02",
+          "name": "Shrimping toward the pressure / without frames",
+          "video_signs": "Hips move but toward the passer, or frames collapse so space closes again.",
+          "correction_cue": "'Frame first, then hips away.'",
+          "why_it_matters": "Without frames, any space created is immediately taken back.",
+          "drill_ids": [
+            "BJ-D-SHRIMP",
+            "BJ-D-RETENTION-ROUNDS"
+          ],
+          "source_ids": [
+            "BJ3"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BJ-D-SHRIMP",
+          "name": "Solo shrimp line drill",
+          "origin": "from_source",
+          "setup": "Lie on the mat at one end of a lane.",
+          "steps": [
+            "Solo shrimps down the mat, alternating sides.",
+            "Grapplearts 'elbow shrimp' and 'hand shrimp': sit up on an elbow or hand frame, plant the feet, hip-escape backward.",
+            "Partner progression (cooperative): defend folding, matador and smash passes with the frame and hip escape.",
+            "Then add light resistance."
+          ],
+          "dosage": "3-4 lengths of the mat; then 3 x 1-min partner rounds",
+          "fixes": "Flat on the back; shrimping without frames",
+          "why": "Repetition makes the hip escape automatic so it is available under pressure; the partner progression adds real frames.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ3",
+            "BJ2"
+          ]
+        },
+        {
+          "id": "BJ-D-RETENTION-ROUNDS",
+          "name": "Guard retention positional rounds",
+          "origin": "adapted",
+          "setup": "Passer starts standing or kneeling; guard player on back/side.",
+          "steps": [
+            "Passer tries to pass and pin; guard player frames, hip-escapes and reinserts knees/feet.",
+            "Reset on a pass or a sweep.",
+            "Switch roles each round."
+          ],
+          "dosage": "4 x 2-min rounds",
+          "fixes": "Flat on the back; shrimping without frames",
+          "why": "Live but constrained resistance teaches when to frame and move the hips, following Danaher's posture/connection/distance/frames principles.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ6",
+            "BJ3"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Guard retention is active distance management - recover guard with knees/shins and chain shrimps as needed.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ3",
+            "BJ6"
+          ]
+        },
+        {
+          "tip": "Carlson Gracie example: when a takedown nearly led to a guard pass, he posted, sat up into a frame, then hip-escaped repeatedly until he could technical stand-up - frame, hip escape, re-guard or stand.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ3"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bj-mount-escape",
+      "name": "Trap-and-roll (upa) mount escape",
+      "category": "escapes",
+      "recommended_camera": "Side view at mat level.",
+      "phases": [
+        "trap",
+        "bridge",
+        "roll"
+      ],
+      "checkpoints": [
+        {
+          "id": "bj-mount-escape-c01",
+          "description": "Trap one of the mounted opponent's arms (wrist and elbow) and the same-side foot by placing your foot outside theirs.",
+          "phase": "trap",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "lead_ankle",
+            "opponent_wrist",
+            "opponent_ankle"
+          ],
+          "measurable_angle_or_rule": "both of your hands control one opponent arm; your foot outside the opponent's same-side foot",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "low",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bj-mount-escape-c02",
+          "description": "Bridge explosively upward and over the trapped-side shoulder - roll up and over, not sideways.",
+          "phase": "bridge",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_shoulder",
+            "rear_shoulder"
+          ],
+          "measurable_angle_or_rule": "hip midpoint rises well above the mat and travels diagonally over the trapped-side shoulder",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bj-mount-escape-f01",
+          "name": "Bridging straight up without trapping",
+          "video_signs": "Hips go up but opponent posts the arm/leg and stays mounted.",
+          "correction_cue": "'Trap the arm AND the foot, then bridge.'",
+          "why_it_matters": "Without the trap, the opponent simply posts to stop the roll.",
+          "drill_ids": [
+            "BJ-D-TRAPROLL-REPS"
+          ],
+          "source_ids": [
+            "BJ2"
+          ]
+        },
+        {
+          "id": "bj-mount-escape-f02",
+          "name": "Rolling sideways",
+          "video_signs": "Roll goes flat across the mat rather than over the shoulder.",
+          "correction_cue": "'Bridge up and over your shoulder.'",
+          "why_it_matters": "Rolling sideways loses the momentum of the bridge.",
+          "drill_ids": [
+            "BJ-D-TRAPROLL-REPS"
+          ],
+          "source_ids": [
+            "BJ2"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BJ-D-TRAPROLL-REPS",
+          "name": "Trap-and-roll repetitions",
+          "origin": "adapted",
+          "setup": "Partner in mount, giving light resistance progressively.",
+          "steps": [
+            "Trap the arm (wrist + elbow) and the same-side foot.",
+            "Bridge up and over the trapped-side shoulder.",
+            "Land in the partner's guard with posture; reset and repeat both sides.",
+            "Progress: partner starts posting/adjusting so timing matters."
+          ],
+          "dosage": "3 sets x 5 per side",
+          "fixes": "Bridging without trapping; rolling sideways",
+          "why": "Repetition with growing resistance grooves the trap-then-bridge order that makes the escape work.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ2"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Gracie University teaches the trap-and-roll as the first mount escape in its Combatives curriculum.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bj-closed-guard-posture",
+      "name": "Posture in closed guard (top)",
+      "category": "guard_top",
+      "recommended_camera": "Side view.",
+      "phases": [
+        "posture",
+        "grips",
+        "open guard"
+      ],
+      "checkpoints": [
+        {
+          "id": "bj-closed-guard-posture-c01",
+          "description": "Head above the hips, spine upright, hips forward/low; hands control hips or biceps rather than posting on the mat.",
+          "phase": "posture",
+          "body_landmarks": [
+            "nose",
+            "mid_shoulder",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "trunk within ~30 deg of vertical; head above hip midpoint",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ7",
+            "BJ6"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bj-closed-guard-posture-f01",
+          "name": "Posture broken",
+          "video_signs": "Top player's head is pulled down near the bottom player's chest; hands posted on the mat near the head.",
+          "correction_cue": "'Head up, hips in, hands on hips.'",
+          "why_it_matters": "Broken posture enables triangles, armbars and sweeps.",
+          "drill_ids": [
+            "BJ-D-POSTURE-ROUNDS"
+          ],
+          "source_ids": [
+            "BJ7"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BJ-D-POSTURE-ROUNDS",
+          "name": "Posture positional rounds",
+          "origin": "adapted",
+          "setup": "Top player in closed guard; bottom player's only goal is to break posture.",
+          "steps": [
+            "Top: head above hips, hips forward, hands controlling hips/biceps.",
+            "Bottom: pull and angle to break posture.",
+            "Score a point each time posture is broken; switch roles."
+          ],
+          "dosage": "3 x 2-min rounds",
+          "fixes": "Posture broken",
+          "why": "Focused resistance trains posture as a reflex before passing is attempted.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ7"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Danaher's passing advice starts from posture: you cannot pass well from a broken position.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bj-armbar-guard",
+      "name": "Armbar from closed guard",
+      "category": "submissions",
+      "recommended_camera": "Side view perpendicular to the athletes.",
+      "phases": [
+        "control",
+        "angle / climb",
+        "extension"
+      ],
+      "checkpoints": [
+        {
+          "id": "bj-armbar-guard-c01",
+          "description": "Control the arm (keep it across your centerline) and climb the guard up high on the opponent's back to create the angle.",
+          "phase": "angle",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_knee",
+            "rear_knee",
+            "opponent_elbow"
+          ],
+          "measurable_angle_or_rule": "bottom player's hips rotate ~45-90 deg relative to opponent; legs high on the back before extension",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bj-armbar-guard-c02",
+          "description": "Finish with hip extension (lifting the hips) while the opponent's thumb points up and elbow is across the hips.",
+          "phase": "extension",
+          "body_landmarks": [
+            "mid_hip",
+            "opponent_elbow",
+            "opponent_wrist"
+          ],
+          "measurable_angle_or_rule": "bottom player's hip rises during finish; opponent elbow joint aligned over the hip line",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ8"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bj-armbar-guard-f01",
+          "name": "Attacking square / no angle",
+          "video_signs": "Bottom player stays flat and square; opponent stacks or pulls the arm out.",
+          "correction_cue": "'Cut the angle - hip out, climb high.'",
+          "why_it_matters": "The angle shortens the path to the lever zone.",
+          "drill_ids": [
+            "BJ-D-ARMBAR-CLIMB"
+          ],
+          "source_ids": [
+            "BJ8"
+          ]
+        },
+        {
+          "id": "bj-armbar-guard-f02",
+          "name": "Cranking with the arms only",
+          "video_signs": "Player pulls the arm without extending the hips.",
+          "correction_cue": "'Pinch knees, lift hips.'",
+          "why_it_matters": "Hip/trunk extension provides the finishing force safely and with control.",
+          "drill_ids": [
+            "BJ-D-ARMBAR-CLIMB"
+          ],
+          "source_ids": [
+            "BJ8"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BJ-D-ARMBAR-CLIMB",
+          "name": "Climb-the-guard armbar drill",
+          "origin": "adapted",
+          "setup": "Partner kneeling in closed guard, cooperative.",
+          "steps": [
+            "Control the arm across your centerline.",
+            "Climb your legs high on the partner's back while cutting your hips to an angle.",
+            "Swing the leg over the head and finish slowly with hip extension; partner taps early.",
+            "Alternate sides."
+          ],
+          "dosage": "3 sets x 5 per side, slow finishes",
+          "fixes": "Attacking square; cranking with arms only",
+          "why": "Kinematic data show climbing the guard is the shortest path to the lever position; slow finishes keep training partners safe.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ8",
+            "BJ11"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "In a kinematic study, 'climbing the guard' gave the shortest movement path to the armlock (about half the angular displacement of the foot-on-hip method).",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ8"
+          ]
+        },
+        {
+          "tip": "Armbars are a leading mechanism of competition orthopedic injury - apply slowly in training and tap early.",
+          "kind": "safety",
+          "source_ids": [
+            "BJ11",
+            "BJ10"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bj-triangle",
+      "name": "Triangle choke",
+      "category": "submissions",
+      "recommended_camera": "Side and front views.",
+      "phases": [
+        "isolate",
+        "lock",
+        "angle",
+        "finish"
+      ],
+      "checkpoints": [
+        {
+          "id": "bj-triangle-c01",
+          "description": "Trap one arm in and push one arm out; lock the leg high across the back of the neck.",
+          "phase": "lock",
+          "body_landmarks": [
+            "choke_leg_knee",
+            "choke_leg_ankle",
+            "opponent_neck"
+          ],
+          "measurable_angle_or_rule": "choking leg's knee pit behind the opponent's neck (not across the shoulder)",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "low",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ5"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bj-triangle-c02",
+          "description": "Cut an angle (turn ~30-45 deg so you are perpendicular to the opponent), pull the trapped arm across, and break posture by pulling the head down.",
+          "phase": "angle",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "opponent_head"
+          ],
+          "measurable_angle_or_rule": "bottom player's hip line rotated ~30-45 deg relative to the opponent's spine",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "medium",
+          "camera_view": "top",
+          "source_ids": [
+            "BJ5"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bj-triangle-f01",
+          "name": "Finishing square-on",
+          "video_signs": "Bottom player faces opponent directly; choke feels loose.",
+          "correction_cue": "'Cut the angle.'",
+          "why_it_matters": "Square triangles leave space and rely on strength.",
+          "drill_ids": [
+            "BJ-D-TRIANGLE-ANGLE"
+          ],
+          "source_ids": [
+            "BJ5"
+          ]
+        },
+        {
+          "id": "bj-triangle-f02",
+          "name": "Posture not broken",
+          "video_signs": "Opponent sits up tall during the lock.",
+          "correction_cue": "'Pull the head down first.'",
+          "why_it_matters": "A postured opponent can escape or stack.",
+          "drill_ids": [
+            "BJ-D-TRIANGLE-ANGLE"
+          ],
+          "source_ids": [
+            "BJ5"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BJ-D-TRIANGLE-ANGLE",
+          "name": "Triangle lock-and-angle drill",
+          "origin": "adapted",
+          "setup": "Partner kneeling in closed guard, cooperative.",
+          "steps": [
+            "Push one arm out, keep one in; lock the leg high across the back of the neck.",
+            "Cut the angle (~30-45 deg) and pull the trapped arm across.",
+            "Break posture by pulling the head down; apply slowly."
+          ],
+          "dosage": "3 sets x 5 per side",
+          "fixes": "Finishing square-on; posture not broken",
+          "why": "Drilling the angle and posture break makes the finish rely on position rather than strength.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ5"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Short legs are not disqualifying for the triangle - angle and arm position matter more than leg length.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ5"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bj-tech-standup",
+      "name": "Technical stand-up",
+      "category": "fundamentals",
+      "recommended_camera": "Side view.",
+      "phases": [
+        "post",
+        "lift",
+        "step back"
+      ],
+      "checkpoints": [
+        {
+          "id": "bj-tech-standup-c01",
+          "description": "Post one hand behind, plant the opposite foot, protect the face with the free arm; lift the hips and swing the leg back to stand in base.",
+          "phase": null,
+          "body_landmarks": [
+            "rear_wrist",
+            "lead_ankle",
+            "mid_hip",
+            "lead_wrist"
+          ],
+          "measurable_angle_or_rule": "3 points of contact before lifting; finish in a stance facing forward",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BJ4",
+            "BJ2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bj-tech-standup-f01",
+          "name": "Standing up forward into the opponent",
+          "video_signs": "Rises by leaning forward without a post.",
+          "correction_cue": "'Post, lift, step back.'",
+          "why_it_matters": "Exposes the head and gives up position.",
+          "drill_ids": [
+            "BJ-D-STANDUP-REPS"
+          ],
+          "source_ids": [
+            "BJ4"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BJ-D-STANDUP-REPS",
+          "name": "Technical stand-up repetitions",
+          "origin": "adapted",
+          "setup": "Open mat.",
+          "steps": [
+            "Post hand, plant foot, guard the face with the free hand.",
+            "Lift the hips and swing the leg back to base.",
+            "Alternate sides."
+          ],
+          "dosage": "2 sets x 8 per side",
+          "fixes": "Standing up forward into the opponent",
+          "why": "Repetition on both sides makes the safe stand-up automatic.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "BJ4",
+            "BJ2"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "The technical stand-up is a core self-defense skill in the Gracie curriculum and should be drilled on both sides.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BJ2",
+            "BJ4"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": [
+    {
+      "tip": "Heel-hook exposure was associated with ~12x higher knee injury incidence in IBJJF brown/black belt competition - teach leg locks only per IBJJF belt/age rules and under supervision.",
+      "kind": "safety",
+      "source_ids": [
+        "BJ12",
+        "BJ1"
+      ]
+    }
+  ]
+}

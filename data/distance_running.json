@@ -1,0 +1,753 @@
+{
+  "sport": "Distance running",
+  "sport_id": "distance_running",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers posture/trunk lean, foot placement and overstriding, cadence/step length, arm swing, and pelvis/knee control (pelvic drop, crossover). Aimed at recreational to competitive runners on flat ground. Hills, racing tactics and footwear are not covered.",
+  "source_gap_notes": "Strong research base (ACSM clinical guidance, cadence-retraining trials, running-economy reviews). The research explicitly warns there is no single 'correct' technique, so most rules are framed as injury-risk or economy flags rather than absolutes.",
+  "sources": [
+    {
+      "id": "DR1",
+      "name": "ACSM - Healthy Habits for Distance Running (Vincent & Vincent, 2022)",
+      "type": "professional_body",
+      "url": "https://acsm.org/distance-running-form-tips/",
+      "author_or_org": "Vincent HK, Vincent KR / ACSM",
+      "year": 2022,
+      "credibility": "American College of Sports Medicine infographic + evidence summary: cadence, short quick steps, step width, glutes/kneecaps forward, soft landings, chin tuck/slight lean, linear arm swing, fatigue breaks.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "cadence",
+        "foot placement",
+        "posture",
+        "arm swing",
+        "pelvic control"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR2",
+      "name": "Healthy Running Habits for the Distance Runner: Clinical Utility of the ACSM Infographic (Current Sports Medicine Reports 2022)",
+      "type": "peer_reviewed",
+      "url": "https://journals.lww.com/acsm-csmr/fulltext/2022/12000/healthy_running_habits_for_the_distance_runner_.13.aspx",
+      "author_or_org": "Vincent HK, Vincent KR",
+      "year": 2022,
+      "credibility": "Peer-reviewed companion paper to DR1.",
+      "verification": "search_snippet",
+      "covers": [
+        "running form",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR3",
+      "name": "Heiderscheit BC et al. - Effects of step rate manipulation on joint mechanics during running (Med Sci Sports Exerc 2011)",
+      "type": "peer_reviewed",
+      "url": "https://ncbi.nlm.nih.gov/pmc/articles/PMC3022995/pdf/nihms229534.pdf",
+      "author_or_org": "Heiderscheit BC et al.",
+      "year": 2011,
+      "credibility": "+5-10% step rate at the same speed reduced vertical COM excursion and hip/knee loading (knee energy absorption reduced ~20% at +5% and ~34% at +10%).",
+      "verification": "search_snippet",
+      "covers": [
+        "cadence"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR4",
+      "name": "Schubert AG, Kempf J, Heiderscheit BC - Influence of Stride Frequency and Length on Running Mechanics: systematic review (Sports Health 2014)",
+      "type": "peer_reviewed",
+      "url": "https://journals.sagepub.com/doi/10.1177/1941738113508544",
+      "author_or_org": "Schubert AG et al.",
+      "year": 2014,
+      "credibility": "Higher stride rate consistently reduces joint loading, GRF and shock.",
+      "verification": "search_snippet",
+      "covers": [
+        "cadence",
+        "step length"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR5",
+      "name": "Chan ZYS et al. - Gait Retraining for the Reduction of Injury Occurrence in Novice Distance Runners: 1-year RCT (AJSM 2018)",
+      "type": "peer_reviewed",
+      "url": "https://journals.sagepub.com/doi/10.1177/0363546517736277",
+      "author_or_org": "Chan ZYS et al.",
+      "year": 2018,
+      "credibility": "Two weeks of gait retraining (soft landing) -> ~62% lower injury risk over 12 months.",
+      "verification": "search_snippet",
+      "covers": [
+        "soft landing",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR6",
+      "name": "Effects of 12-week cadence retraining on impact peak, load rates and lower extremity biomechanics (PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7450991/",
+      "author_or_org": null,
+      "year": 2020,
+      "credibility": "Graduated cadence retraining reduced impact peak and loading rates; cadence increase persisted.",
+      "verification": "search_snippet",
+      "covers": [
+        "cadence"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR7",
+      "name": "Folland JP et al. - Running Technique is an Important Component of Running Economy and Performance (MSSE 2017)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5473370/",
+      "author_or_org": "Folland JP et al.",
+      "year": 2017,
+      "credibility": "Technique explained ~39% of energy-cost variance: less vertical pelvis oscillation, less braking, less knee flexion in stance; shank angle at touchdown, duty factor and trunk lean related to performance.",
+      "verification": "search_snippet",
+      "covers": [
+        "economy",
+        "vertical oscillation",
+        "braking",
+        "shank angle"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR8",
+      "name": "Moore IS - Is There an Economical Running Technique? Review of Modifiable Biomechanical Factors (Sports Medicine 2016)",
+      "type": "peer_reviewed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26816209/",
+      "author_or_org": "Moore IS",
+      "year": 2016,
+      "credibility": "Supports lower vertical oscillation, efficient propulsion; cautions against a universal technique.",
+      "verification": "search_snippet",
+      "covers": [
+        "economy"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR9",
+      "name": "Special Olympics Athletics Coaches Quick Start Guide - Running Mechanics",
+      "type": "coaching_resource",
+      "url": "https://sonc.org/wp-content/uploads/2023/04/tf_running_mechanics_1.pdf",
+      "author_or_org": "Special Olympics",
+      "year": 2023,
+      "credibility": "Simple coaching-level cues for posture, arm and leg action.",
+      "verification": "search_snippet",
+      "covers": [
+        "running mechanics cues"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "DR10",
+      "name": "Athletics South Africa - Level 1 Coaching Manual: Distance Races",
+      "type": "national_federation",
+      "url": "https://athleticssa.org.za/SportsInfo/ASA-Level-1-Coaching-Distance-Races-Middle-Long-Steeple-Walk.pdf",
+      "author_or_org": "Athletics South Africa",
+      "year": null,
+      "credibility": "National federation coach-education manual for middle/long distance.",
+      "verification": "search_snippet",
+      "covers": [
+        "distance technique",
+        "coaching"
+      ],
+      "usage_note": "Background: national federation coach-education manual; not cited for a specific item."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dr-posture",
+      "name": "Posture and trunk lean",
+      "category": "posture",
+      "recommended_camera": "Side view at hip height, treadmill or track, 60+ fps; film after 10+ min of running and again when fatigued.",
+      "phases": [
+        "mid-stance",
+        "full stride"
+      ],
+      "checkpoints": [
+        {
+          "id": "dr-posture-c01",
+          "description": "Tall posture with a slight whole-body forward lean from the ankles - not bending at the waist, not leading with the head.",
+          "phase": "mid-stance",
+          "body_landmarks": [
+            "nose",
+            "mid_shoulder",
+            "mid_hip",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "trunk (hip->shoulder) lean ~5-10 deg forward of vertical; hip angle not flexed (no 'sitting'); ear roughly over the shoulder",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "DR1",
+            "DR7"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "dr-posture-c02",
+          "description": "Head neutral, chin slightly tucked, eyes ahead.",
+          "phase": null,
+          "body_landmarks": [
+            "nose",
+            "lead_ear",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "ear-to-shoulder line near vertical; head not jutting forward",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "DR1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "dr-posture-f01",
+          "name": "Bent at the waist / excessive forward lean",
+          "video_signs": "Trunk folded forward at the hips; often worsens with fatigue.",
+          "correction_cue": "'Run tall - pull a string up through your spine; tuck the chin.'",
+          "why_it_matters": "Moderate-to-high trunk flexion increases foot reach ahead of the body and loading rate, and can strain the low back and hamstrings.",
+          "drill_ids": [
+            "DR-D-FATIGUE-CHECK"
+          ],
+          "source_ids": [
+            "DR1"
+          ]
+        },
+        {
+          "id": "dr-posture-f02",
+          "name": "Leaning back / sitting",
+          "video_signs": "Trunk behind vertical, hips low and behind the feet.",
+          "correction_cue": "'Slight lean from the ankles - hips forward.'",
+          "why_it_matters": "Backward lean promotes overstriding and braking.",
+          "drill_ids": [
+            "DR-D-CADENCE"
+          ],
+          "source_ids": [
+            "DR7",
+            "DR1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "DR-D-FATIGUE-CHECK",
+          "name": "Fatigue form check and walk breaks",
+          "origin": "adapted",
+          "setup": "Plan intervals or route loops where form can be checked.",
+          "steps": [
+            "Run with posture cues early.",
+            "Note signs of form breakdown: louder footfalls, longer steps, arms crossing, more lean.",
+            "Take a walk break or shorten the interval when these appear."
+          ],
+          "dosage": "Every run; especially novices",
+          "fixes": "Bent at the waist; overstriding when tired",
+          "why": "Fatigue increases trunk lean, hip adduction and contact time; breaking up runs limits exposure to degraded mechanics.",
+          "equipment": [],
+          "source_ids": [
+            "DR1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Cues like 'lean from the ankles' are often misread as bending at the waist; ACSM authors find 'tuck in the chin' or 'pull a string up through the head' work better for many runners.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "dr-foot-strike",
+      "name": "Foot placement and overstriding",
+      "category": "lower_body",
+      "recommended_camera": "Side view at ground level, 120+ fps (treadmill ideal).",
+      "phases": [
+        "initial contact",
+        "loading",
+        "mid-stance"
+      ],
+      "checkpoints": [
+        {
+          "id": "dr-foot-strike-c01",
+          "description": "Foot lands close to beneath the centre of mass (short 'reach'), with the knee slightly flexed - not far out in front with a straight knee.",
+          "phase": "initial contact",
+          "body_landmarks": [
+            "stance_ankle",
+            "mid_hip",
+            "stance_knee"
+          ],
+          "measurable_angle_or_rule": "horizontal heel/ankle-to-hip distance at initial contact small (e.g., < ~15-20% of leg length); knee flexed at contact (< ~170 deg)",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "DR1",
+            "DR7"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "dr-foot-strike-c02",
+          "description": "Shank (shin) near vertical at touchdown rather than angled forward ahead of the knee.",
+          "phase": "initial contact",
+          "body_landmarks": [
+            "stance_knee",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "shank angle at touchdown within ~0-10 deg of vertical",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "DR7"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "dr-foot-strike-c03",
+          "description": "Soft, quiet landings (any strike pattern) rather than a hard heel slam.",
+          "phase": "loading",
+          "body_landmarks": [
+            "stance_ankle",
+            "stance_heel",
+            "stance_foot_index"
+          ],
+          "measurable_angle_or_rule": "no single rule - audio loudness and knee/ankle flexion during loading are proxies",
+          "rule_basis": "research",
+          "pose_detectability": "low",
+          "camera_view": "side",
+          "source_ids": [
+            "DR1",
+            "DR5"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "dr-foot-strike-f01",
+          "name": "Overstriding (reaching heel strike)",
+          "video_signs": "Heel lands well ahead of the body with a nearly straight knee and dorsiflexed foot; braking 'jolt' visible.",
+          "correction_cue": "'Short, quick steps - land under your hips.'",
+          "why_it_matters": "Long reaching steps increase braking, tibial shock and knee loading.",
+          "drill_ids": [
+            "DR-D-CADENCE"
+          ],
+          "source_ids": [
+            "DR1",
+            "DR3"
+          ]
+        },
+        {
+          "id": "dr-foot-strike-f02",
+          "name": "Loud, heavy footfalls",
+          "video_signs": "Audible slapping; visible jarring on contact.",
+          "correction_cue": "'Land softly and quietly.'",
+          "why_it_matters": "Soft-landing retraining reduced impact loading and injury incidence in novice runners.",
+          "drill_ids": [
+            "DR-D-SOFT"
+          ],
+          "source_ids": [
+            "DR1",
+            "DR5"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "DR-D-SOFT",
+          "name": "Soft-landing retraining sessions",
+          "origin": "from_source",
+          "setup": "Treadmill or quiet track; optional real-time feedback (mirror, video, sound).",
+          "steps": [
+            "Run at easy pace and cue 'land softly and quietly'.",
+            "Let the runner explore strategies (strike pattern, knee bend) to reduce noise.",
+            "Fade the cue/feedback over sessions."
+          ],
+          "dosage": "Short retraining blocks (e.g., several sessions over ~2 weeks), integrated into easy runs",
+          "fixes": "Loud footfalls; overstriding",
+          "why": "Feedback-based soft-landing retraining reduced loading rates and was associated with ~62% lower injury risk over a year in novices.",
+          "equipment": [
+            "treadmill or mirror optional"
+          ],
+          "source_ids": [
+            "DR5",
+            "DR1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Low evidence links any particular foot-strike type to injury; focus on soft, quiet landings rather than forcing a forefoot strike.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "dr-cadence",
+      "name": "Cadence and step length",
+      "category": "lower_body",
+      "recommended_camera": "Side view; count steps over 30-60 s or use a watch/app.",
+      "phases": [
+        "full stride"
+      ],
+      "checkpoints": [
+        {
+          "id": "dr-cadence-c01",
+          "description": "Cadence appropriate to speed; many runners benefit from +5-10% above their habitual cadence, often landing above ~170 steps/min.",
+          "phase": null,
+          "body_landmarks": [
+            "stance_ankle",
+            "swing_ankle"
+          ],
+          "measurable_angle_or_rule": "steps/min = foot contacts per minute; flag if < ~160-165 spm at easy pace AND overstriding is present",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "DR3",
+            "DR4",
+            "DR1",
+            "DR6"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "dr-cadence-c02",
+          "description": "Low vertical bounce of the pelvis.",
+          "phase": null,
+          "body_landmarks": [
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "vertical hip oscillation ~5-10 cm (lower generally more economical)",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "DR7",
+            "DR8",
+            "DR3"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "dr-cadence-f01",
+          "name": "Low cadence with long bouncy strides",
+          "video_signs": "Few steps per minute, big vertical oscillation, foot reaching ahead.",
+          "correction_cue": "'Quick light steps - match the metronome.'",
+          "why_it_matters": "Raising cadence reduces vertical excursion, braking and knee energy absorption.",
+          "drill_ids": [
+            "DR-D-CADENCE"
+          ],
+          "source_ids": [
+            "DR3",
+            "DR1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "DR-D-CADENCE",
+          "name": "Metronome cadence retraining",
+          "origin": "from_source",
+          "setup": "Metronome app or watch beep set to habitual cadence +5-7.5%.",
+          "steps": [
+            "Measure habitual cadence at easy pace.",
+            "Run segments matching the metronome at the same speed.",
+            "Gradually increase segment duration over weeks, then wean off the metronome."
+          ],
+          "dosage": "Start 3-5 x 2-3 min within easy runs; build over ~4-12 weeks",
+          "fixes": "Low cadence; overstriding; bounce",
+          "why": "Auditory pacing is the method used in lab and field studies to raise cadence, which reduced impact and loading rates, with changes that persisted.",
+          "equipment": [
+            "metronome app"
+          ],
+          "source_ids": [
+            "DR3",
+            "DR6",
+            "DR1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Heiderscheit et al. found +5% step rate reduced knee energy absorption ~20% and +10% ~34% at the same speed.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR3"
+          ]
+        },
+        {
+          "tip": "Cadence and short-quick-step cues are the first, highest-impact changes recommended in the ACSM healthy-running-habits guidance.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR1",
+            "DR2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "dr-arm-swing",
+      "name": "Arm swing",
+      "category": "upper_body",
+      "recommended_camera": "Front and side views.",
+      "phases": [
+        "full stride"
+      ],
+      "checkpoints": [
+        {
+          "id": "dr-arm-swing-c01",
+          "description": "Arms swing forward and back from relaxed shoulders, elbows roughly 90 degrees, hands not crossing the midline.",
+          "phase": null,
+          "body_landmarks": [
+            "lead_shoulder",
+            "lead_elbow",
+            "lead_wrist",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "elbow angle ~70-110 deg; wrists stay on their own side of the body midline (front view)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "DR1",
+            "DR9"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "dr-arm-swing-f01",
+          "name": "Arms crossing the body / excessive rotation",
+          "video_signs": "Hands swing across the chest; shoulders twist.",
+          "correction_cue": "'Swing like a pendulum - hands brush the hips, forward and back.'",
+          "why_it_matters": "Linear arm swing helps counter lower-body rotation; crossing increases torso rotation and can indicate fatigue.",
+          "drill_ids": [
+            "DR-D-ARM-SWING"
+          ],
+          "source_ids": [
+            "DR1"
+          ]
+        },
+        {
+          "id": "dr-arm-swing-f02",
+          "name": "Shrugged, tense shoulders",
+          "video_signs": "Shoulders near the ears; fists clenched.",
+          "correction_cue": "'Drop the shoulders, loose hands.'",
+          "why_it_matters": "Tension wastes energy.",
+          "drill_ids": [
+            "DR-D-ARM-SWING"
+          ],
+          "source_ids": [
+            "DR9"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "DR-D-ARM-SWING",
+          "name": "Standing / walking arm-swing drill",
+          "origin": "adapted",
+          "setup": "Stand or walk in front of a mirror.",
+          "steps": [
+            "Swing arms forward and back from relaxed shoulders, elbows ~90 deg.",
+            "Hands travel from about chest height to the hip, without crossing the midline.",
+            "Transfer to easy running strides."
+          ],
+          "dosage": "3 x 30 s standing, then 4 x 80 m strides",
+          "fixes": "Arms crossing; shrugged shoulders",
+          "why": "Isolating the arm pattern without running fatigue makes the linear swing easier to feel.",
+          "equipment": [
+            "mirror optional"
+          ],
+          "source_ids": [
+            "DR1",
+            "DR9"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Arms crossing the body is one of ACSM's signs of fatigue-degraded form - a cue to take a break.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "dr-pelvis-knee",
+      "name": "Pelvis and knee control (pelvic drop, crossover)",
+      "category": "lower_body",
+      "recommended_camera": "Rear view (behind treadmill) at hip height, 60+ fps.",
+      "phases": [
+        "mid-stance"
+      ],
+      "checkpoints": [
+        {
+          "id": "dr-pelvis-knee-c01",
+          "description": "Pelvis stays nearly level in single-leg stance (limited contralateral pelvic drop).",
+          "phase": "mid-stance",
+          "body_landmarks": [
+            "lead_hip",
+            "rear_hip"
+          ],
+          "measurable_angle_or_rule": "no fixed cutoff: measure contralateral pelvic drop (hip-line tilt) at mid-stance and track it over time - runners in the ACSM authors' clinic averaged ~11 deg before and ~9.5 deg after retraining",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "rear",
+          "source_ids": [
+            "DR1"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "dr-pelvis-knee-c02",
+          "description": "Kneecaps point forward; knee doesn't collapse inward (hip adduction/internal rotation).",
+          "phase": "mid-stance",
+          "body_landmarks": [
+            "stance_hip",
+            "stance_knee",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "frontal-plane knee projection angle small (< ~10 deg valgus)",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "rear",
+          "source_ids": [
+            "DR1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "dr-pelvis-knee-c03",
+          "description": "Adequate step width - feet don't cross the midline ('running on a tightrope').",
+          "phase": "initial contact",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "each foot lands on its own side of the body midline",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "rear",
+          "source_ids": [
+            "DR1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "dr-pelvis-knee-f01",
+          "name": "Contralateral pelvic drop / hip adduction",
+          "video_signs": "Opposite hip drops in stance; knee drifts inward.",
+          "correction_cue": "'Squeeze your glutes, kneecaps forward, keep your hips level.'",
+          "why_it_matters": "Associated with patellofemoral pain, IT-band and tibial stress issues; cueing with mirror feedback reduced it in trials.",
+          "drill_ids": [
+            "DR-D-MIRROR-HIP"
+          ],
+          "source_ids": [
+            "DR1"
+          ]
+        },
+        {
+          "id": "dr-pelvis-knee-f02",
+          "name": "Crossover gait",
+          "video_signs": "Feet land on or across the midline.",
+          "correction_cue": "'Run with one foot on each side of a road line.'",
+          "why_it_matters": "Narrow steps increase tibial stress; widening step width reduces hip adduction and knee loading.",
+          "drill_ids": [
+            "DR-D-LINE-RUN"
+          ],
+          "source_ids": [
+            "DR1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "DR-D-MIRROR-HIP",
+          "name": "Mirror hip-control retraining",
+          "origin": "from_source",
+          "setup": "Treadmill facing a mirror (or real-time video).",
+          "steps": [
+            "Run at easy pace and cue: 'squeeze your glutes, kneecaps pointing forward, hips level'.",
+            "Use the mirror to watch knee and pelvis alignment.",
+            "Gradually reduce mirror feedback over sessions."
+          ],
+          "dosage": "10-15 min within easy runs, several sessions over 2-8 weeks",
+          "fixes": "Contralateral pelvic drop / hip adduction",
+          "why": "Mirror and verbal-cue retraining reduced hip adduction and pelvic drop and eased knee pain in trials reported by ACSM.",
+          "equipment": [
+            "treadmill",
+            "mirror"
+          ],
+          "source_ids": [
+            "DR1"
+          ]
+        },
+        {
+          "id": "DR-D-LINE-RUN",
+          "name": "Road-line step-width drill",
+          "origin": "from_source",
+          "setup": "A painted line (track lane line or road line).",
+          "steps": [
+            "Run with the left foot on the left of the line and the right foot on the right.",
+            "Alternative cues: 'pedal a bike wide enough' or 'jump rope moving forward'."
+          ],
+          "dosage": "3-5 x 1-2 min within easy runs",
+          "fixes": "Crossover gait",
+          "why": "Visual cueing widens step width, which reduces hip adduction and tibial stress.",
+          "equipment": [],
+          "source_ids": [
+            "DR1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Introduce one or two big cues first (cadence, soft landings); smaller cues (glutes, arms, lean) often fix themselves afterward.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR1"
+          ]
+        },
+        {
+          "tip": "There is no universal economical running technique - individualize and change form gradually while strengthening the kinetic chain.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "DR8",
+            "DR1"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

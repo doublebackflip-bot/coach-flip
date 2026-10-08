@@ -1,0 +1,1373 @@
+{
+  "sport": "Boxing",
+  "sport_id": "boxing",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers stance/guard, footwork (advance, retreat, lateral, pivot), jab, rear straight (cross), lead hook, uppercut, and basic defense (block/parry/slip). Orthodox stance is assumed; mirror lead/rear for southpaw.",
+  "source_gap_notes": "Strong: two USA Boxing manuals reviewed in full text, plus several peer-reviewed punch biomechanics papers. Note: expert sources disagree on some details (e.g., weight shift on the lead hook) - both views are recorded.",
+  "sources": [
+    {
+      "id": "BX1",
+      "name": "USA Boxing Grassroots Task Force Training Manual v.01",
+      "type": "governing_body",
+      "url": "https://d36m266ykvepgv.cloudfront.net/uploads/media/lYivrDbNV6/o/usab-gtf-trainingmanual-v-01-1.pdf",
+      "author_or_org": "USA Boxing",
+      "year": 2014,
+      "credibility": "Official USA Boxing coaching manual: step-by-step stance, steps, every punch (head/body, lead/rear), common mistakes, teaching progressions and equipment drills.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "stance",
+        "footwork",
+        "punches",
+        "common mistakes",
+        "teaching progression"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX2",
+      "name": "USA Boxing - The Sweet Science 101",
+      "type": "governing_body",
+      "url": "https://d36m266ykvepgv.cloudfront.net/uploads/media/U3ycXujQ3J/o/the-sweet-science-101.pdf",
+      "author_or_org": "USA Boxing",
+      "year": null,
+      "credibility": "USA Boxing technical guide: fundamental boxing position with numbered coaching tips, footwork concepts, jab/straight/hook/uppercut elements, blocks/parries/slips.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "stance",
+        "footwork",
+        "punches",
+        "defense"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX3",
+      "name": "AIBA (IBA) Coach Regulations Manual 2019",
+      "type": "international_federation",
+      "url": "https://www.iba.sport/wp-content/uploads/2019/01/AIBA-Coach-Regulations-Manual_WEB_2019_01-1.pdf",
+      "author_or_org": "AIBA/IBA",
+      "year": 2019,
+      "credibility": "International amateur federation coach manual: stance, footwork, basic punches and defenses, plus European/Russian school chapters.",
+      "verification": "search_snippet",
+      "covers": [
+        "stance",
+        "punches",
+        "defense",
+        "training planning"
+      ],
+      "usage_note": "Background: international federation curriculum; not cited for a specific item (content reviewed only via table of contents)."
+    },
+    {
+      "id": "BX4",
+      "name": "WBC - Building Champions (skills checklist)",
+      "type": "professional_body",
+      "url": "https://wbcboxing.com/downloads/Diamond-BUILD%20CHAMPION.pdf",
+      "author_or_org": "World Boxing Council",
+      "year": null,
+      "credibility": "World Boxing Council development checklist phrasing each skill as a yes/no technical question (jab, hook, combinations, counters).",
+      "verification": "search_snippet",
+      "covers": [
+        "jab",
+        "hook",
+        "combinations",
+        "counters"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX5",
+      "name": "Biomechanics of the lead straight punch of different level boxers (Frontiers in Physiology)",
+      "type": "peer_reviewed",
+      "url": "https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2022.1015154/full",
+      "author_or_org": null,
+      "year": 2022,
+      "credibility": "Elite vs junior boxers: elite had higher fist velocity, peak force and lead-leg force/RFD; proximal-to-distal acceleration-braking of shoulder, elbow, wrist.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "jab",
+        "kinetic chain",
+        "lead leg"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX6",
+      "name": "Kinematic and kinetic differences between lead and rear straight punches in elite boxers (BMC Sports Sci Med Rehabil)",
+      "type": "peer_reviewed",
+      "url": "https://link.springer.com/article/10.1186/s13102-026-01738-1",
+      "author_or_org": null,
+      "year": 2026,
+      "credibility": "17 elite boxers: lead punch faster to complete; rear punch greater trunk rotation ROM, velocity, force and impulse ('speed-power' pattern).",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "jab",
+        "cross",
+        "trunk rotation"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX7",
+      "name": "The Role of Lower Limb Kinetics in Boxing Punches and the Impact of Fatigue (PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12729554/",
+      "author_or_org": null,
+      "year": 2025,
+      "credibility": "Dual force plates: cross produced the highest punch force and GRF; rear-leg GRF a key determinant for cross and hook; lower-body fatigue reduced punch force.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "cross",
+        "hook",
+        "ground reaction force",
+        "fatigue"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX8",
+      "name": "Kinematic and kinetic analysis of straight punches (J Physical Education and Sport, 2017)",
+      "type": "peer_reviewed",
+      "url": "https://www.efsupit.ro/images/stories/30dec2017/Art%20287.pdf",
+      "author_or_org": null,
+      "year": 2017,
+      "credibility": "Muay Thai/boxing athletes: kinetic chain ankle->knee->hip->shoulder->elbow->fist; trunk rotation peaks at impact; lead leg acts as pivot while rear leg pushes.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "cross",
+        "kinetic chain"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX9",
+      "name": "Changes of Impact Force During Straight Punch With Two Boxing Techniques - case study (Studia Sportiva)",
+      "type": "peer_reviewed",
+      "url": "https://journals.muni.cz/studiasportiva/article/view/21404",
+      "author_or_org": null,
+      "year": null,
+      "credibility": "Top-level boxer: straight punches with weight shifting produced significantly higher foot pressure and impact force than without.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "straight punches",
+        "weight shift"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "BX10",
+      "name": "Lenetsky et al. - Assessment and Contributors of Punching Forces in Combat Sports Athletes (NSCA Strength & Conditioning Journal)",
+      "type": "peer_reviewed",
+      "url": "https://journals.lww.com/nsca-scj/fulltext/2013/04000/assessment_and_contributors_of_punching_forces_in.1.aspx",
+      "author_or_org": "Lenetsky S, Harris N, Brughelli M",
+      "year": 2013,
+      "credibility": "Review of punch-force contributors (effective mass, lower-body drive, sequencing) with S&C implications.",
+      "verification": "search_snippet",
+      "covers": [
+        "punch force",
+        "effective mass",
+        "training"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "bx-stance-guard",
+      "name": "Stance and guard (fundamental boxing position)",
+      "category": "fundamentals",
+      "recommended_camera": "Front view (facing the boxer) and side view, full body, 30-60 fps.",
+      "phases": [
+        "stance",
+        "guard"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-stance-guard-c01",
+          "description": "Bladed stance roughly 45 degrees to the opponent; feet about shoulder-width apart, lead foot turned in ~45 deg.",
+          "phase": "stance",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "lead_foot_index",
+            "lead_shoulder",
+            "rear_shoulder"
+          ],
+          "measurable_angle_or_rule": "ankle distance ~1.0-1.2x shoulder width; shoulder/hip line ~45 deg to the opponent (top/front view)",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "bx-stance-guard-c02",
+          "description": "Rear heel raised slightly (~2 in / 5 cm), both knees slightly bent; weight balanced or slightly toward the rear leg.",
+          "phase": "stance",
+          "body_landmarks": [
+            "rear_heel",
+            "rear_foot_index",
+            "lead_knee",
+            "rear_knee",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "rear heel above toe level; knee angles ~150-170 deg; hip midpoint between the feet",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "bx-stance-guard-c03",
+          "description": "Lead hand at shoulder-to-eye height, ~8-10 in in front of the body; rear fist at the jaw/chin; elbows down and in front of the short ribs.",
+          "phase": "guard",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "lead_elbow",
+            "rear_elbow",
+            "nose",
+            "lead_shoulder"
+          ],
+          "measurable_angle_or_rule": "rear wrist within ~1 fist of the chin; elbows below wrist height and within ~1 fist of the torso",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "bx-stance-guard-c04",
+          "description": "Chin tucked down toward the breastbone and protected by the lead shoulder; eyes look out from the top of the eyes.",
+          "phase": "guard",
+          "body_landmarks": [
+            "nose",
+            "lead_shoulder",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "nose at or below shoulder-line height + one head-height; head not tilted back",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-stance-guard-f01",
+          "name": "Feet too wide or too narrow",
+          "video_signs": "Too wide: slow, heavy steps. Too narrow / feet in line: easily knocked off balance, especially laterally.",
+          "correction_cue": "'Shoulder-width, like standing on railroad tracks - not a tightrope.'",
+          "why_it_matters": "Stance width controls both mobility and balance.",
+          "drill_ids": [
+            "BX-D-MIRROR",
+            "BX-D-STEPS"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        },
+        {
+          "id": "bx-stance-guard-f02",
+          "name": "Flat-footed / both heels down",
+          "video_signs": "Both heels planted; movement looks heavy.",
+          "correction_cue": "'Rear heel up - springy, ready to pounce.'",
+          "why_it_matters": "A raised rear heel loads the rear leg for punching and moving.",
+          "drill_ids": [
+            "BX-D-STEPS"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-stance-guard-f03",
+          "name": "Chin up / standing straight up",
+          "video_signs": "Head high above the shoulders, torso upright, creating a big target.",
+          "correction_cue": "'Chin to chest, look through your eyebrows.'",
+          "why_it_matters": "The chin is the knockout point; an upright posture enlarges the target.",
+          "drill_ids": [
+            "BX-D-MIRROR"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-stance-guard-f04",
+          "name": "Elbows flared / hands low",
+          "video_signs": "Elbows away from the ribs; rear hand drops below the chin between punches.",
+          "correction_cue": "'Elbows on the short ribs, rear fist on the jaw.'",
+          "why_it_matters": "Flared elbows open the body; low hands leave the head unprotected.",
+          "drill_ids": [
+            "BX-D-MIRROR"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-MIRROR",
+          "name": "Mirror shadowboxing check",
+          "origin": "from_source",
+          "setup": "Full-length mirror; boxer in stance.",
+          "steps": [
+            "Assume the fundamental position and check each coaching tip (feet, heel, knees, hands, elbows, chin).",
+            "Shadowbox slowly, returning to the exact stance after every punch.",
+            "Increase speed while keeping the stance identical."
+          ],
+          "dosage": "3 rounds x 2-3 min",
+          "fixes": "All stance/guard faults",
+          "why": "Self-evaluation in the mirror lets the boxer see and correct stance errors immediately, as recommended in the USA Boxing manual.",
+          "equipment": [
+            "mirror"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Throw every punch from the same stance: if stance or arm position changes before a particular punch, a sharp opponent will read it and counter.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "tip": "Stay relaxed - avoid clenching shoulder and arm muscles; tension slows punches and burns energy.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bx-footwork",
+      "name": "Footwork: advance, retreat, lateral step, pivot",
+      "category": "fundamentals",
+      "recommended_camera": "Floor-level front and side views; mark the floor with tape for reference.",
+      "phases": [
+        "advance",
+        "retreat",
+        "lateral",
+        "pivot"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-footwork-c01",
+          "description": "The foot closest to the direction of travel moves first; the other follows the same distance so stance width is preserved.",
+          "phase": null,
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "ankle distance after each step within ~10-15% of stance distance",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-footwork-c02",
+          "description": "Small shuffle steps; one foot in contact with the floor at all times - no hopping or crossing the feet.",
+          "phase": null,
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "never both feet airborne; feet never cross the midline",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-footwork-c03",
+          "description": "Pivot: lead foot stays planted and spins on the ball while the rear foot swings around, keeping distance to the opponent.",
+          "phase": "pivot",
+          "body_landmarks": [
+            "lead_ankle",
+            "lead_foot_index",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "lead ankle displacement ~0 while body orientation changes (e.g., 45-90 deg)",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "top",
+          "source_ids": [
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-footwork-f01",
+          "name": "Crossing feet or bringing feet together",
+          "video_signs": "Feet cross or come together during lateral steps.",
+          "correction_cue": "'Step-drag, never cross.'",
+          "why_it_matters": "Crossed feet momentarily destroy balance.",
+          "drill_ids": [
+            "BX-D-STEPS"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-footwork-f02",
+          "name": "Hopping / bouncing high",
+          "video_signs": "Both feet leave the floor; vertical bounce.",
+          "correction_cue": "'Slide, don't hop.'",
+          "why_it_matters": "Airborne moments cannot be used to punch or defend.",
+          "drill_ids": [
+            "BX-D-STEPS"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-footwork-f03",
+          "name": "Moving on the heels",
+          "video_signs": "Heels lead the step, weight back.",
+          "correction_cue": "'Push off the ball of the foot.'",
+          "why_it_matters": "Heel-loaded movement is slow and unbalanced.",
+          "drill_ids": [
+            "BX-D-STEPS"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-STEPS",
+          "name": "Tape-line step drill",
+          "origin": "adapted",
+          "setup": "Tape a line or grid on the floor; boxer in stance with feet on marks.",
+          "steps": [
+            "Advance: push off the rear foot, slide lead foot ~2-6 in, rear foot follows the same distance.",
+            "Retreat: rear foot moves first.",
+            "Lateral left/right: foot closest to the direction moves first.",
+            "Pivot on the lead foot left and right.",
+            "Coach calls directions randomly; add a jab at the end of each step."
+          ],
+          "dosage": "3-4 rounds x 2 min",
+          "fixes": "All footwork faults; flat-footed stance",
+          "why": "Taped references make stance width and step length visible, building the automatic step-drag pattern the manuals describe.",
+          "equipment": [
+            "tape"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Circle away from the opponent's power (rear) hand and practice moving in and out; a moving target is hard to hit.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "tip": "USA Boxing's teaching order: learn each punch standing still, then with forward/backward steps, then with side steps; then combine two mastered punches.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bx-jab",
+      "name": "Jab (lead straight punch)",
+      "category": "punches",
+      "recommended_camera": "Side view from the open side and front view; 120+ fps to see fist rotation.",
+      "phases": [
+        "start",
+        "extension",
+        "impact",
+        "retraction"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-jab-c01",
+          "description": "Lead fist snaps straight out from the guard with no wind-up; elbow stays pointing down (not flaring).",
+          "phase": "extension",
+          "body_landmarks": [
+            "lead_shoulder",
+            "lead_elbow",
+            "lead_wrist"
+          ],
+          "measurable_angle_or_rule": "elbow stays below the shoulder-wrist line during extension; no backward movement of the wrist before launch",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-jab-c02",
+          "description": "Fist turns palm-down (knuckles up) at impact with the arm extended.",
+          "phase": "impact",
+          "body_landmarks": [
+            "lead_elbow",
+            "lead_wrist"
+          ],
+          "measurable_angle_or_rule": "lead elbow angle ~165-180 deg at impact frame",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-jab-c03",
+          "description": "Rear hand stays at the chin and chin stays down throughout.",
+          "phase": null,
+          "body_landmarks": [
+            "rear_wrist",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "rear wrist remains within ~1 fist of the chin during the entire jab",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-jab-c04",
+          "description": "Retract along the same path and as fast as it went out, returning to guard.",
+          "phase": "retraction",
+          "body_landmarks": [
+            "lead_wrist",
+            "lead_shoulder"
+          ],
+          "measurable_angle_or_rule": "retraction time <= extension time; wrist path back overlaps the outbound path",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-jab-c05",
+          "description": "Lead leg supports and stabilizes the punch: elite boxers show higher lead-leg force and rate of force development than juniors.",
+          "phase": "impact",
+          "body_landmarks": [
+            "lead_knee",
+            "lead_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "lead knee remains flexed and stable (no collapse) at impact; slight forward weight shift",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "BX5",
+            "BX1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-jab-f01",
+          "name": "Telegraphing / winding up",
+          "video_signs": "Fist or shoulder drops or pulls back before the punch.",
+          "correction_cue": "'Straight from where it is - no wind-up.'",
+          "why_it_matters": "Any preliminary movement gives the opponent time to react.",
+          "drill_ids": [
+            "BX-D-JAB-MITT"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-jab-f02",
+          "name": "Pawing / pushing the jab",
+          "video_signs": "Arm doesn't fully extend or the punch is pushed slowly; no snap or fist turn.",
+          "correction_cue": "'Snap it out and snap it back - punch through, don't push.'",
+          "why_it_matters": "A pushed jab scores poorly and is easy to counter.",
+          "drill_ids": [
+            "BX-D-JAB-MITT",
+            "BX-D-HEAVYBAG"
+          ],
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ]
+        },
+        {
+          "id": "bx-jab-f03",
+          "name": "Dropping the rear hand / lifting the chin",
+          "video_signs": "Rear hand leaves the jaw or the chin rises as the jab goes out.",
+          "correction_cue": "'Rear fist glued to the jaw.'",
+          "why_it_matters": "The jab is when counters arrive; the rear hand protects against them.",
+          "drill_ids": [
+            "BX-D-JAB-MITT"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-jab-f04",
+          "name": "Slow or low retraction",
+          "video_signs": "Lead hand comes back low or out to the side, or lingers extended.",
+          "correction_cue": "'Same path out, same path back.'",
+          "why_it_matters": "A lingering or low hand is open to counters over the top.",
+          "drill_ids": [
+            "BX-D-JAB-MITT"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-JAB-MITT",
+          "name": "Jab-and-return mitt drill",
+          "origin": "adapted",
+          "setup": "Coach holds a focus mitt at the boxer's head height at jab range.",
+          "steps": [
+            "Boxer jabs from stance; coach checks no wind-up, elbow down, palm down at impact.",
+            "Coach taps back with the mitt after each jab to check the rear hand stays up.",
+            "Progress to stepping jabs and double jabs."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Telegraphing, pawing, dropped rear hand, slow retraction",
+          "why": "Mitts give immediate feedback and the coach's tap-back punishes the most common defensive lapse while jabbing.",
+          "equipment": [
+            "focus mitts",
+            "gloves"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "The jab is the most important punch in amateur boxing: rangefinder, primary scoring punch, balance-disruptor and set-up for the rear hand.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "tip": "Master a snappy jab straight from the shoulder without body turn first; only then add a step-in or slight shoulder rotation.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "tip": "Lead and rear straights play different roles: the lead is faster to complete (speed/distance control), the rear produces more force via trunk rotation.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX6"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bx-cross",
+      "name": "Rear straight (cross / straight right)",
+      "category": "punches",
+      "recommended_camera": "Side view from the open side plus front view; 120+ fps.",
+      "phases": [
+        "drive",
+        "rotation",
+        "impact",
+        "retraction"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-cross-c01",
+          "description": "Rear foot drives into the ground and the rear heel pivots outward as the rear hip rotates forward.",
+          "phase": "drive",
+          "body_landmarks": [
+            "rear_heel",
+            "rear_foot_index",
+            "rear_hip",
+            "rear_knee"
+          ],
+          "measurable_angle_or_rule": "rear heel turns out/up before impact; rear hip moves forward and rotates (pelvis rotation toward the target ~45+ deg)",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX2",
+            "BX7",
+            "BX8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-cross-c02",
+          "description": "Kinetic chain: legs -> hips -> trunk -> shoulder -> elbow -> fist, with trunk rotation peaking near impact.",
+          "phase": "rotation",
+          "body_landmarks": [
+            "rear_ankle",
+            "rear_hip",
+            "rear_shoulder",
+            "rear_elbow",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "pelvis rotation onset precedes shoulder rotation, which precedes elbow extension; trunk angular velocity peaks close to impact",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX8",
+            "BX6",
+            "BX10",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-cross-c03",
+          "description": "Weight shifts toward the lead leg (lead leg acts as a pivot/brace).",
+          "phase": "impact",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_ankle",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "hip midpoint moves forward toward the lead foot between start and impact",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BX1",
+            "BX9",
+            "BX8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-cross-c04",
+          "description": "Fist turns palm-down at impact; arm fully extended; lead hand stays up guarding the head and lead elbow the body; chin down.",
+          "phase": "impact",
+          "body_landmarks": [
+            "rear_elbow",
+            "rear_wrist",
+            "lead_wrist",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "rear elbow ~165-180 deg at impact; lead wrist stays at face height",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-cross-f01",
+          "name": "Arm punching (no rotation)",
+          "video_signs": "Shoulders turn but hips stay square; rear heel flat; rear foot doesn't pivot.",
+          "correction_cue": "'Turn the back foot like squashing a bug - hip through the target.'",
+          "why_it_matters": "Most of a straight punch's force originates from the rear leg and trunk rotation; arm-only punches lose that contribution.",
+          "drill_ids": [
+            "BX-D-PIVOT-CROSS",
+            "BX-D-HEAVYBAG"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2",
+            "BX7"
+          ]
+        },
+        {
+          "id": "bx-cross-f02",
+          "name": "Leaning / over-committing",
+          "video_signs": "Head travels past the lead knee; weight lands entirely on the lead foot; boxer falls forward on a miss.",
+          "correction_cue": "'Rotate around your spine - nose stays over the lead knee, not past it.'",
+          "why_it_matters": "Leaning breaks balance and leaves the boxer open to counters.",
+          "drill_ids": [
+            "BX-D-PIVOT-CROSS"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        },
+        {
+          "id": "bx-cross-f03",
+          "name": "Dropping the lead hand",
+          "video_signs": "Lead hand drops to the waist or pulls back as the cross is thrown.",
+          "correction_cue": "'Lead glove on the cheek while the right goes.'",
+          "why_it_matters": "The opponent's counter hook lands over a dropped lead hand.",
+          "drill_ids": [
+            "BX-D-PIVOT-CROSS"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-PIVOT-CROSS",
+          "name": "Rear-foot pivot cross drill",
+          "origin": "adapted",
+          "setup": "Boxer in stance beside a heavy bag or mitt; optional tape mark under the rear foot.",
+          "steps": [
+            "Slowly throw the cross while pivoting on the ball of the rear foot (heel turns out).",
+            "Freeze at full extension: check heel out, hip forward, lead hand at face, chin down.",
+            "Return to stance; repeat at increasing speed, then add jab-cross."
+          ],
+          "dosage": "3 rounds x 2 min; 5 slow + 5 fast reps per set",
+          "fixes": "Arm punching; leaning; dropped lead hand",
+          "why": "Freezing at extension lets the boxer feel the rear-leg drive and hip rotation that research identifies as the main source of cross power.",
+          "equipment": [
+            "heavy bag or mitts"
+          ],
+          "source_ids": [
+            "BX2",
+            "BX7"
+          ]
+        },
+        {
+          "id": "BX-D-HEAVYBAG",
+          "name": "Heavy-bag 'wobble, not swing' drill",
+          "origin": "from_source",
+          "setup": "Heavy bag; boxer at proper range.",
+          "steps": [
+            "Throw single punches and 1-2 combinations with proper technique.",
+            "Watch the bag: it should wobble/jolt, not swing far.",
+            "If the bag swings, the punch is being pushed - snap and retract faster."
+          ],
+          "dosage": "3-4 rounds x 3 min",
+          "fixes": "Pawing/pushed punches; arm punching",
+          "why": "USA Boxing uses bag behavior as feedback: excessive swing indicates a pushed punch instead of a snapped one.",
+          "equipment": [
+            "heavy bag"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Think of the fist as just the delivery tool - power comes from the explosive whole-body movement; the arm stays relaxed until impact for a whip-like transfer.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "tip": "Straight punches thrown with a weight shift produced higher impact force than static ones in a top-level boxer.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX9"
+          ]
+        },
+        {
+          "tip": "Lower-body fatigue reduced punch force across punches - leg conditioning matters for late-round power.",
+          "kind": "training",
+          "source_ids": [
+            "BX7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bx-hook",
+      "name": "Lead hook",
+      "category": "punches",
+      "recommended_camera": "Front view (facing boxer) and top-down if possible; 120+ fps.",
+      "phases": [
+        "rotation",
+        "impact",
+        "retraction"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-hook-c01",
+          "description": "Elbow bent close to 90 degrees; fist, elbow and shoulder form a line with the forearm roughly parallel to the floor.",
+          "phase": "impact",
+          "body_landmarks": [
+            "lead_shoulder",
+            "lead_elbow",
+            "lead_wrist"
+          ],
+          "measurable_angle_or_rule": "lead elbow angle ~80-100 deg at impact; forearm within ~20 deg of horizontal (head hook)",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "bx-hook-c02",
+          "description": "Power comes from rotating the lead hip and shoulder around the midline as one piece ('door on a hinge'), pivoting on the lead foot.",
+          "phase": "rotation",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_shoulder",
+            "lead_heel",
+            "lead_foot_index"
+          ],
+          "measurable_angle_or_rule": "lead heel rotates outward; shoulder line and hip line rotate together (difference < ~20 deg during the punch)",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX2",
+            "BX4"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-hook-c03",
+          "description": "Rear hand stays up at the chin and rigid; chin protected by the lead shoulder at impact.",
+          "phase": "impact",
+          "body_landmarks": [
+            "rear_wrist",
+            "nose",
+            "lead_shoulder"
+          ],
+          "measurable_angle_or_rule": "rear wrist within ~1 fist of chin during the hook",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-hook-c04",
+          "description": "Knuckles point at the opponent (thumb up/palm in per USA Boxing; other schools use palm down); retract along the shortest path.",
+          "phase": "impact",
+          "body_landmarks": [
+            "lead_wrist"
+          ],
+          "measurable_angle_or_rule": "hand orientation consistent at impact; quick return to guard",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "low",
+          "camera_view": "front",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-hook-f01",
+          "name": "Looping / wide hook",
+          "video_signs": "Arm extends and swings wide; elbow opens far beyond 90 deg.",
+          "correction_cue": "'Short and tight - keep the elbow bent, turn the body.'",
+          "why_it_matters": "A wide arc is slower, telegraphed and easier to block.",
+          "drill_ids": [
+            "BX-D-HOOK45"
+          ],
+          "source_ids": [
+            "BX1",
+            "BX4"
+          ]
+        },
+        {
+          "id": "bx-hook-f02",
+          "name": "Arm-only hook",
+          "video_signs": "Arm swings while hips and lead foot don't rotate.",
+          "correction_cue": "'Turn the door on its hinge - foot, hip, shoulder together.'",
+          "why_it_matters": "Hook power comes from the body's twist, not the arm.",
+          "drill_ids": [
+            "BX-D-HOOK45"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-hook-f03",
+          "name": "Dropping the rear hand / looking under the arm",
+          "video_signs": "Rear hand drifts away from the chin; eyes look below the arm.",
+          "correction_cue": "'Rear fist stays home; look over your arm.'",
+          "why_it_matters": "The hook brings boxers into counter range.",
+          "drill_ids": [
+            "BX-D-HOOK45"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-HOOK45",
+          "name": "45-degree mitt hook drill",
+          "origin": "from_source",
+          "setup": "Coach holds a mitt angled at ~45 degrees at hook range.",
+          "steps": [
+            "Boxer throws the lead hook landing knuckles-first on the angled mitt.",
+            "Check elbow ~90 deg, hip/shoulder rotate together, rear hand at chin.",
+            "Once consistent, target head and body; add jab-cross-hook."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Looping hook; arm-only hook; dropped rear hand",
+          "why": "USA Boxing recommends landing the basic hook on a 45-degree mitt or bag to develop the correct compact motion before adding targets.",
+          "equipment": [
+            "focus mitts"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Expert sources differ on weight transfer: USA Boxing's Grassroots manual shifts weight to the lead leg, while Sweet Science 101 describes weight moving to the rear leg as the lead side pivots. Choose one model and coach it consistently.",
+          "kind": "expert_disagreement",
+          "source_ids": [
+            "BX1",
+            "BX2"
+          ]
+        },
+        {
+          "tip": "Until straight punches are mastered, concentrate on them before hooks and uppercuts.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "tip": "Rear-leg ground reaction force is a key determinant of power for both the cross and the hook.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bx-uppercut",
+      "name": "Uppercut",
+      "category": "punches",
+      "recommended_camera": "Side view and front view.",
+      "phases": [
+        "dip",
+        "drive",
+        "impact"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-uppercut-c01",
+          "description": "Slight dip of the knees/waist toward the punching side without dropping the hands, then explode upward from the legs.",
+          "phase": "drive",
+          "body_landmarks": [
+            "lead_knee",
+            "rear_knee",
+            "mid_hip",
+            "lead_wrist",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "brief knee flexion followed by extension; hip midpoint rises during the punch; non-punching wrist stays at face height",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-uppercut-c02",
+          "description": "Punching arm bent ~90 degrees travelling a vertical path; palm turns toward the boxer.",
+          "phase": "impact",
+          "body_landmarks": [
+            "lead_elbow",
+            "rear_elbow",
+            "lead_wrist",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "punching elbow ~80-100 deg; wrist path mostly vertical",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "BX2"
+          ],
+          "threshold_confidence": "source_stated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-uppercut-f01",
+          "name": "Dropping the hand before the uppercut",
+          "video_signs": "Punching hand drops to the waist before rising ('shoveling').",
+          "correction_cue": "'Dip the legs, not the hand.'",
+          "why_it_matters": "Dropping the hand telegraphs the punch and opens the head.",
+          "drill_ids": [
+            "BX-D-JAB-MITT",
+            "BX-D-UPPER-MITT"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-uppercut-f02",
+          "name": "Throwing from out of range",
+          "video_signs": "Uppercut attempted at long range; boxer leans in.",
+          "correction_cue": "'Uppercuts are for close range only.'",
+          "why_it_matters": "At long range the uppercut is weak and leaves the boxer exposed.",
+          "drill_ids": [
+            "BX-D-UPPER-MITT"
+          ],
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-UPPER-MITT",
+          "name": "Close-range uppercut mitt drill",
+          "origin": "adapted",
+          "setup": "Coach holds mitts palm-down at chin height at close range.",
+          "steps": [
+            "From stance, dip slightly at the knees toward the punching side without dropping the hands.",
+            "Drive up from the legs, elbow ~90 deg, palm turning toward you.",
+            "Coach checks the non-punching hand stays at the face; then add hook-uppercut combinations."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Dropping the hand before the uppercut; throwing from out of range",
+          "why": "Holding mitts only at close range teaches correct distance, and the leg dip builds the upward drive the manuals describe.",
+          "equipment": [
+            "focus mitts"
+          ],
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Uppercuts work best at close range against a crouching opponent or one whose weight is anchored on the lead foot.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "bx-defense",
+      "name": "Defense: block, parry, slip",
+      "category": "defense",
+      "recommended_camera": "Front view facing the boxer (as the opponent sees).",
+      "phases": [
+        "read",
+        "defend",
+        "counter"
+      ],
+      "checkpoints": [
+        {
+          "id": "bx-defense-c01",
+          "description": "Keep defensive movements small and efficient: don't reach to block; slip just enough for the punch to miss.",
+          "phase": "defend",
+          "body_landmarks": [
+            "nose",
+            "lead_wrist",
+            "rear_wrist",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "head displacement on a slip ~ one head-width; hands stay within ~1 fist of the face when blocking",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "BX2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "bx-defense-c02",
+          "description": "Slips come from bending the knees/rotating the torso, with eyes kept on the opponent.",
+          "phase": "defend",
+          "body_landmarks": [
+            "nose",
+            "lead_knee",
+            "rear_knee",
+            "lead_shoulder",
+            "rear_shoulder"
+          ],
+          "measurable_angle_or_rule": "knee flexion increases during slip; shoulder line tilts/rotates while eyes stay forward",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "BX2",
+            "BX1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "bx-defense-f01",
+          "name": "Reaching / over-blocking",
+          "video_signs": "Hands leave the face to meet punches far out; exaggerated head movement.",
+          "correction_cue": "'Small and efficient - let it come to you.'",
+          "why_it_matters": "Big movements cost balance and time for counters.",
+          "drill_ids": [
+            "BX-D-MAIZE",
+            "BX-D-DOUBLE-END"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        },
+        {
+          "id": "bx-defense-f02",
+          "name": "Bending at the waist / looking down",
+          "video_signs": "Boxer ducks by folding at the waist and loses sight of the opponent.",
+          "correction_cue": "'Bend the knees, eyes up.'",
+          "why_it_matters": "Losing sight of the opponent invites uppercuts and knees.",
+          "drill_ids": [
+            "BX-D-MAIZE"
+          ],
+          "source_ids": [
+            "BX2"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "BX-D-MAIZE",
+          "name": "Maize (slip) bag drill",
+          "origin": "from_source",
+          "setup": "Hang a maize/slip bag at chin height.",
+          "steps": [
+            "Push the bag so it swings toward you.",
+            "Slip or duck it without moving the feet, keeping hands up.",
+            "Add a counter punch after each slip."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Reaching; bending at the waist",
+          "why": "USA Boxing uses the maize bag to drill repetitive head movement without footwork, isolating the defensive skill.",
+          "equipment": [
+            "maize/slip bag"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        },
+        {
+          "id": "BX-D-DOUBLE-END",
+          "name": "Double-end bag guard drill",
+          "origin": "from_source",
+          "setup": "Double-end bag (two elastic cords).",
+          "steps": [
+            "Strike with quick punches and short combinations.",
+            "Return the guard between every punch/combination and slip the rebounding bag.",
+            "Optionally replace the top cord with rope for side-to-side head movement work."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Dropped hands between punches; reaching",
+          "why": "The unpredictable rebound punishes a dropped guard and trains timing, accuracy and range, as described by USA Boxing.",
+          "equipment": [
+            "double-end bag"
+          ],
+          "source_ids": [
+            "BX1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "USA Boxing sequence: once punches are mastered with movement, teach basic defense against those punches, then counter-attacks.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX1"
+          ]
+        },
+        {
+          "tip": "WBC checklist challenge: can you throw a jab, 1-2 or 1-2-3 off a parry, or a lead hook over the opponent's jab?",
+          "kind": "pro_tip",
+          "source_ids": [
+            "BX4"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

@@ -1,0 +1,1569 @@
+{
+  "sport": "Softball (fastpitch)",
+  "sport_id": "softball",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers fastpitch hitting (stance/load, stride, swing, finish), windmill pitching, infield fielding and overhand throwing. Slapping, bunting, catching and outfield play are not yet covered.",
+  "source_gap_notes": "Strong peer-reviewed coverage exists for windmill pitching loads; hitting/fielding mechanics rely mainly on elite college/Olympic coaches and NFCA/USA Softball materials (several are paid videos whose public descriptions were used). Fewer than 10 tier-1 sources; tier-2/3 coaching sources fill the gap and are labelled.",
+  "sources": [
+    {
+      "id": "SB1",
+      "name": "USA Softball (ASA) instructional video catalog - Mike Candrea 'Fundamentals of Hitting', Ralph Weekly hitting/circuit videos",
+      "type": "governing_body",
+      "url": "https://usasoftballiowa.org/coachingvideos.pdf",
+      "author_or_org": "USA Softball / M. Candrea, R. Weekly",
+      "year": null,
+      "credibility": "Official USA Softball instructional series by Olympic head coaches Candrea and Weekly; covers stance, load, strike and swing plus 25+ USA Olympic team drills.",
+      "verification": "search_snippet",
+      "covers": [
+        "hitting",
+        "drills"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB2",
+      "name": "USA Softball 2026 High Performance Program Operations Manual (player evaluations)",
+      "type": "governing_body",
+      "url": "https://www.usasoftball.com/wp-content/uploads/sites/120/2026/02/26_HPP_OperationsManual.pdf",
+      "author_or_org": "USA Softball",
+      "year": 2026,
+      "credibility": "National governing body's evaluation protocol: what national-team evaluators grade (hitting mechanics/power/timing, exit velocity, pitch speed/location/movement).",
+      "verification": "search_snippet",
+      "covers": [
+        "evaluation",
+        "hitting",
+        "pitching"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB3",
+      "name": "NFCA - Softball Hitting Drills: 4 Top Drills (Chidester sequencing, Road Map drill, Strub two-plate drill)",
+      "type": "coaching_association",
+      "url": "https://nfca.org/easyblog/softball-hitting-drills-4-top-drills-more-for-your-team",
+      "author_or_org": "NFCA",
+      "year": null,
+      "credibility": "National Fastpitch Coaches Association, drills from NCAA head coaches.",
+      "verification": "search_snippet",
+      "covers": [
+        "hitting",
+        "sequencing",
+        "timing"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB4",
+      "name": "NFCA Practice Plans and Drills - Year One Package",
+      "type": "coaching_association",
+      "url": "https://nfca.org/images/pdfs/NFCA-Practice-Plans-and-Drills-Yr-1-Pkg.pdf",
+      "author_or_org": "NFCA",
+      "year": null,
+      "credibility": "NFCA's structured practice plans and numbered drills for fielding and throwing.",
+      "verification": "search_snippet",
+      "covers": [
+        "fielding",
+        "throwing",
+        "drills"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB5",
+      "name": "Ehren Earleywine - Hitting Mechanics and Drills for Softball (Softball Hitting Absolutes + 24 drills)",
+      "type": "elite_coach_video",
+      "url": "https://www.championshipproductions.com/cgi-bin/champ/p/Softball/Hitting-Mechanics-and-Drills-for-Softball-2-Pack_SD-04233.html",
+      "author_or_org": "Ehren Earleywine",
+      "year": null,
+      "credibility": "Three-time Women's College World Series coach (Missouri); breaks the swing into 10 phases with video analysis of elite vs beginner hitters.",
+      "verification": "search_snippet",
+      "covers": [
+        "hitting phases",
+        "drills"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB6",
+      "name": "Ehren Earleywine - Infield Mechanics and Drills for Softball",
+      "type": "elite_coach_video",
+      "url": "https://www.championshipproductions.com/cgi-bin/champ/p/Softball/Infield-Mechanics-and-Drills-for-Softball-2-Pack_SD-04235.html",
+      "author_or_org": "Ehren Earleywine",
+      "year": null,
+      "credibility": "NFCA Coach of the Year; covers routine grounders, glove work, footwork and why a 3/4 arm slot is preferred for infield throws.",
+      "verification": "search_snippet",
+      "covers": [
+        "fielding",
+        "throwing"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB7",
+      "name": "Megan Smith - Fundamentals and Techniques for Record Breaking Middle & Corner Infield Play",
+      "type": "elite_coach_video",
+      "url": "https://www.championshipproductions.com/cgi-bin/champ/p/Softball/Fundamentals-and-Techniques-for-Record-Breaking-Middle-Corner-Infield-Play_SD-05316B.html",
+      "author_or_org": "Megan Smith",
+      "year": null,
+      "credibility": "Division I head coach; 27 infield drills incl. drop-step and 'Hot Dog' drills.",
+      "verification": "search_snippet",
+      "covers": [
+        "fielding",
+        "footwork"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB8",
+      "name": "University of Georgia open textbook - Softball: Fundamentals, Skills & Strategies",
+      "type": "university_text",
+      "url": "https://open.online.uga.edu/softball/chapter/fundamentals/",
+      "author_or_org": "University of Georgia",
+      "year": null,
+      "credibility": "University course text with explicit fielding/throwing technique and progressions.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "fielding",
+        "throwing"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB9",
+      "name": "Kinematics and Kinetics of Elite Windmill Softball Pitching (AJSM)",
+      "type": "peer_reviewed",
+      "url": "https://journals.sagepub.com/doi/10.1177/0363546505281796",
+      "author_or_org": "Werner SL et al.",
+      "year": 2006,
+      "credibility": "3D analysis of 24 elite pitchers at the 1996 Olympics; shoulder distraction ~80% body weight; 7 mechanics variables explain 69% of shoulder distraction.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "pitching",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB10",
+      "name": "Biomechanics of Youth Windmill Softball Pitching (AJSM)",
+      "type": "peer_reviewed",
+      "url": "https://journals.sagepub.com/doi/10.1177/0363546504269253",
+      "author_or_org": "Werner SL et al.",
+      "year": 2005,
+      "credibility": "53 youth pitchers; shoulder distraction ~94% BW; stride-foot vertical and braking forces exceed body weight.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "pitching",
+        "injury",
+        "youth"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB11",
+      "name": "Biomechanics of Windmill Softball Pitching With Implications About Injury Mechanisms at the Shoulder and Elbow (JOSPT)",
+      "type": "peer_reviewed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9836172/",
+      "author_or_org": "Barrentine SW, Fleisig GS et al.",
+      "year": 1998,
+      "credibility": "ASMI group (Barrentine, Fleisig, Escamilla, Andrews); compressive forces 70-98% BW at elbow/shoulder; biceps-labrum complex at risk.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "pitching",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB12",
+      "name": "Biceps Activity During Windmill Softball Pitching (AJSM)",
+      "type": "peer_reviewed",
+      "url": "https://www.ovid.com/journals/ajsm/pdf/10.1177/0363546508328105~biceps-activity-during-windmill-softball-pitching-injury",
+      "author_or_org": "Rojas IL et al.",
+      "year": 2009,
+      "credibility": "EMG: biceps activity higher in windmill than overhand throwing, peaking (eccentric) at the 9 o'clock and follow-through phases.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "pitching",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB13",
+      "name": "Variables associated with peak throwing-shoulder distraction force in high school softball pitchers (AJSM)",
+      "type": "peer_reviewed",
+      "url": "https://cdn.fs.pathlms.com/oDckqvJwRuWbQ967WyrZ",
+      "author_or_org": null,
+      "year": null,
+      "credibility": "Greater trunk flexion at foot contact and faster elbow flexion were associated with LOWER shoulder distraction force.",
+      "verification": "abstract_reviewed",
+      "covers": [
+        "pitching",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB14",
+      "name": "Windmill Pitching: Drive Phase with Chanda Bell (Marshall University) - Coaches Insider",
+      "type": "elite_coach_video",
+      "url": "https://coachesinsider.com/softball/windmill-pitching-drive-phase-chanda-bell-marshall-university-video/",
+      "author_or_org": "Chanda Bell",
+      "year": null,
+      "credibility": "NCAA D-I pitching coach instructional on the drive/push-off phase.",
+      "verification": "search_snippet",
+      "covers": [
+        "pitching"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB15",
+      "name": "The Hitting Vault - Softball Hitting Drills and Practice Plans",
+      "type": "coaching_website",
+      "url": "https://thehittingvault.com/softball-hitting-drills-and-practice-plans/",
+      "author_or_org": "The Hitting Vault",
+      "year": null,
+      "credibility": "Hitting-instruction organization; tee/front-toss/live progressions and contact-position cues. Tier 3.",
+      "verification": "search_snippet",
+      "covers": [
+        "hitting",
+        "practice design"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB17",
+      "name": "StriveOn - Softball Pitching Drills: 15 Windmill Drills for Every Level",
+      "type": "coaching_website",
+      "url": "https://joinstriveon.com/blog/softball-pitching-drills",
+      "author_or_org": "StriveOn",
+      "year": null,
+      "credibility": "Coaching-platform drill compilation incl. the K / power-position drill. Tier 3.",
+      "verification": "search_snippet",
+      "covers": [
+        "pitching drills"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SB16",
+      "name": "Softball Spot - Windmill Pitching Drills for Beginners",
+      "type": "coaching_website",
+      "url": "https://www.softball-spot.com/windmill-pitching-drills-beginners/2768/",
+      "author_or_org": "Softball Spot",
+      "year": null,
+      "credibility": "Widely used beginner progression (wrist snaps -> half circles -> full circles). Tier 3.",
+      "verification": "search_snippet",
+      "covers": [
+        "pitching",
+        "youth"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "sb-bat-stance-load",
+      "name": "Batting: stance and load",
+      "category": "hitting",
+      "recommended_camera": "Side view from the open side (facing the hitter's chest) at hip height, plus a rear view from behind the catcher for head/stride direction; 120+ fps if available.",
+      "phases": [
+        "stance",
+        "negative move / load"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-bat-stance-load-c01",
+          "description": "Athletic, balanced stance: feet roughly shoulder-width or slightly wider, knees flexed, weight on the balls/inside of the feet.",
+          "phase": "stance",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "lead_shoulder",
+            "rear_shoulder",
+            "lead_knee",
+            "rear_knee"
+          ],
+          "measurable_angle_or_rule": "ankle-to-ankle distance about 1.0-1.5x shoulder width; knee flexion visible (knee angle ~150-165 deg)",
+          "rule_basis": "coaching_heuristic",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB1",
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-stance-load-c02",
+          "description": "Hands set near the rear shoulder with the bat knob roughly pointing down/toward the catcher's feet; relaxed grip.",
+          "phase": "stance",
+          "body_landmarks": [
+            "rear_shoulder",
+            "rear_wrist",
+            "lead_wrist",
+            "bat_knob"
+          ],
+          "measurable_angle_or_rule": "wrists within ~1 forearm length of the rear shoulder; wrists above elbow height",
+          "rule_basis": "coaching_heuristic",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SB1",
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-stance-load-c03",
+          "description": "Load ('negative move'): weight shifts slightly onto the rear leg and the front hip/shoulder turn inward while the hands drift back - the head stays nearly still.",
+          "phase": "load",
+          "body_landmarks": [
+            "nose",
+            "mid_hip",
+            "lead_hip",
+            "rear_hip",
+            "lead_shoulder",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "pelvis rotates slightly closed (toward catcher) during load; horizontal head displacement small (< ~1 head-width) from stance to end of load",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5",
+            "SB1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-stance-load-c04",
+          "description": "Eyes level and both eyes on the pitcher (head turned, not tilted).",
+          "phase": "stance",
+          "body_landmarks": [
+            "nose",
+            "lead_eye",
+            "rear_eye"
+          ],
+          "measurable_angle_or_rule": "line between eyes within ~10-15 deg of horizontal",
+          "rule_basis": "coaching_heuristic",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SB1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-bat-stance-load-f01",
+          "name": "Over-loading / swaying back",
+          "video_signs": "Head and hips drift toward the catcher during the load; rear knee collapses outside the rear foot.",
+          "correction_cue": "'Load into your back hip, not past it - keep your head over your belt buckle.'",
+          "why_it_matters": "Head movement changes eye level and timing; excess drift must be recovered before rotating.",
+          "drill_ids": [
+            "SB-D-WALL-LOAD",
+            "SB-D-TEE-ROAD"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        },
+        {
+          "id": "sb-bat-stance-load-f02",
+          "name": "Bat wrap / barrel tipping",
+          "video_signs": "Bat barrel wraps behind the head pointing at the pitcher, lengthening the swing path.",
+          "correction_cue": "'Keep the knob pointing down and the barrel above your hands.'",
+          "why_it_matters": "A wrapped barrel creates a long, casting path to the ball.",
+          "drill_ids": [
+            "SB-D-TWO-TEE"
+          ],
+          "source_ids": [
+            "SB5",
+            "SB15"
+          ]
+        },
+        {
+          "id": "sb-bat-stance-load-f03",
+          "name": "Rigid, upright stance",
+          "video_signs": "Knees locked, weight on heels, minimal flexion.",
+          "correction_cue": "'Athletic position - like a shortstop ready for a ground ball.'",
+          "why_it_matters": "Locked joints slow the start of the swing and kill rhythm.",
+          "drill_ids": [
+            "SB-D-WALL-LOAD"
+          ],
+          "source_ids": [
+            "SB1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-WALL-LOAD",
+          "name": "Back-wall load drill",
+          "origin": "adapted",
+          "setup": "Hitter sets up with the rear hip about a fist away from a wall or net behind them, bat in hand.",
+          "steps": [
+            "Take a normal stance.",
+            "Load into the rear hip while keeping the head still.",
+            "The rear hip/glute may lightly touch the wall; the head and rear knee must NOT drift past the rear foot.",
+            "Hold the loaded position for 2 seconds, then reset."
+          ],
+          "dosage": "3 sets x 8 slow reps, then 5 reps at game speed",
+          "fixes": "Over-loading / swaying back; rigid stance",
+          "why": "Gives instant tactile feedback on how far the hips may move, teaching a rotational load rather than a lateral sway so the eyes stay level.",
+          "equipment": [
+            "wall or net"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Earleywine separates hitting 'absolutes' (must be present in every good swing) from personal 'styles' (stance width, hand height). Coach the absolutes, allow style.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB5"
+          ]
+        },
+        {
+          "tip": "Quality beats quantity: fewer, focused swings in practice are more valuable than hundreds of unfocused swings.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB15"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sb-bat-stride",
+      "name": "Batting: stride and launch (toe-touch) position",
+      "category": "hitting",
+      "recommended_camera": "Side view (open side) at hip height; rear view to check stride direction.",
+      "phases": [
+        "positive move / stride",
+        "toe touch / launch position"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-bat-stride-c01",
+          "description": "Short, soft, controlled stride toward the pitcher; stride foot lands on the inside ball of the foot, slightly closed.",
+          "phase": "stride",
+          "body_landmarks": [
+            "lead_ankle",
+            "lead_foot_index",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "stride length roughly 0-1 foot lengths beyond the stance width; lead toe angle ~30-60 deg closed relative to the pitcher line at landing",
+          "rule_basis": "coaching_heuristic",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5",
+            "SB1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-stride-c02",
+          "description": "At toe-touch the hands stay back (separation/'launch position'): the front foot lands while the hands remain near the rear shoulder.",
+          "phase": "toe touch",
+          "body_landmarks": [
+            "lead_foot_index",
+            "rear_wrist",
+            "rear_shoulder",
+            "lead_hip"
+          ],
+          "measurable_angle_or_rule": "at front-foot contact frame, wrist position has not moved forward of the rear shoulder",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5",
+            "SB3"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-stride-c03",
+          "description": "Head stays level from stance through stride (no lunge, no drop).",
+          "phase": "stride",
+          "body_landmarks": [
+            "nose",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "vertical head displacement < ~5 cm and forward head travel no more than a few cm beyond the stride-foot/rear-foot midpoint",
+          "rule_basis": "coaching_heuristic",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-bat-stride-f01",
+          "name": "Lunging / drifting forward",
+          "video_signs": "Head and chest move toward the pitcher with the stride; front knee travels past the front foot; hands move forward with the body.",
+          "correction_cue": "'Stride, don't go - land with your weight still centered and your hands back.'",
+          "why_it_matters": "Committing weight early leaves no power for off-speed pitches and drops the eye level.",
+          "drill_ids": [
+            "SB-D-TWO-PLATE",
+            "SB-D-WALL-LOAD"
+          ],
+          "source_ids": [
+            "SB5",
+            "SB3"
+          ]
+        },
+        {
+          "id": "sb-bat-stride-f02",
+          "name": "Late or no stride (timing)",
+          "video_signs": "Front foot is still in the air when the swing must start; rushed or arm-only swings.",
+          "correction_cue": "'Get your foot down early - be on time, then let it go.'",
+          "why_it_matters": "Sequencing can only start once the front foot is down and braced.",
+          "drill_ids": [
+            "SB-D-TWO-PLATE"
+          ],
+          "source_ids": [
+            "SB3"
+          ]
+        },
+        {
+          "id": "sb-bat-stride-f03",
+          "name": "Stepping in the bucket (open stride)",
+          "video_signs": "Front foot lands well toward the pull-side foul line; front shoulder flies open.",
+          "correction_cue": "'Stride toward the pitcher - land closed.'",
+          "why_it_matters": "Early opening pulls the barrel off the ball, especially on outside pitches.",
+          "drill_ids": [
+            "SB-D-TEE-ROAD"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-TWO-PLATE",
+          "name": "Two-plate timing drill (Coach Strub, NFCA)",
+          "origin": "from_source",
+          "setup": "Two home plates set in line: a back plate (simulates slower pitch) and a front plate (simulates faster pitch). Use BP or live pitching.",
+          "steps": [
+            "Hitter starts at the front plate and takes rounds of swings.",
+            "Move to the back plate for the next round.",
+            "Progress to switching plates pitch-to-pitch.",
+            "Goal: be on time from either plate."
+          ],
+          "dosage": "2-3 rounds of 5-6 swings per plate; finish with alternating pitches",
+          "fixes": "Late stride; lunging",
+          "why": "Changing the effective pitch speed forces the hitter to own the timing of the load/stride, the root cause of most lunges and late swings.",
+          "equipment": [
+            "two home plates",
+            "pitcher or machine"
+          ],
+          "source_ids": [
+            "SB3"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "A hitter is in charge of her own timing: drills that change the distance or speed of the pitch make the hitter adjust the stride, rather than the coach adjusting the hitter.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB3"
+          ]
+        },
+        {
+          "tip": "Earleywine lists 'toe touch or launch position' as its own phase - freeze-frame video at front-foot contact to check that the hands have not started forward.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB5"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sb-bat-swing",
+      "name": "Batting: rotation, bat path and contact",
+      "category": "hitting",
+      "recommended_camera": "Side view (open side) and front view from the pitcher's direction (behind a screen) at 120-240 fps.",
+      "phases": [
+        "rotation",
+        "bat path / connection",
+        "contact"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-bat-swing-c01",
+          "description": "Kinematic sequence: hips start rotating first, then core, then shoulders, then hands and barrel.",
+          "phase": "rotation",
+          "body_landmarks": [
+            "lead_hip",
+            "rear_hip",
+            "lead_shoulder",
+            "rear_shoulder",
+            "lead_wrist",
+            "bat_barrel"
+          ],
+          "measurable_angle_or_rule": "pelvis rotation angle (line through hips, top view/front view) leads shoulder-line rotation; pelvis angular velocity peaks before shoulder angular velocity, which peaks before wrist speed",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SB3"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-swing-c02",
+          "description": "Rear heel rises and the rear foot pivots ('laces toward the pitcher') as the rear hip drives forward.",
+          "phase": "rotation",
+          "body_landmarks": [
+            "rear_heel",
+            "rear_foot_index",
+            "rear_hip",
+            "rear_knee"
+          ],
+          "measurable_angle_or_rule": "rear heel lifts off the ground before contact; rear knee moves forward/down toward the front knee",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-swing-c03",
+          "description": "Front leg firms up (braces) at or just before contact, stopping forward movement so the body rotates around it.",
+          "phase": "contact",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "lead knee angle increases (extends) between front-foot contact and ball contact, approaching ~160-180 deg",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5",
+            "SB3"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-swing-c04",
+          "description": "Hands stay inside the ball and above the barrel through the hitting zone, contacting the ball at a consistent contact spot out in front of the plate.",
+          "phase": "contact",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "bat_barrel",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "at contact, wrists are at or above barrel height; contact point is in front of the lead hip for middle/inside pitches",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SB15",
+            "SB3"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-swing-c05",
+          "description": "Head stays still and eyes on the contact point.",
+          "phase": "contact",
+          "body_landmarks": [
+            "nose",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "nose position at contact within a few cm of its position at front-foot contact",
+          "rule_basis": "coaching_heuristic",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-bat-swing-f01",
+          "name": "Casting (long swing)",
+          "video_signs": "Hands move away from the body early; lead arm straightens early; the barrel makes a big arc ('sweeping') before reaching the zone.",
+          "correction_cue": "'Knob to the ball - keep your hands inside.'",
+          "why_it_matters": "A long path is slower to contact and reduces bat control, especially on inside pitches.",
+          "drill_ids": [
+            "SB-D-TWO-TEE",
+            "SB-D-TEE-ROAD"
+          ],
+          "source_ids": [
+            "SB5",
+            "SB15"
+          ]
+        },
+        {
+          "id": "sb-bat-swing-f02",
+          "name": "Arms-only swing / no hip rotation",
+          "video_signs": "Shoulders and arms start the swing while hips stay square; rear foot stays flat.",
+          "correction_cue": "'Hips, core, shoulders, then hands.'",
+          "why_it_matters": "Without a proximal-to-distal sequence, bat speed and power drop sharply.",
+          "drill_ids": [
+            "SB-D-PVC-SEQ"
+          ],
+          "source_ids": [
+            "SB3"
+          ]
+        },
+        {
+          "id": "sb-bat-swing-f03",
+          "name": "Dropping the back shoulder / uppercut collapse",
+          "video_signs": "Rear shoulder dips sharply, rear knee collapses, barrel drops under the ball producing pop-ups.",
+          "correction_cue": "'Stay through the ball - turn, don't dip.'",
+          "why_it_matters": "Excess shoulder tilt puts the barrel under the ball's plane.",
+          "drill_ids": [
+            "SB-D-TWO-TEE"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        },
+        {
+          "id": "sb-bat-swing-f04",
+          "name": "Inconsistent contact spot",
+          "video_signs": "Contact occurs at varying depths - sometimes deep beside the body, sometimes reaching out front.",
+          "correction_cue": "'Find your spot and hit there every time.'",
+          "why_it_matters": "A repeatable contact point is what makes a swing reliable against varying pitches.",
+          "drill_ids": [
+            "SB-D-TEE-ROAD"
+          ],
+          "source_ids": [
+            "SB3"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-TEE-ROAD",
+          "name": "Road Map (contact-spot) drill (NFCA)",
+          "origin": "from_source",
+          "setup": "Place a marker (ball or object) on the ground at the hitter's ideal contact spot; front toss.",
+          "steps": [
+            "Hitter identifies her ideal contact spot and marks it.",
+            "Take front-toss reps, staying grounded and making contact at the marked spot.",
+            "Coach reports where contact actually occurred.",
+            "Adjust marker for inside/outside pitches once consistent."
+          ],
+          "dosage": "3 rounds x 8-10 swings",
+          "fixes": "Inconsistent contact spot; casting; stepping in the bucket",
+          "why": "An external landmark gives the hitter a concrete target, so she learns the feel of contacting the ball at the same depth instead of chasing it.",
+          "equipment": [
+            "marker",
+            "balls",
+            "screen"
+          ],
+          "source_ids": [
+            "SB3"
+          ]
+        },
+        {
+          "id": "SB-D-TWO-TEE",
+          "name": "Two-tee bat-path drill",
+          "origin": "from_source",
+          "setup": "Two tees in line with the pitch path: the back tee (with ball) at the contact point and a second tee about 12-18 in. in front of it, set at the height of the desired path through the zone.",
+          "steps": [
+            "Hit the ball off the back tee.",
+            "The barrel must travel on line through the space of the front tee (hit both balls or drive the first through the second's position).",
+            "Start slowly; increase speed when the path is consistent."
+          ],
+          "dosage": "3 sets x 8 swings",
+          "fixes": "Casting; bat wrap; dropping back shoulder",
+          "why": "The second tee defines a correct path through the zone, giving immediate feedback when the barrel sweeps around or dips under the ball.",
+          "equipment": [
+            "2 tees",
+            "balls"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        },
+        {
+          "id": "SB-D-PVC-SEQ",
+          "name": "Slow-motion PVC sequencing drill",
+          "origin": "from_source",
+          "setup": "Hitter holds a light PVC pipe or bat in stance; no ball.",
+          "steps": [
+            "Load and stride slowly.",
+            "Rotate hips first and pause.",
+            "Let the core and shoulders follow and pause.",
+            "Finally bring the hands/barrel through.",
+            "Gradually blend into one fluid motion, then hit off a tee."
+          ],
+          "dosage": "2 sets x 10 slow reps then 10 tee swings",
+          "fixes": "Arms-only swing",
+          "why": "Separating each link lets the athlete feel the hips-core-shoulders-hands order before speed hides the sequence.",
+          "equipment": [
+            "PVC pipe or bat",
+            "tee"
+          ],
+          "source_ids": [
+            "SB3"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Coach Chidester (NFCA): after loading and getting the foot down, sequencing comes next - hips, core, shoulders, then hands and barrel.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB3"
+          ]
+        },
+        {
+          "tip": "Use a progression: tee for grip/stance/load/bat path, front toss for timing and contact spot, then live pitching for pitch recognition.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB15"
+          ]
+        },
+        {
+          "tip": "USA Softball national-team evaluators score hitting on mechanics, power and timing, and record exit velocity off a tee - measurable outcomes worth tracking alongside form.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sb-bat-finish",
+      "name": "Batting: extension and follow-through",
+      "category": "hitting",
+      "recommended_camera": "Side view and front view at normal speed; freeze 2-3 frames after contact.",
+      "phases": [
+        "extension",
+        "finish"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-bat-finish-c01",
+          "description": "Both arms extend through the ball after contact (extension), not before.",
+          "phase": "extension",
+          "body_landmarks": [
+            "lead_elbow",
+            "rear_elbow",
+            "lead_wrist",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "both elbow angles reach near-full extension (~160-180 deg) shortly AFTER contact",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-bat-finish-c02",
+          "description": "Balanced finish: weight over a braced front leg, rear foot on its toe, belly button facing the pitcher, head still looking at the contact point.",
+          "phase": "finish",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_ankle",
+            "rear_foot_index",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "at finish, hip midpoint is between the feet (not behind the rear foot); pelvis faces the pitcher (~90 deg rotation from stance)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SB5"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-bat-finish-f01",
+          "name": "Pulling off / early head pull",
+          "video_signs": "Head and front shoulder rotate away before contact; eyes leave the contact point.",
+          "correction_cue": "'See the ball hit the bat; keep your chin in after contact.'",
+          "why_it_matters": "Pulling the head drags the front shoulder and barrel off the ball.",
+          "drill_ids": [
+            "SB-D-TEE-ROAD",
+            "SB-D-HOLD-FINISH"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        },
+        {
+          "id": "sb-bat-finish-f02",
+          "name": "Off-balance finish (falling back or forward)",
+          "video_signs": "Hitter falls toward the plate or backward after the swing; rear foot comes off the ground entirely or front foot spins open.",
+          "correction_cue": "'Finish tall and hold it for a two-count.'",
+          "why_it_matters": "Balance at the finish reflects whether rotation happened around a stable axis.",
+          "drill_ids": [
+            "SB-D-PVC-SEQ",
+            "SB-D-HOLD-FINISH"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-HOLD-FINISH",
+          "name": "Tee swings with a 2-count finish hold",
+          "origin": "adapted",
+          "setup": "Tee at the hitter's contact spot.",
+          "steps": [
+            "Swing at game speed.",
+            "Hold the finish for a two-count: weight over a firm front leg, rear foot on its toe, belly button to the pitcher, eyes at the contact point.",
+            "Coach or video checks the frozen finish."
+          ],
+          "dosage": "3 sets x 8 swings",
+          "fixes": "Off-balance finish; pulling off",
+          "why": "A held finish exposes balance and head-pull problems that are invisible at full speed.",
+          "equipment": [
+            "tee",
+            "balls"
+          ],
+          "source_ids": [
+            "SB5"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Earleywine lists extension and finish as separate phases of the swing: extension is where the barrel stays on the ball's line the longest.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB5"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sb-pitch-windmill",
+      "name": "Windmill pitching",
+      "category": "pitching",
+      "recommended_camera": "Side view from the open (glove) side at ~10-15 m, 120-240 fps; rear view from behind the pitcher to check the power line.",
+      "phases": [
+        "wind-up / pre-motion",
+        "drive / stride (push-off)",
+        "arm circle - 12 o'clock / 'K' position",
+        "9 o'clock / downswing",
+        "release",
+        "follow-through"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-pitch-windmill-c01",
+          "description": "Drive off the rubber with the push-off leg; stride straight toward home along the 'power line'.",
+          "phase": "drive",
+          "body_landmarks": [
+            "rear_ankle",
+            "lead_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "stride-foot landing within ~1 foot-width of a line from the rubber to home plate (rear view)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "rear",
+          "source_ids": [
+            "SB14",
+            "SB16"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-pitch-windmill-c02",
+          "description": "Arm circle stays close to the body and in a vertical plane, passing through a tall 12 o'clock ('K' position) with the arm extended.",
+          "phase": "arm circle",
+          "body_landmarks": [
+            "throw_shoulder",
+            "throw_elbow",
+            "throw_wrist"
+          ],
+          "measurable_angle_or_rule": "throwing elbow angle ~160-180 deg at the 12 o'clock frame; wrist path stays within a near-vertical plane (front/rear view)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB16",
+            "SB17"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-pitch-windmill-c03",
+          "description": "At stride-foot contact the trunk is not leaning back; moderate forward trunk flexion is associated with lower shoulder distraction force.",
+          "phase": "stride foot contact",
+          "body_landmarks": [
+            "throw_shoulder",
+            "glove_shoulder",
+            "mid_hip",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "trunk (hip-midpoint to shoulder-midpoint) at foot contact upright to slightly forward, not tilted back toward 2nd base",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB13"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-pitch-windmill-c04",
+          "description": "Firm landing on the stride leg: the front leg accepts large braking forces (vertical and braking ground reaction forces exceed body weight in youth pitchers).",
+          "phase": "stride foot contact",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "stride knee flexion stays controlled (no collapse > ~45 deg additional flexion after contact); knee tracks over the foot",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SB10"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-pitch-windmill-c05",
+          "description": "Release near the hip with a quick wrist snap; arm finishes up/through rather than stopping abruptly.",
+          "phase": "release",
+          "body_landmarks": [
+            "throw_wrist",
+            "throw_elbow",
+            "throw_hip"
+          ],
+          "measurable_angle_or_rule": "throwing wrist passes within ~1 hand-width of the throwing-side hip at release",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SB16"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-pitch-windmill-f01",
+          "name": "Stride off the power line",
+          "video_signs": "Stride foot lands well to the throwing-arm side or glove side of the rubber-to-plate line; body rotates open early.",
+          "correction_cue": "'Drive down the line - land on the line.'",
+          "why_it_matters": "Off-line strides force the arm to compensate, hurting location and loading the shoulder.",
+          "drill_ids": [
+            "SB-D-POWERLINE"
+          ],
+          "source_ids": [
+            "SB14"
+          ]
+        },
+        {
+          "id": "sb-pitch-windmill-f02",
+          "name": "Leaning back at foot contact",
+          "video_signs": "Trunk tilts toward second base when the stride foot lands; pitch rides high.",
+          "correction_cue": "'Land tall-to-forward; chest over the stride knee at release.'",
+          "why_it_matters": "Less trunk flexion at foot contact was associated with higher shoulder distraction force in high-school pitchers.",
+          "drill_ids": [
+            "SB-D-POWERLINE",
+            "SB-D-KDRILL"
+          ],
+          "source_ids": [
+            "SB13"
+          ]
+        },
+        {
+          "id": "sb-pitch-windmill-f03",
+          "name": "Bent-arm / wide arm circle",
+          "video_signs": "Elbow bends at the top of the circle or the arm swings out away from the body.",
+          "correction_cue": "'Big, tall circle, close to your body.'",
+          "why_it_matters": "A wide or bent circle is inconsistent and adds stress to the shoulder and biceps.",
+          "drill_ids": [
+            "SB-D-KDRILL",
+            "SB-D-WRISTSNAP"
+          ],
+          "source_ids": [
+            "SB16"
+          ]
+        },
+        {
+          "id": "sb-pitch-windmill-f04",
+          "name": "Weak or no drive (arm-only pitch)",
+          "video_signs": "Little push-off; short stride; pitcher 'falls' forward and relies on the arm.",
+          "correction_cue": "'Push the ground away - hips first.'",
+          "why_it_matters": "The lower body supplies the speed; an arm-only pitch is slower and puts more load on the arm.",
+          "drill_ids": [
+            "SB-D-POWERLINE"
+          ],
+          "source_ids": [
+            "SB14"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-WRISTSNAP",
+          "name": "Wrist snaps -> half circles -> full circles",
+          "origin": "from_source",
+          "setup": "Pitcher stands with glove-side toward a partner/net at short distance (~6-8 m), stride already taken.",
+          "steps": [
+            "Wrist snaps: from the hip, snap the ball to partner using only forearm/wrist.",
+            "Half circles: start the arm at 12 o'clock and pitch from there.",
+            "Full circles from the stride position.",
+            "Move back and add the stride only when each stage is consistent."
+          ],
+          "dosage": "10-15 reps per stage, daily warm-up",
+          "fixes": "Bent-arm / wide arm circle; inconsistent release",
+          "why": "Building the motion in layers grooves a repeatable release and circle before adding the stride and full-body speed.",
+          "equipment": [
+            "balls",
+            "partner or net"
+          ],
+          "source_ids": [
+            "SB16"
+          ]
+        },
+        {
+          "id": "SB-D-KDRILL",
+          "name": "'K' / power-position drill",
+          "origin": "adapted",
+          "setup": "Pitcher starts in the stride position with the arm at 12 o'clock (body forms a 'K').",
+          "steps": [
+            "Hold the K position: arm extended overhead, glove pointing at the target.",
+            "Complete the downswing and release.",
+            "Check that the arm stays straight and close to the body."
+          ],
+          "dosage": "2 sets x 10 pitches",
+          "fixes": "Bent-arm circle; leaning back",
+          "why": "Isolating the top of the circle lets the pitcher feel an extended, vertical arm before the fast downswing.",
+          "equipment": [
+            "balls",
+            "catcher or net"
+          ],
+          "source_ids": [
+            "SB17"
+          ]
+        },
+        {
+          "id": "SB-D-POWERLINE",
+          "name": "Power-line drive drill",
+          "origin": "adapted",
+          "setup": "Chalk or tape a line from the pitching rubber to home plate; optional low barrier or wall to drive toward.",
+          "steps": [
+            "Drive off the rubber and stride with the stride foot landing on the line.",
+            "Freeze at foot contact and check trunk position (not leaning back).",
+            "Repeat with full pitch once footwork is consistent; film from behind."
+          ],
+          "dosage": "3 sets x 8 pitches",
+          "fixes": "Stride off line; weak drive; leaning back",
+          "why": "A visible line gives immediate feedback on stride direction, and freezing at landing teaches the posture linked to lower shoulder load.",
+          "equipment": [
+            "chalk/tape",
+            "balls"
+          ],
+          "source_ids": [
+            "SB14",
+            "SB13"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Windmill pitching is NOT low-stress: shoulder distraction forces averaged ~80% of body weight in Olympic pitchers and ~94% in youth pitchers - similar to baseball pitchers. Manage pitch counts and rest.",
+          "kind": "safety",
+          "source_ids": [
+            "SB9",
+            "SB10"
+          ]
+        },
+        {
+          "tip": "The biceps works hardest (eccentrically) around the 9 o'clock phase and follow-through - include biceps/shoulder conditioning and watch for anterior shoulder pain.",
+          "kind": "safety",
+          "source_ids": [
+            "SB12",
+            "SB11"
+          ]
+        },
+        {
+          "tip": "National-team pitching evaluations grade speed, location and movement (5 pitches per pitch type with a called location) - film from behind the catcher to track location.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sb-field-groundball",
+      "name": "Infield: fielding ground balls",
+      "category": "fielding",
+      "recommended_camera": "Front view (from home plate direction) and side view at ground level.",
+      "phases": [
+        "ready / pre-pitch",
+        "approach (drop step / angle)",
+        "fielding position",
+        "transfer"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-field-groundball-c01",
+          "description": "Fielding position: feet staggered wider than shoulder width, glove-side foot slightly ahead; glove out in front at the 'top of the triangle' formed by the two feet.",
+          "phase": "fielding position",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "glove_wrist"
+          ],
+          "measurable_angle_or_rule": "glove wrist forward of the line between the toes by roughly a forearm's length (triangle apex)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SB8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-field-groundball-c02",
+          "description": "Low with hips and knees bent - glove starts on the ground and works up ('alligator' hands: glove below, throwing hand above).",
+          "phase": "fielding position",
+          "body_landmarks": [
+            "glove_wrist",
+            "throw_wrist",
+            "mid_hip",
+            "lead_knee"
+          ],
+          "measurable_angle_or_rule": "glove wrist starts near ground level; throwing hand above the glove at catch",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SB8",
+            "SB6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-field-groundball-c03",
+          "description": "Approach: use a drop step for balls to the forehand/backhand and work through the ball toward the target.",
+          "phase": "approach",
+          "body_landmarks": [
+            "lead_ankle",
+            "rear_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "first step opens toward the ball's path (hip rotation > ~30 deg on first step for balls hit to the side)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SB7",
+            "SB6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-field-groundball-c04",
+          "description": "Transfer: both hands bring the ball to the throwing shoulder while the feet switch to an open throwing position with the front shoulder at the target.",
+          "phase": "transfer",
+          "body_landmarks": [
+            "throw_wrist",
+            "throw_shoulder",
+            "glove_shoulder",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "within ~0.5 s of the catch, ball hand at throwing-shoulder height and shoulder line pointing at target",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SB8"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-field-groundball-f01",
+          "name": "Fielding between the feet / too deep",
+          "video_signs": "Glove catches the ball underneath or behind the body, eyes not behind the ball.",
+          "correction_cue": "'Glove out front - field at the top of the triangle.'",
+          "why_it_matters": "Fielding out front lets the eyes see the ball into the glove and leaves room for the hands to give.",
+          "drill_ids": [
+            "SB-D-SHORTHOP",
+            "SB-D-HOTDOG"
+          ],
+          "source_ids": [
+            "SB8"
+          ]
+        },
+        {
+          "id": "sb-field-groundball-f02",
+          "name": "Bending at the waist with straight legs",
+          "video_signs": "Back rounded, knees nearly straight, glove reaching down from the waist.",
+          "correction_cue": "'Get down with your legs, not your back.'",
+          "why_it_matters": "Straight legs make the fielder slow to adjust to bad hops and slow to transition to the throw.",
+          "drill_ids": [
+            "SB-D-HOTDOG"
+          ],
+          "source_ids": [
+            "SB7"
+          ]
+        },
+        {
+          "id": "sb-field-groundball-f03",
+          "name": "Slow transfer",
+          "video_signs": "Ball stays in the glove or the feet stay planted after the catch before the throw.",
+          "correction_cue": "'Catch, pop the feet, ball to the shoulder.'",
+          "why_it_matters": "Every extra beat in the transfer is a step for the runner.",
+          "drill_ids": [
+            "SB-D-RAPID",
+            "SB-D-POPFEET"
+          ],
+          "source_ids": [
+            "SB8",
+            "SB4"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-SHORTHOP",
+          "name": "Kneeling short-hop drill",
+          "origin": "from_source",
+          "setup": "Partners ~6 ft apart. Thrower kneels on throwing knee; fielder in fielding position.",
+          "steps": [
+            "Thrower tosses short hops landing just in front of the fielder's 'triangle' apex.",
+            "Fielder fields out front with glove low, throwing hand above.",
+            "Progress: after the catch, 'pop' the feet to the open throwing position with the ball at the shoulder."
+          ],
+          "dosage": "2-3 sets x 10 balls each side",
+          "fixes": "Fielding too deep; slow transfer",
+          "why": "Short distances give many fast, controlled reps to groove glove position and soft hands before full-speed grounders.",
+          "equipment": [
+            "balls"
+          ],
+          "source_ids": [
+            "SB8"
+          ]
+        },
+        {
+          "id": "SB-D-HOTDOG",
+          "name": "'Hot Dog' low-position drill (Megan Smith)",
+          "origin": "from_source",
+          "setup": "Partner rolls balls to the fielder.",
+          "steps": [
+            "Fielder fields rolled balls in awkward positions (behind the back, between the legs) as described in the drill.",
+            "Emphasis: stay low and let the feet beat the hands."
+          ],
+          "dosage": "2-3 sets x 8-10 balls",
+          "fixes": "Bending at the waist; fielding too deep",
+          "why": "Forcing low, unusual catches builds leg-driven posture and footwork that 'beats the hands' to the ball.",
+          "equipment": [
+            "balls"
+          ],
+          "source_ids": [
+            "SB7"
+          ]
+        },
+        {
+          "id": "SB-D-RAPID",
+          "name": "Rapid Fire (NFCA Drill 001)",
+          "origin": "from_source",
+          "setup": "Infielders in a line or pairs, coach/feeder with a bucket of balls.",
+          "steps": [
+            "Feeder rolls/hits grounders in quick succession.",
+            "Fielder fields and throws back immediately.",
+            "Keep the drill time-boxed per the practice plan."
+          ],
+          "dosage": "Part of a 20-minute throwing & fielding block",
+          "fixes": "Slow transfer",
+          "why": "High-tempo reps reward a quick catch-to-throw transition under mild fatigue.",
+          "equipment": [
+            "balls",
+            "bucket"
+          ],
+          "source_ids": [
+            "SB4"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Coach a short sequence: down, glove first, field, ball to the shoulder, throw.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB8"
+          ]
+        },
+        {
+          "tip": "Drop steps are used on both forehands and backhands; a good drop step is what increases an infielder's range.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "sb-throw-overhand",
+      "name": "Overhand throwing (infield/outfield)",
+      "category": "throwing",
+      "recommended_camera": "Side view from the glove side; front view from the target.",
+      "phases": [
+        "transfer",
+        "stride",
+        "arm action",
+        "release",
+        "follow-through"
+      ],
+      "checkpoints": [
+        {
+          "id": "sb-throw-overhand-c01",
+          "description": "Front (glove) shoulder points to the target before the arm comes forward; weight starts on the inside of the back foot.",
+          "phase": "stride",
+          "body_landmarks": [
+            "glove_shoulder",
+            "throw_shoulder",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "shoulder line within ~20 deg of the throw direction at stride-foot contact",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SB8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-throw-overhand-c02",
+          "description": "Infield throws use a three-quarter arm slot; a sidearm slot is reserved for rushed throws.",
+          "phase": "arm action",
+          "body_landmarks": [
+            "throw_shoulder",
+            "throw_elbow",
+            "throw_wrist"
+          ],
+          "measurable_angle_or_rule": "forearm at release ~45 deg from vertical (3/4 slot)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SB6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "sb-throw-overhand-c03",
+          "description": "Step toward the target and follow through, closing the distance to the target.",
+          "phase": "follow-through",
+          "body_landmarks": [
+            "lead_ankle",
+            "throw_wrist",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "stride foot lands on the line to the target (+/- ~15 deg); throwing hand finishes across to the glove-side hip",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SB8"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "sb-throw-overhand-f01",
+          "name": "Throwing open / all arm",
+          "video_signs": "Chest faces the target at release with no shoulder turn; little stride.",
+          "correction_cue": "'Point your glove shoulder at the target, then turn.'",
+          "why_it_matters": "Without the turn and step, the arm supplies all the force - less velocity, more stress.",
+          "drill_ids": [
+            "SB-D-RAPID",
+            "SB-D-POPFEET"
+          ],
+          "source_ids": [
+            "SB8"
+          ]
+        },
+        {
+          "id": "sb-throw-overhand-f02",
+          "name": "Low/drop-down slot on routine throws",
+          "video_signs": "Elbow below shoulder height on routine throws; balls tail or sink.",
+          "correction_cue": "'Three-quarter slot - elbow at or above the shoulder.'",
+          "why_it_matters": "A consistent 3/4 slot gives more accurate, carrying throws for infielders.",
+          "drill_ids": [],
+          "source_ids": [
+            "SB6"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SB-D-POPFEET",
+          "name": "Pop-feet to throwing position",
+          "origin": "from_source",
+          "setup": "Partner rolls balls side to side, ~6 ft away.",
+          "steps": [
+            "Field the rolled ball at the top of the triangle.",
+            "'Pop' the feet into an open throwing position while bringing glove and ball to the throwing shoulder as fast as possible.",
+            "Front shoulder points at the partner; then complete the throw (or freeze for checks)."
+          ],
+          "dosage": "2 sets x 10 each direction",
+          "fixes": "Throwing open / all arm; slow transfer",
+          "why": "Linking the catch to a fast, aligned throwing position removes the dead time between fielding and throwing.",
+          "equipment": [
+            "balls"
+          ],
+          "source_ids": [
+            "SB8"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Earleywine teaches infielders a 3/4 arm slot as the default and a sidearm throw only for rushed plays; good throwing mechanics also help keep players injury-free.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SB6"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

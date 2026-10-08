@@ -1,0 +1,859 @@
+{
+  "sport": "Mixed Martial Arts (MMA)",
+  "sport_id": "mma",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers MMA-specific skills: hybrid stance, level change + double-leg takedown, sprawl defense, posture and ground-and-pound from top guard, and the technical stand-up. Striking mechanics reuse the boxing and kickboxing KBs; submissions/guard work reuse the BJJ KB.",
+  "source_gap_notes": "Peer-reviewed MMA literature is mostly performance analysis (what wins), not technique biomechanics; technique cues come from USA Wrestling, Evolve University, Greg Jackson and Grapplearts. About 10-12 usable sources.",
+  "sources": [
+    {
+      "id": "MM1",
+      "name": "UFC Performance Institute - A Cross-Sectional Performance Analysis and Projection of the UFC Athlete (2018)",
+      "type": "professional_body",
+      "url": "http://media.ufc.tv/ufcpi/UFCPI_Book_2018.pdf",
+      "author_or_org": "UFC Performance Institute",
+      "year": 2018,
+      "credibility": "UFC's sports-science institute: 3,900 bouts, 167 metrics; striking volume and ground control are top win KPIs; injury patterns.",
+      "verification": "search_snippet",
+      "covers": [
+        "performance KPIs",
+        "injury"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM2",
+      "name": "Exploratory Systematic Review of Mixed Martial Arts: performance factors with over 20,000 athletes (Sports, MDPI 2022)",
+      "type": "peer_reviewed",
+      "url": "https://www.mdpi.com/2075-4663/10/6/80",
+      "author_or_org": null,
+      "year": 2022,
+      "credibility": "112 studies / 20,784 athletes; technical-tactical, time-motion and outcome analyses.",
+      "verification": "search_snippet",
+      "covers": [
+        "performance",
+        "technical-tactical"
+      ],
+      "usage_note": "Background: evidence map of MMA research; not cited for a specific item."
+    },
+    {
+      "id": "MM3",
+      "name": "Miarka B et al. - Performance probabilities and outcome effects in technical-tactical factors with bout phase changes of MMA (IJPAS 2017)",
+      "type": "peer_reviewed",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/24748668.2017.1360103",
+      "author_or_org": "Miarka B et al.",
+      "year": 2017,
+      "credibility": "1,752 UFC rounds: landed head strikes, offensive guard passes and landed takedowns were the strongest win predictors.",
+      "verification": "search_snippet",
+      "covers": [
+        "win predictors"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM4",
+      "name": "Comparisons: Technical-Tactical and Time-Motion Analysis of MMA winners and losers (J Strength Cond Res 2016)",
+      "type": "peer_reviewed",
+      "url": "https://journals.lww.com/nsca-jscr/fulltext/2016/07000/Comparisons__Technical_Tactical_and_Time_Motion.22.aspx",
+      "author_or_org": null,
+      "year": 2016,
+      "credibility": "Winner vs loser behaviors across rounds.",
+      "verification": "search_snippet",
+      "covers": [
+        "technical-tactical",
+        "time-motion"
+      ],
+      "usage_note": "Background: winner/loser behavior data; not cited for a specific item."
+    },
+    {
+      "id": "MM5",
+      "name": "Whole-Body Mechanics of Double-Leg Attack in Elite and Non-elite Male Freestyle Wrestlers (Frontiers in Sports and Active Living 2020)",
+      "type": "peer_reviewed",
+      "url": "https://www.frontiersin.org/journals/sports-and-active-living/articles/10.3389/fspor.2020.00058/full",
+      "author_or_org": null,
+      "year": 2020,
+      "credibility": "Biomechanics of the double-leg attack comparing elite and non-elite wrestlers.",
+      "verification": "search_snippet",
+      "covers": [
+        "double leg",
+        "penetration"
+      ],
+      "usage_note": "Background: double-leg biomechanics; specific findings not extracted (abstract not reviewed in detail)."
+    },
+    {
+      "id": "MM6",
+      "name": "USA Wrestling Core Curriculum",
+      "type": "governing_body",
+      "url": "https://www.usawmembership.com/usa_wrestling_core_curriculum/",
+      "author_or_org": "USA Wrestling",
+      "year": null,
+      "credibility": "National governing body curriculum: stance, motion, level change, penetration (inside/outside step), back step.",
+      "verification": "search_snippet",
+      "covers": [
+        "stance",
+        "penetration",
+        "level change"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM7",
+      "name": "USA Wrestling - 7 Basic Skills Study Guide",
+      "type": "governing_body",
+      "url": "http://content.themat.com/CoachesCorner/7-Basic-Skills-Guide.pdf",
+      "author_or_org": "USA Wrestling",
+      "year": null,
+      "credibility": "Official study guide: 5 key positions (head up, back straight, hips in, knees off the mat, toe pressure), stances, motion, level change, penetration and drills.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "stance",
+        "motion",
+        "level change",
+        "penetration",
+        "drills"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM8",
+      "name": "Evolve University - Sprawl (wrestling basics) and MMA Defense essentials",
+      "type": "elite_coach_academy",
+      "url": "https://evolve-university.com/library/wrestling/basics/video-sprawl/",
+      "author_or_org": "Evolve University",
+      "year": null,
+      "credibility": "Evolve MMA world-champion coaching staff video library.",
+      "verification": "search_snippet",
+      "covers": [
+        "sprawl",
+        "takedown defense"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM9",
+      "name": "Evolve University - Drill: Double Leg Penetration",
+      "type": "elite_coach_academy",
+      "url": "https://evolve-university.com/library/wrestling/basics/video-drill-double-leg-penetration/",
+      "author_or_org": "Evolve University",
+      "year": null,
+      "credibility": "Solo/partner penetration-step drill from Evolve's wrestling coaches.",
+      "verification": "search_snippet",
+      "covers": [
+        "double leg",
+        "drill"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM10",
+      "name": "Evolve University - Ground And Pound From Full Guard",
+      "type": "elite_coach_academy",
+      "url": "https://evolve-university.com/library/mma/intermediate/video-ground-and-pound-from-full-guard/",
+      "author_or_org": "Evolve University",
+      "year": null,
+      "credibility": "Ground-and-pound lesson from full guard (featuring former UFC champion Tyron Woodley).",
+      "verification": "search_snippet",
+      "covers": [
+        "ground and pound",
+        "guard posture"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM11",
+      "name": "Greg Jackson - How to Posture in Someone's Guard and Deliver Strikes (Dynamic Striking)",
+      "type": "elite_coach",
+      "url": "https://dynamicstriking.com/blogs/news/how-to-posture-in-someone-s-guard-and-deliver-strikes-with-greg-jackson",
+      "author_or_org": "Greg Jackson",
+      "year": null,
+      "credibility": "Head coach of Jackson-Wink MMA, coach of multiple UFC champions.",
+      "verification": "search_snippet",
+      "covers": [
+        "guard posture",
+        "ground and pound"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "MM12",
+      "name": "Grapplearts (Stephan Kesting) - The Four Variations of the BJJ Technical Standup",
+      "type": "coaching_website",
+      "url": "https://www.grapplearts.com/the-four-variations-of-the-bjj-technical-standup/",
+      "author_or_org": "Stephan Kesting",
+      "year": null,
+      "credibility": "Long-running grappling instruction site by a BJJ black belt; technical stand-up variations.",
+      "verification": "search_snippet",
+      "covers": [
+        "technical stand-up"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "mm-stance",
+      "name": "MMA stance (strike + takedown ready)",
+      "category": "fundamentals",
+      "recommended_camera": "Front and side views, full body.",
+      "phases": [
+        "stance"
+      ],
+      "checkpoints": [
+        {
+          "id": "mm-stance-c01",
+          "description": "Hybrid stance: slightly wider and lower than boxing, knees bent, chest over the knees, hands forward and elbows in, head up - ready to strike, shoot or sprawl.",
+          "phase": "stance",
+          "body_landmarks": [
+            "lead_knee",
+            "rear_knee",
+            "mid_hip",
+            "nose",
+            "lead_elbow",
+            "rear_elbow"
+          ],
+          "measurable_angle_or_rule": "knee angle ~130-160 deg; head above hips (not bent at waist); elbows within ~1 fist of the torso",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "MM7",
+            "MM6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "mm-stance-c02",
+          "description": "USA Wrestling's 5 key positions apply: head up, back straight, hips in, knees bent (off the mat), toe pressure.",
+          "phase": "stance",
+          "body_landmarks": [
+            "nose",
+            "mid_shoulder",
+            "mid_hip",
+            "lead_knee",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "trunk angle relatively straight (shoulder-hip line not rounded); head above shoulder line",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "MM7"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "mm-stance-f01",
+          "name": "Upright boxing stance with crossed/narrow feet",
+          "video_signs": "Tall posture, narrow base; easy to take down.",
+          "correction_cue": "'Lower and wider - chest over knees, hands forward.'",
+          "why_it_matters": "A tall narrow stance makes level changes slow and offers easy legs to the opponent.",
+          "drill_ids": [
+            "MM-D-STANCE-MOTION",
+            "MM-D-SCRAMBLE-STANCE"
+          ],
+          "source_ids": [
+            "MM7"
+          ]
+        },
+        {
+          "id": "mm-stance-f02",
+          "name": "Bending at the waist",
+          "video_signs": "Head low and in front of the knees, back rounded.",
+          "correction_cue": "'Head up, back straight, hips in.'",
+          "why_it_matters": "Bending at the waist exposes the head to snap-downs, knees and uppercuts.",
+          "drill_ids": [
+            "MM-D-STANCE-MOTION"
+          ],
+          "source_ids": [
+            "MM7"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "MM-D-STANCE-MOTION",
+          "name": "Stance-and-motion shadow drill",
+          "origin": "adapted",
+          "setup": "Open mat; coach calls directions.",
+          "steps": [
+            "Move forward/back/laterally and circle both ways in stance.",
+            "Hold the 5 key positions while moving.",
+            "On command, level-change and return; or sprawl and return."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Upright stance; bending at the waist",
+          "why": "USA Wrestling teaches that power = strength + mobility; moving while holding position builds the stance under motion.",
+          "equipment": [],
+          "source_ids": [
+            "MM7"
+          ]
+        },
+        {
+          "id": "MM-D-SCRAMBLE-STANCE",
+          "name": "Scramble-to-stance drill (USA Wrestling)",
+          "origin": "from_source",
+          "setup": "One athlete starts flat; partner applies light top pressure.",
+          "steps": [
+            "On the whistle, the bottom athlete fights the pressure and scrambles back to a solid stance.",
+            "Hold the 5 key positions on arrival.",
+            "Switch roles."
+          ],
+          "dosage": "6-8 reps each",
+          "fixes": "Upright stance; bending at the waist (under fatigue)",
+          "why": "Returning to a strong stance from a bad position builds the habit and early-season strength (USA Wrestling).",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "MM7"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "UFC PI data: total strikes landed is the top win-related KPI for men and women, and ground-control time is also a top factor - a stance that defends takedowns protects your striking.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "MM1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "mm-double-leg",
+      "name": "Level change and double-leg takedown",
+      "category": "takedowns",
+      "recommended_camera": "Side view at hip height plus front view.",
+      "phases": [
+        "setup",
+        "level change",
+        "penetration step",
+        "drive / finish"
+      ],
+      "checkpoints": [
+        {
+          "id": "mm-double-leg-c01",
+          "description": "Level change by dropping the hips and bending the knees vertically - not bending at the waist; head up, back straight.",
+          "phase": "level change",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_knee",
+            "rear_knee",
+            "nose",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "hip height drops > ~20-30% of standing hip height while trunk angle stays < ~45 deg from vertical; head above shoulders",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "MM7",
+            "MM6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "mm-double-leg-c02",
+          "description": "Penetration step: lead foot steps deep between the opponent's feet, lead knee drops toward the mat, trail leg drives through.",
+          "phase": "penetration",
+          "body_landmarks": [
+            "lead_ankle",
+            "lead_knee",
+            "rear_ankle",
+            "opponent_ankle"
+          ],
+          "measurable_angle_or_rule": "lead foot lands between/under the opponent's hips; lead knee approaches the mat",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "MM7",
+            "MM6",
+            "MM9"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "mm-double-leg-c03",
+          "description": "Drive up and through the opponent at about a 45-degree angle.",
+          "phase": "finish",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "post-penetration body line ~45 deg forward-upward",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "MM7"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "mm-double-leg-c04",
+          "description": "Set up the shot behind strikes (level change disguised by punches).",
+          "phase": "setup",
+          "body_landmarks": [
+            "lead_wrist",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "shot initiated within ~1 s after a punch/feint",
+          "rule_basis": "research",
+          "pose_detectability": "low",
+          "camera_view": "side",
+          "source_ids": [
+            "MM3",
+            "MM1"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "mm-double-leg-f01",
+          "name": "Bending at the waist (reaching shot)",
+          "video_signs": "Head drops below the hips, arms reach for legs from outside range.",
+          "correction_cue": "'Drop your level with your legs - hips under you.'",
+          "why_it_matters": "A waist-bent shot is easily sprawled on or snapped down; USA Wrestling notes most failed shots come from poor level change.",
+          "drill_ids": [
+            "MM-D-PEN-STEP",
+            "MM-D-UP-THROUGH"
+          ],
+          "source_ids": [
+            "MM7"
+          ]
+        },
+        {
+          "id": "mm-double-leg-f02",
+          "name": "Shooting from too far / shallow step",
+          "video_signs": "Lead foot lands short of the opponent's feet; athlete lunges.",
+          "correction_cue": "'Step deep - get your hips under theirs.'",
+          "why_it_matters": "Depth of penetration puts the attacker's hips in position to lift/drive.",
+          "drill_ids": [
+            "MM-D-PEN-STEP"
+          ],
+          "source_ids": [
+            "MM6",
+            "MM9"
+          ]
+        },
+        {
+          "id": "mm-double-leg-f03",
+          "name": "Unsetup shot",
+          "video_signs": "Takedown attempt from a static exchange without punches or feints.",
+          "correction_cue": "'Hide the shot behind the punch.'",
+          "why_it_matters": "Landed takedowns are a strong win predictor; set-ups raise success.",
+          "drill_ids": [],
+          "source_ids": [
+            "MM3"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "MM-D-PEN-STEP",
+          "name": "Penetration-step progression",
+          "origin": "from_source",
+          "setup": "Open mat; tape line for depth; then partner.",
+          "steps": [
+            "Solo: level change, step deep with lead foot, drop lead knee lightly, bring trail leg through, return to stance.",
+            "Partner (no resistance): penetrate between partner's feet, head up/back straight.",
+            "Add a jab or 1-2 before each shot.",
+            "Progress to controlled resistance and live rounds."
+          ],
+          "dosage": "3 sets x 10 per side, then 3 x 2-min rounds",
+          "fixes": "Bending at the waist; shallow step; unsetup shot",
+          "why": "Grooving the level change and deep step solo before adding resistance builds the posture USA Wrestling emphasizes.",
+          "equipment": [
+            "mat",
+            "tape"
+          ],
+          "source_ids": [
+            "MM9",
+            "MM7",
+            "MM6"
+          ]
+        },
+        {
+          "id": "MM-D-UP-THROUGH",
+          "name": "Up-and-through level change (USA Wrestling)",
+          "origin": "from_source",
+          "setup": "Partner standing; attacker in stance at arm's length.",
+          "steps": [
+            "Attacker assumes a low level: head up, back straight, hips in.",
+            "Penetrate and drive up and through the partner at about 45 degrees (high crotch, double and single variations).",
+            "Reset and alternate sides."
+          ],
+          "dosage": "3 sets x 8 per side",
+          "fixes": "Bending at the waist; shallow step",
+          "why": "From the USA Wrestling 7 Basic Skills guide: rehearsing the finish angle with correct posture links the level change to an effective drive.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "MM7"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Inside-step penetration sets up high crotches, doubles and in-line fireman's carries; outside-step sets up singles and duck-unders.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "MM6"
+          ]
+        },
+        {
+          "tip": "Landed head strikes, offensive passes and landed takedowns were the strongest predictors of winning a UFC round.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "MM3"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "mm-sprawl",
+      "name": "Sprawl (takedown defense)",
+      "category": "takedown_defense",
+      "recommended_camera": "Side view at mat level.",
+      "phases": [
+        "read",
+        "sprawl",
+        "re-stance"
+      ],
+      "checkpoints": [
+        {
+          "id": "mm-sprawl-c01",
+          "description": "On the shot, kick the legs back, drop the hips heavily onto the attacker and keep the head up.",
+          "phase": "sprawl",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_ankle",
+            "rear_ankle",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "hips drop and move backward; legs extend behind (knee angle > ~150 deg); head above hips",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "MM8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "mm-sprawl-c02",
+          "description": "Down-block/cross-block with the hands to obstruct the path to the legs, then circle back to stance.",
+          "phase": "read",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "hands move down in front of the lead leg as the attacker shoots",
+          "rule_basis": "expert_manual",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "MM7"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "mm-sprawl-f01",
+          "name": "Late sprawl / legs not back",
+          "video_signs": "Hips stay over the feet; attacker reaches the legs.",
+          "correction_cue": "'Hips heavy, legs back - early.'",
+          "why_it_matters": "If the legs aren't removed the attacker finishes the shot.",
+          "drill_ids": [
+            "MM-D-SPRAWL-REACT"
+          ],
+          "source_ids": [
+            "MM8"
+          ]
+        },
+        {
+          "id": "mm-sprawl-f02",
+          "name": "Head down during sprawl",
+          "video_signs": "Defender looks at the mat; posture collapses.",
+          "correction_cue": "'Head up, chest heavy.'",
+          "why_it_matters": "Head up keeps the spine strong and the hips driving down.",
+          "drill_ids": [
+            "MM-D-SPRAWL-REACT"
+          ],
+          "source_ids": [
+            "MM8"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "MM-D-SPRAWL-REACT",
+          "name": "Reaction sprawl drill",
+          "origin": "adapted",
+          "setup": "Partner shoots on random cue.",
+          "steps": [
+            "Defender in stance, moving.",
+            "Partner level-changes/shoots at random.",
+            "Sprawl, hips heavy, then circle back to stance or front headlock."
+          ],
+          "dosage": "3 rounds x 2 min",
+          "fixes": "Late sprawl; head down",
+          "why": "Random shots train reaction time to the level change, the earliest cue of a takedown.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "MM8",
+            "MM7"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Takedowns and grappling cause the longest average injury durations in UFC data, while striking causes the most injuries by frequency - drill takedown defense with control.",
+          "kind": "safety",
+          "source_ids": [
+            "MM1"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "mm-gnp-guard",
+      "name": "Posture and ground-and-pound from top guard",
+      "category": "ground",
+      "recommended_camera": "Side view at mat level.",
+      "phases": [
+        "posture",
+        "control",
+        "strike",
+        "re-control"
+      ],
+      "checkpoints": [
+        {
+          "id": "mm-gnp-guard-c01",
+          "description": "Strong posture in guard: hips down and forward, spine aligned, control the opponent's biceps/arms.",
+          "phase": "posture",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "lead_wrist",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "top athlete's trunk upright-to-slightly forward; hips low (not sitting high)",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "MM11",
+            "MM10"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "mm-gnp-guard-c02",
+          "description": "Strike only when control is retained; short compact punches/elbows, then re-establish control.",
+          "phase": "strike",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "striking hand returns to control within ~1 s; hips stay low during strikes",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "low",
+          "camera_view": "side",
+          "source_ids": [
+            "MM10",
+            "MM11"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "mm-gnp-guard-f01",
+          "name": "Posture broken (head pulled down)",
+          "video_signs": "Top athlete's head is pulled down to the opponent's chest; hands posted on the mat.",
+          "correction_cue": "'Posture up - hips forward, control the arms.'",
+          "why_it_matters": "Broken posture exposes the top athlete to sweeps, triangles and armbars.",
+          "drill_ids": [
+            "MM-D-POSTURE-UP"
+          ],
+          "source_ids": [
+            "MM11"
+          ]
+        },
+        {
+          "id": "mm-gnp-guard-f02",
+          "name": "Wild strikes losing position",
+          "video_signs": "Big looping strikes that lift the hips and let the bottom fighter escape.",
+          "correction_cue": "'Short shots, keep your base.'",
+          "why_it_matters": "Losing base turns an advantage into a scramble.",
+          "drill_ids": [
+            "MM-D-POSTURE-UP"
+          ],
+          "source_ids": [
+            "MM10"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "MM-D-POSTURE-UP",
+          "name": "Posture-up in guard drill",
+          "origin": "adapted",
+          "setup": "Top athlete in the bottom athlete's closed guard; bottom tries to break posture (no submissions at first).",
+          "steps": [
+            "Top: hips down and forward, spine aligned, control biceps.",
+            "Bottom: pull the head/arms to break posture.",
+            "Top re-postures each time; add light strikes to pads only when posture is held."
+          ],
+          "dosage": "3 x 2-min rounds each",
+          "fixes": "Posture broken; wild strikes losing position",
+          "why": "Positional resistance makes posture the first priority before striking, as Greg Jackson and Evolve's lessons emphasize.",
+          "equipment": [
+            "mat",
+            "MMA gloves/pads"
+          ],
+          "source_ids": [
+            "MM11",
+            "MM10"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Offensive guard passes were among the strongest win predictors in UFC rounds - posture first, then pass or strike.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "MM3"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "mm-tech-standup",
+      "name": "Technical stand-up (getting up safely)",
+      "category": "ground",
+      "recommended_camera": "Side view.",
+      "phases": [
+        "post",
+        "lift hips",
+        "step back",
+        "stance"
+      ],
+      "checkpoints": [
+        {
+          "id": "mm-tech-standup-c01",
+          "description": "Sit to one side, post one hand behind beside the hip and plant the opposite foot; free arm protects the head.",
+          "phase": "post",
+          "body_landmarks": [
+            "rear_wrist",
+            "lead_ankle",
+            "lead_wrist",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "three points of support (post hand, planted foot, seated hip) before lifting; free wrist near the face",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "MM12"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "mm-tech-standup-c02",
+          "description": "Lift the hips on the hand-foot post, swing the free leg back under, and stand up into a stance facing the opponent.",
+          "phase": "step back",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_ankle",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "swinging leg lands behind the post hand; finish in a stance with ankle distance ~1.0-1.5x shoulder width",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "MM12"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "mm-tech-standup-f01",
+          "name": "Standing straight up forward toward opponent",
+          "video_signs": "Athlete stands by leaning forward into the opponent without a post.",
+          "correction_cue": "'Post, hips up, leg back - stand up away.'",
+          "why_it_matters": "Standing forward without a post exposes the head and gives up a takedown/knee.",
+          "drill_ids": [
+            "MM-D-STANDUP-REPS"
+          ],
+          "source_ids": [
+            "MM12"
+          ]
+        },
+        {
+          "id": "mm-tech-standup-f02",
+          "name": "No guarding hand",
+          "video_signs": "Free arm doesn't protect the face during the stand-up.",
+          "correction_cue": "'One hand posts, one hand guards.'",
+          "why_it_matters": "The stand-up is a vulnerable moment for strikes.",
+          "drill_ids": [
+            "MM-D-STANDUP-REPS"
+          ],
+          "source_ids": [
+            "MM12"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "MM-D-STANDUP-REPS",
+          "name": "Technical stand-up repetitions",
+          "origin": "adapted",
+          "setup": "Open mat; progress to a partner standing in front.",
+          "steps": [
+            "From seated, post one hand behind and plant the opposite foot; free hand guards the face.",
+            "Lift the hips, swing the leg back, stand into stance.",
+            "Do both sides; then with a partner who pressures lightly."
+          ],
+          "dosage": "2 sets x 8 per side",
+          "fixes": "Standing forward into opponent; no guarding hand",
+          "why": "Repetition makes the safe pattern automatic so it's used under pressure.",
+          "equipment": [
+            "mat"
+          ],
+          "source_ids": [
+            "MM12"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "If a full stand-up isn't available, a three-quarter stand-up to the knee is a fallback before rising or driving forward.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "MM12"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

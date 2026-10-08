@@ -1,0 +1,206 @@
+// Sport-agnostic rule engine.
+// A sport module supplies: roles(stance), skills, globals, detectEvents(ctx), checks[].
+// The core prepares poses, scale units, guard/event windows, runs checks, groups
+// failing frames into episodes and returns a plain-JSON result (stored in IndexedDB).
+import { Pose, smoothFrames } from './landmarks.js';
+import { median, dist, round } from './geom.js';
+
+export function buildConfig(sport, overrides = {}) {
+  const cfg = { globals: {}, checks: {} };
+  for (const [k, p] of Object.entries(sport.globals)) cfg.globals[k] = overrides.globals?.[k] ?? p.value;
+  for (const c of sport.checks) {
+    cfg.checks[c.id] = { enabled: overrides.checks?.[c.id]?.enabled ?? true };
+    for (const [k, p] of Object.entries(c.params || {})) cfg.checks[c.id][k] = overrides.checks?.[c.id]?.[k] ?? p.value;
+  }
+  return cfg;
+}
+
+export function analyze(input, { sport, skillId, view, stance, overrides = {}, isPhoto = false, slowmo = 1 }) {
+  const cfg = buildConfig(sport, overrides);
+  const G = cfg.globals;
+  const meta = { ...input.meta };
+  view ??= sport.views?.[0]?.id ?? 'front';
+  stance ??= sport.stances?.[0]?.id ?? null;
+  const frames = isPhoto ? input.frames : smoothFrames(input.frames, G.smoothing_frames ?? 3);
+  const roles = sport.roles(stance);
+  const poses = frames.map((f) => (f.lm ? new Pose(f, meta, roles) : null));
+  // fps = frames per REAL second. A slow-motion clip that plays back 4x slower has 4x more
+  // real-time resolution, so durations (contact time, cadence...) must be scaled.
+  slowmo = Math.max(1, +slowmo || 1);
+  const videoFps = meta.fps || estimateFps(frames);
+  const fps = videoFps * slowmo;
+  const skill = sport.skills.find((s) => s.id === skillId) || sport.skills[0];
+
+  // Scale: torso length (mid-shoulder -> mid-hip). Visible in both front and side views,
+  // so it is a steadier yardstick than shoulder width. "1 fist" = fist_torso_ratio x torso.
+  const okPoses = poses.filter((p) => p && p.vis('left_shoulder', 'right_shoulder', 'left_hip', 'right_hip') > 0.3);
+  const torso2 = median(okPoses.map((p) => dist(p.p2('mid_shoulder'), p.p2('mid_hip'))));
+  const torso3 = median(okPoses.map((p) => p.p3('mid_shoulder') && dist(p.p3('mid_shoulder'), p.p3('mid_hip'))));
+  const fr = G.fist_torso_ratio ?? 0.2;
+  const unit = { torso2, torso3, fist2: torso2 * fr, fist3: torso3 * fr };
+
+  const ctx = { poses, frames, meta, fps, videoFps, slowmo, cfg, G, view, stance, skill, unit, isPhoto, sport,
+    sec: (s) => Math.max(1, Math.round(s * fps)), rt: (i) => frames[i].t / slowmo };
+  const result = {
+    engine_version: '0.2.0', sport: sport.id, skill: skill.id, view, stance, isPhoto, mode: skill.mode || 'auto',
+    meta: { ...meta, fps: videoFps, realFps: round(fps, 1), slowmo, frames: frames.length, posed: okPoses.length },
+    unit: { torso_px: round(torso2, 1), fist_px: round(unit.fist2, 1) },
+    events: [], checks: [], frameFlags: {}, notes: [], keyframes: [], metrics: [],
+  };
+  if (okPoses.length < (isPhoto ? 1 : 5)) {
+    result.notes.push('No athlete found in enough frames. Film the whole body, one athlete in frame, good light.');
+    return result;
+  }
+
+  const ev = skill.mode === 'checklist' ? { events: [], guardFrames: [] } : sport.detectEvents(ctx);
+  ctx.events = ev.events; ctx.guardFrames = ev.guardFrames || [];
+  ctx.frameSets = { guard: ctx.guardFrames, ...(ev.frameSets || {}) };
+  result.events = ev.events.map((e) => ({ ...e, t: round(frames[e.peak].t, 3) }));
+  result.guardFrameCount = ctx.guardFrames.length;
+  if (ev.notes) result.notes.push(...ev.notes);
+  if (ev.metrics) result.metrics.push(...ev.metrics);
+  // keyframes for scrubbing (coach checklist mode, and the timeline ticks)
+  result.keyframes = (sport.keyframes?.(ctx, ev) || pickKeyframes(ctx)).map((k) => ({ ...k, t: round(frames[k.i].t, 3) }));
+  if (skill.mode === 'checklist') return result;
+
+  const flag = (i, item) => { (result.frameFlags[i] ??= []).push(item); };
+
+  for (const chk of sport.checks) {
+    if (!skill.checks.some((g) => chk.group === g)) continue;
+    const P = cfg.checks[chk.id];
+    const base = {
+      id: chk.id, label: chk.label, okLabel: chk.okLabel, group: chk.group, kb: chk.kb, basis: chk.basis,
+      priority: chk.priority ?? 5, thresholdText: chk.thresholdText(P), beta: chk.basis !== 'source',
+    };
+    if (!P.enabled) { result.checks.push({ ...base, status: 'disabled' }); continue; }
+    if (chk.views && !chk.views.includes(view)) { result.checks.push({ ...base, status: 'wrong_view', reason: `Needs a ${chk.views.join('/')} view` }); continue; }
+    if (isPhoto && chk.temporal) { result.checks.push({ ...base, status: 'needs_video', reason: 'Needs video (movement over time)' }); continue; }
+    if (!isPhoto && chk.minRealFps && fps < chk.minRealFps - 0.5) {
+      result.checks.push({ ...base, status: 'needs_slowmo', reason: `Needs ${chk.minRealFps}+ fps: film in slow-mo and set "slow-motion" before analysing (this clip: ${Math.round(fps)} fps)` }); continue;
+    }
+
+    if (chk.scope === 'clip') {
+      const m = chk.evaluateClip(ctx, P);
+      if (!m || m.status) { result.checks.push({ ...base, status: m?.status || 'not_visible', reason: m?.reason || chk.visReason || 'Not enough clean movement to measure' }); continue; }
+      const isFault = !m.pass;
+      if (isFault && Number.isInteger(m.frame)) flag(m.frame, { check: chk.id, label: chk.label, draw: m.draw, text: m.text, key: true });
+      result.checks.push({ ...base, status: isFault ? 'fault' : 'ok', checked: 1, failed: isFault ? 1 : 0, score: isFault ? 0 : 1,
+        summary: m.summary || m.text, typical: round(m.value, 2),
+        instances: isFault && Number.isInteger(m.frame) ? [{ frame: m.frame, t: round(frames[m.frame].t, 3), value: round(m.value, 2), text: m.text }] : [] });
+      continue;
+    }
+    if (chk.scope === 'guard' || chk.scope.startsWith('frames:')) {
+      const setName = chk.scope === 'guard' ? 'guard' : chk.scope.slice(7);
+      const res = runFrameCheck(chk, P, ctx, setName);
+      if (res.status !== 'checked') { result.checks.push({ ...base, ...res }); continue; }
+      const failFrac = res.fails.length / res.checked;
+      const episodes = groupEpisodes(res.fails, ctx.sec(G.episode_gap_s));
+      const isFault = isPhoto ? res.fails.length > 0 : failFrac >= G.guard_fail_fraction && res.fails.length >= Math.min(ctx.sec(G.min_fault_duration_s), res.checked);
+      const instances = episodes.map((e) => {
+        const worst = e.frames.reduce((a, b) => (chk.badness(b.m.value, P) > chk.badness(a.m.value, P) ? b : a));
+        return { frame: worst.i, t: round(frames[worst.i].t, 3), start_t: round(frames[e.frames[0].i].t, 3), end_t: round(frames[e.frames.at(-1).i].t, 3), value: round(worst.m.value, 2), text: worst.m.text };
+      }).sort((a, b) => chk.badness(b.value, P) - chk.badness(a.value, P));
+      if (isFault) for (const f of res.fails) flag(f.i, { check: chk.id, label: chk.label, draw: f.m.draw, text: f.m.text });
+      result.checks.push({
+        ...base, status: isFault ? 'fault' : 'ok', checked: res.checked, failed: res.fails.length,
+        score: round(1 - failFrac, 2), summary: isFault ? `${Math.round(failFrac * 100)}% of ${frameLabel(sport, setName)}` : `OK in ${Math.round((1 - failFrac) * 100)}% of ${frameLabel(sport, setName)}`,
+        typical: round(median(res.all), 2), instances: isFault ? instances.slice(0, 5) : [],
+      });
+    } else {
+      // event scope, e.g. 'event:lead_straight' (several types: 'event:a|b')
+      const type = chk.scope.split(':')[1];
+      const types = type.split('|');
+      const evs = ctx.events.filter((e) => types.includes(e.type));
+      if (!evs.length) { result.checks.push({ ...base, status: 'no_events', reason: `No ${sport.eventLabel(type)} detected` }); continue; }
+      const found = [];
+      for (const e of evs) {
+        const m = chk.evaluate(e, ctx, P);
+        if (m && Number.isFinite(m.value)) found.push({ e, m });
+      }
+      if (!found.length) { result.checks.push({ ...base, status: 'not_visible', reason: chk.visReason || 'Body parts needed for this check were not visible' }); continue; }
+      const fails = found.filter((f) => !f.m.pass);
+      const isFault = fails.length / found.length >= G.event_fail_fraction && fails.length > 0;
+      if (isFault) for (const f of fails) {
+        const k = f.m.frame ?? f.e.peak;
+        for (let i = Math.max(0, k - G.event_flag_halfwidth); i <= Math.min(frames.length - 1, k + G.event_flag_halfwidth); i++)
+          flag(i, { check: chk.id, label: chk.label, draw: f.m.draw, text: f.m.text, key: i === k });
+      }
+      result.checks.push({
+        ...base, status: isFault ? 'fault' : 'ok', checked: found.length, failed: fails.length,
+        score: round(1 - fails.length / found.length, 2),
+        summary: `${fails.length} of ${found.length} ${sport.eventLabel(type)}`,
+        typical: round(median(found.map((f) => f.m.value)), 2),
+        instances: fails.map((f) => ({ frame: f.m.frame ?? f.e.peak, t: round(frames[f.m.frame ?? f.e.peak].t, 3), value: round(f.m.value, 2), text: f.m.text }))
+          .sort((a, b) => chk.badness(b.value, P) - chk.badness(a.value, P)).slice(0, 8),
+      });
+    }
+  }
+  // Coach the most important things first: faults by priority, then by how often they happened.
+  // Faults of the skill being filmed (e.g. jab checks when "Jab" is picked) come before general guard faults.
+  const primary = skill.checks[0];
+  const rk = (c) => rank(c) + (c.status === 'fault' && skill.checks.length > 1 && c.group !== primary && !skill.all && skill.id !== 'shadow' ? 25 : 0);
+  result.checks.sort((a, b) => rk(a) - rk(b));
+  return result;
+}
+
+const STATUS_ORDER = { fault: 0, ok: 1, no_events: 2, not_visible: 3, needs_video: 4, needs_slowmo: 5, wrong_view: 6, disabled: 7 };
+const frameLabel = (sport, set) => sport.frameLabels?.[set] || (set === 'guard' ? 'guard time' : 'the clip');
+const rank = (c) => STATUS_ORDER[c.status] * 1000 + (c.status === 'fault' ? c.priority * 10 + (c.score ?? 0) * 9 : c.priority);
+
+function runFrameCheck(chk, P, ctx, setName = 'guard') {
+  const idx = ctx.frameSets[setName] || [];
+  if (!idx.length) {
+    const why = ctx.sport.noFramesReason?.(setName, ctx);
+    return { status: 'no_events', reason: why || (ctx.isPhoto ? 'Photo shows a punch, not the guard' : 'No still guard moments found between punches') };
+  }
+  const fails = [], all = [];
+  let checked = 0;
+  for (const i of idx) {
+    const p = ctx.poses[i];
+    if (!p || p.vis(...chk.needs) < ctx.G.min_visibility) continue;
+    const m = chk.measure(p, ctx, P);
+    if (!m || !Number.isFinite(m.value)) continue;
+    checked++; all.push(m.value);
+    if (!m.pass) fails.push({ i, m });
+  }
+  const minFrames = ctx.isPhoto ? 1 : Math.max(3, Math.round(idx.length * 0.15));
+  if (checked < minFrames) return { status: 'not_visible', reason: chk.visReason || 'Body parts needed for this check were not visible' };
+  return { status: 'checked', checked, fails, all };
+}
+
+function groupEpisodes(fails, gap) {
+  const eps = [];
+  for (const f of fails) {
+    const last = eps.at(-1);
+    if (last && f.i - last.frames.at(-1).i <= gap) last.frames.push(f); else eps.push({ frames: [f] });
+  }
+  return eps;
+}
+
+/** Generic keyframes: split the clip into chunks and take the stillest posed frame of each
+ * (held positions = clearest pictures for a coach to judge by eye). */
+export function pickKeyframes(ctx, n = 6) {
+  const { poses } = ctx;
+  const N = poses.length;
+  if (N === 1) return poses[0] ? [{ i: 0, label: 'Photo' }] : [];
+  const motion = poses.map((p, i) => {
+    const q = poses[i - 1] || poses[i + 1];
+    if (!p || !q) return Infinity;
+    let s = 0; for (let k = 11; k <= 28; k++) s += Math.hypot(p.raw.lm[k][0] - q.raw.lm[k][0], p.raw.lm[k][1] - q.raw.lm[k][1]);
+    return s;
+  });
+  const out = [];
+  for (let c = 0; c < n; c++) {
+    const a = Math.floor((c * N) / n), b = Math.floor(((c + 1) * N) / n);
+    let best = -1;
+    for (let i = a; i < b; i++) if (poses[i] && (best < 0 || motion[i] < motion[best])) best = i;
+    if (best >= 0) out.push({ i: best, label: `Moment ${out.length + 1}` });
+  }
+  return out;
+}
+
+function estimateFps(frames) {
+  if (frames.length < 2) return 30;
+  const dt = median(frames.slice(1).map((f, i) => f.t - frames[i].t));
+  return dt > 0 ? 1 / dt : 30;
+}

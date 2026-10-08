@@ -1,0 +1,1018 @@
+{
+  "sport": "Soccer",
+  "sport_id": "soccer",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers instep drive (shooting/long ball), inside-foot pass, receiving/first touch, dribbling & 1v1 feints, heading (with US Soccer age limits), and cutting/landing mechanics from FIFA 11+. Goalkeeping is NOT covered (gap).",
+  "source_gap_notes": "Kicking biomechanics are well researched; passing/receiving cues come mostly from US Soccer and FIFA coaching resources (several reviewed only via abstracts/snippets). Dribbling relies on Coerver Coaching.",
+  "sources": [
+    {
+      "id": "SO1",
+      "name": "US Soccer - Guide to Coaching / Curriculum",
+      "type": "governing_body",
+      "url": "https://www.ossca.org/documents/ossca/coachingeducation/US_Soccer_Guide_to_Coaching.pdf",
+      "author_or_org": "U.S. Soccer",
+      "year": null,
+      "credibility": "Official US Soccer coaching curriculum (hosted by a state association).",
+      "verification": "search_snippet",
+      "covers": [
+        "passing",
+        "receiving",
+        "session design"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO2",
+      "name": "US Soccer 2020 D License Course Guide",
+      "type": "governing_body",
+      "url": "https://dt5602vnjxv0c.cloudfront.net/portals/27433/images/coach%20ed/d%20license%202020%20course%20guide%20(12-6-19).pdf",
+      "author_or_org": "U.S. Soccer",
+      "year": 2020,
+      "credibility": "US Soccer licensing course content.",
+      "verification": "search_snippet",
+      "covers": [
+        "coaching method",
+        "technique in game context"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO3",
+      "name": "US Soccer C License Course Guide 2021",
+      "type": "governing_body",
+      "url": "https://static.ussdcc.com/users/162114/635259/2021-c-course-guide.pdf",
+      "author_or_org": "U.S. Soccer",
+      "year": 2021,
+      "credibility": "US Soccer licensing course content (higher level).",
+      "verification": "search_snippet",
+      "covers": [
+        "coaching method"
+      ],
+      "usage_note": "Background: higher-level US Soccer coaching methodology; not cited for a specific item."
+    },
+    {
+      "id": "SO4",
+      "name": "FIFA Training Centre - Directing the ball with the first touch",
+      "type": "international_federation",
+      "url": "https://www.fifatrainingcentre.com/en/practice/elite-sessions/in-possession/directing-the-ball-with-the-first-touch.php",
+      "author_or_org": "FIFA",
+      "year": null,
+      "credibility": "FIFA's official coaching platform, elite session on directional first touch.",
+      "verification": "search_snippet",
+      "covers": [
+        "receiving",
+        "first touch"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO5",
+      "name": "FIFA 11+ injury prevention programme manual",
+      "type": "international_federation",
+      "url": "https://poweruptoplay.org/wp-content/uploads/2022/12/11plus_workbook_e-1.pdf",
+      "author_or_org": "FIFA / F-MARC",
+      "year": null,
+      "credibility": "FIFA Medical (F-MARC) warm-up programme with balance, single-leg strength, plyometric landing and cutting exercises; extensive RCT evidence.",
+      "verification": "search_snippet",
+      "covers": [
+        "landing",
+        "cutting",
+        "knee alignment",
+        "injury prevention"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO6",
+      "name": "Effects of FIFA 11+ on kinematics and proprioception in adolescent players - RCT (PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10073194/",
+      "author_or_org": null,
+      "year": 2023,
+      "credibility": "Randomized trial showing FIFA 11+ changes landing kinematics (dynamic knee valgus).",
+      "verification": "search_snippet",
+      "covers": [
+        "landing",
+        "knee valgus"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO7",
+      "name": "US Soccer - The Concussion Initiative and Reducing Heading",
+      "type": "governing_body",
+      "url": "https://www.ussoccer.com/soccer-forward/resource-hub/the-concussion-initiative-and-reducing-heading",
+      "author_or_org": "U.S. Soccer",
+      "year": null,
+      "credibility": "US Soccer Learning Center resource pack for the Concussion Initiative (brain-health guidance for coaches, referees, parents, players). Age-specific heading rules are taken from SO13.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "heading",
+        "safety",
+        "concussion"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO8",
+      "name": "Lees A, Asai T, Andersen TB, Nunome H, Sterzing T - The biomechanics of kicking in soccer: a review (J Sports Sci 2010)",
+      "type": "peer_reviewed",
+      "url": "https://numerik.mi.fu-berlin.de/wiki/WS_2020/CoMaI_Dokumente/FTVS-2332-version1-the_biomechanics_of_kicking_in_soccer_a_review.pdf",
+      "author_or_org": "Lees et al.",
+      "year": 2010,
+      "credibility": "Key review of kicking mechanics: approach, support leg, proximal-to-distal sequence, foot-ball impact.",
+      "verification": "search_snippet",
+      "covers": [
+        "instep kick",
+        "support leg",
+        "sequencing"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO9",
+      "name": "Kellis E, Katis A - Biomechanical characteristics and determinants of instep soccer kick (J Sports Sci Med 2007)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3786235/",
+      "author_or_org": "Kellis E, Katis A",
+      "year": 2007,
+      "credibility": "Review of instep kick kinematics/kinetics and determinants of ball speed.",
+      "verification": "search_snippet",
+      "covers": [
+        "instep kick"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO10",
+      "name": "Soccer Scoring Techniques: How Much Do We Know Them Biomechanically? - State-of-the-art review (Applied Sciences 2022)",
+      "type": "peer_reviewed",
+      "url": "https://www.mdpi.com/2076-3417/12/21/10886",
+      "author_or_org": null,
+      "year": 2022,
+      "credibility": "Review of shooting/heading techniques, incl. support-foot placement guidance.",
+      "verification": "search_snippet",
+      "covers": [
+        "shooting",
+        "support foot",
+        "heading"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO11",
+      "name": "From 2D leg kinematics to 3D full-body biomechanics - maximal instep kick review (BMC Sports Sci Med Rehabil 2011)",
+      "type": "peer_reviewed",
+      "url": "https://link.springer.com/article/10.1186/1758-2555-3-23",
+      "author_or_org": null,
+      "year": 2011,
+      "credibility": "Review emphasizing whole-body (trunk/arm) contribution to the maximal instep kick.",
+      "verification": "search_snippet",
+      "covers": [
+        "instep kick",
+        "full-body"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO13",
+      "name": "US Youth Soccer - Policy on Players and Playing Rules, Rule 305 Heading (06/23/2026)",
+      "type": "governing_body",
+      "url": "https://www.usyouthsoccer.org/wp-content/uploads/sites/160/2026/06/Policy-on-Players-and-Playing-Rules_APP-06.23.2026.pdf",
+      "author_or_org": "US Youth Soccer",
+      "year": 2026,
+      "credibility": "US Youth Soccer national policy: no heading for age 10 and under; ages 11-12 may head in matches, practice capped at 25 headers per player per week; 13+ unrestricted.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "heading",
+        "youth safety"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "SO12",
+      "name": "Coerver Coaching - Tips to improve 1v1 soccer skills: Feints",
+      "type": "coach_academy",
+      "url": "https://www.coerver.com/blog/1v1-soccer-skills-w1/",
+      "author_or_org": "Coerver Coaching",
+      "year": null,
+      "credibility": "Long-established youth technical academy (co-founder Alf Galustian) specializing in ball mastery and 1v1 moves: first touch before the feint, body movement to create space, explosive acceleration.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "dribbling",
+        "feints"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "so-instep-drive",
+      "name": "Instep drive (shooting / driven ball)",
+      "category": "kicking",
+      "recommended_camera": "Side view from the kicking-leg side at ball height and a front/rear view along the ball's line; 120-240 fps.",
+      "phases": [
+        "approach",
+        "support-foot plant",
+        "backswing",
+        "forward swing",
+        "impact",
+        "follow-through"
+      ],
+      "checkpoints": [
+        {
+          "id": "so-instep-drive-c01",
+          "description": "Angled approach (roughly 30-45 deg) to the ball allows pelvis rotation and a longer swing.",
+          "phase": "approach",
+          "body_landmarks": [
+            "mid_hip",
+            "support_ankle",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "approach path angle ~30-45 deg to the intended ball direction",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "top",
+          "source_ids": [
+            "SO8",
+            "SO9"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-instep-drive-c02",
+          "description": "Support foot planted beside and slightly behind the ball, roughly 1-1.5 ft to the side, toes pointing at the target.",
+          "phase": "plant",
+          "body_landmarks": [
+            "support_ankle",
+            "support_foot_index",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "support foot ~30-45 cm (about 1-1.5 ft) to the side of the ball and slightly behind it; support toe direction within ~15 deg of target line",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SO10",
+            "SO8"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "so-instep-drive-c03",
+          "description": "Support knee flexes on landing to absorb load, then extends during the swing.",
+          "phase": "plant",
+          "body_landmarks": [
+            "support_hip",
+            "support_knee",
+            "support_ankle"
+          ],
+          "measurable_angle_or_rule": "support knee flexion at plant ~20-40 deg, decreasing toward impact",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SO10",
+            "SO8"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-instep-drive-c04",
+          "description": "Proximal-to-distal sequence: pelvis rotates and the thigh drives forward, then the thigh decelerates as the shank whips through (knee extension) to impact.",
+          "phase": "forward swing",
+          "body_landmarks": [
+            "kick_hip",
+            "kick_knee",
+            "kick_ankle"
+          ],
+          "measurable_angle_or_rule": "thigh angular velocity peaks before shank angular velocity; maximal knee flexion (~90-110 deg) at end of backswing",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SO8",
+            "SO9",
+            "SO11"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-instep-drive-c05",
+          "description": "Contact with the instep (laces) with the ankle locked in plantar flexion; body over the ball for a low drive.",
+          "phase": "impact",
+          "body_landmarks": [
+            "kick_ankle",
+            "kick_foot_index",
+            "mid_shoulder",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "ankle plantar-flexed (foot pointing down) at impact; shoulder midpoint over or ahead of the ball for low shots",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SO9",
+            "SO10"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-instep-drive-c06",
+          "description": "Opposite arm swings out/back for balance and trunk contribution.",
+          "phase": "forward swing",
+          "body_landmarks": [
+            "support_side_wrist",
+            "support_side_shoulder"
+          ],
+          "measurable_angle_or_rule": "non-kicking-side arm abducted away from the body during the swing",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SO11"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "so-instep-drive-f01",
+          "name": "Planting too far from / behind the ball",
+          "video_signs": "Support foot lands far behind or wide of the ball; player reaches for the ball.",
+          "correction_cue": "'Plant next to the ball, toe to the target.'",
+          "why_it_matters": "Poor plant position changes foot-ball contact and reduces control and ball speed.",
+          "drill_ids": [
+            "SO-D-PLANT"
+          ],
+          "source_ids": [
+            "SO10",
+            "SO8"
+          ]
+        },
+        {
+          "id": "so-instep-drive-f02",
+          "name": "Leaning back",
+          "video_signs": "Trunk leans backward at impact; ball balloons over the goal.",
+          "correction_cue": "'Chest over the ball, land on your kicking foot.'",
+          "why_it_matters": "Backward lean shifts contact below the ball's centre.",
+          "drill_ids": [
+            "SO-D-PLANT",
+            "SO-D-WALL-STRIKE"
+          ],
+          "source_ids": [
+            "SO10"
+          ]
+        },
+        {
+          "id": "so-instep-drive-f03",
+          "name": "Toe-poke / floppy ankle",
+          "video_signs": "Contact with the toes or ankle not locked; inconsistent ball flight.",
+          "correction_cue": "'Point the toe down, lock the ankle, strike with the laces.'",
+          "why_it_matters": "A locked instep gives a firmer, more efficient impact.",
+          "drill_ids": [
+            "SO-D-WALL-STRIKE"
+          ],
+          "source_ids": [
+            "SO9",
+            "SO10"
+          ]
+        },
+        {
+          "id": "so-instep-drive-f04",
+          "name": "Straight-on approach / no hip rotation",
+          "video_signs": "Approach directly behind the ball; small backswing; kick from the knee only.",
+          "correction_cue": "'Come in on an angle and swing from the hip.'",
+          "why_it_matters": "An angled approach permits pelvis rotation and a longer, faster swing.",
+          "drill_ids": [
+            "SO-D-WALL-STRIKE"
+          ],
+          "source_ids": [
+            "SO8",
+            "SO9"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SO-D-PLANT",
+          "name": "Plant-foot gate drill",
+          "origin": "adapted",
+          "setup": "Place two cones forming a small 'gate' beside the ball where the support foot should land.",
+          "steps": [
+            "Approach from an angle and plant the support foot inside the gate, toes to target.",
+            "Strike at ~50% power, freeze on landing.",
+            "Increase power as the plant becomes consistent; film from the front."
+          ],
+          "dosage": "3 sets x 8 strikes each foot",
+          "fixes": "Planting too far; leaning back",
+          "why": "A physical target for the support foot makes the most influential set-up variable concrete and repeatable.",
+          "equipment": [
+            "cones",
+            "balls"
+          ],
+          "source_ids": [
+            "SO10",
+            "SO8"
+          ]
+        },
+        {
+          "id": "SO-D-WALL-STRIKE",
+          "name": "Wall driven-ball progression",
+          "origin": "adapted",
+          "setup": "Ball 5-10 m from a wall or rebounder.",
+          "steps": [
+            "Strike stationary balls with the laces, ankle locked, chest over the ball.",
+            "Aim for a low target (tape line ~1 m high).",
+            "Progress to a ball rolled in from the side, then a one-touch strike."
+          ],
+          "dosage": "3 sets x 10 strikes",
+          "fixes": "Toe-poke; leaning back; no hip rotation",
+          "why": "Short distances give many repetitions and a clear low target highlights whether the body is over the ball.",
+          "equipment": [
+            "wall/rebounder",
+            "balls",
+            "tape"
+          ],
+          "source_ids": [
+            "SO9"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "The maximal kick is a whole-body skill: trunk rotation and arm action contribute to the leg's speed, not just the kicking leg.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SO11"
+          ]
+        },
+        {
+          "tip": "The support leg absorbs landing load with knee flexion and then extends to help accelerate the swing - strong single-leg strength helps kicking.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SO10",
+            "SO8"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "so-inside-pass",
+      "name": "Inside-of-foot pass",
+      "category": "passing",
+      "recommended_camera": "Front view along the passing line and a side view.",
+      "phases": [
+        "approach",
+        "plant",
+        "contact",
+        "follow-through"
+      ],
+      "checkpoints": [
+        {
+          "id": "so-inside-pass-c01",
+          "description": "Support foot beside the ball pointing at the target; passing foot turned out (~90 deg) with the ankle locked.",
+          "phase": "contact",
+          "body_landmarks": [
+            "support_foot_index",
+            "kick_foot_index",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "passing foot rotated ~70-90 deg outward relative to the target line at contact",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SO1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-inside-pass-c02",
+          "description": "Contact through the middle of the ball for a firm, ground pass; follow through toward the target.",
+          "phase": "follow-through",
+          "body_landmarks": [
+            "kick_ankle",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "kicking ankle travels along the target line after contact",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SO1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-inside-pass-c03",
+          "description": "Head up / scanning before the pass.",
+          "phase": "approach",
+          "body_landmarks": [
+            "nose"
+          ],
+          "measurable_angle_or_rule": "head orientation rises above the ball (looks up) at least once in the 2 s before the pass",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SO1",
+            "SO4"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "so-inside-pass-f01",
+          "name": "Toe-down / floppy ankle on pass",
+          "video_signs": "Passing foot not locked; ball bobbles or veers.",
+          "correction_cue": "'Lock the ankle, toe up, heel down.'",
+          "why_it_matters": "A firm surface gives an accurate, predictable pass.",
+          "drill_ids": [
+            "SO-D-GATES"
+          ],
+          "source_ids": [
+            "SO1"
+          ]
+        },
+        {
+          "id": "so-inside-pass-f02",
+          "name": "Soft, bouncing passes",
+          "video_signs": "Ball lifts or rolls slowly; contact under the ball.",
+          "correction_cue": "'Strike through the middle - firm and on the ground.'",
+          "why_it_matters": "US Soccer guidance stresses firm, accurate ground passes.",
+          "drill_ids": [
+            "SO-D-GATES"
+          ],
+          "source_ids": [
+            "SO1"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SO-D-GATES",
+          "name": "Passing gates",
+          "origin": "adapted",
+          "setup": "Pairs with cone gates (1-2 m wide) spaced around a grid.",
+          "steps": [
+            "Pass through a gate to a partner, then move to a new gate.",
+            "Receiver receives across the body and passes back through another gate.",
+            "Progress to two-touch then one-touch."
+          ],
+          "dosage": "3 x 3 min",
+          "fixes": "Floppy ankle; soft passes; no scanning",
+          "why": "Gates demand accuracy and force players to look up to find the next gate, linking technique to scanning.",
+          "equipment": [
+            "cones",
+            "balls"
+          ],
+          "source_ids": [
+            "SO1"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Coach passing and receiving as one continuous action, then move quickly into small-sided pressured games where decisions are made.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SO1",
+            "SO2"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "so-first-touch",
+      "name": "Receiving / first touch",
+      "category": "receiving",
+      "recommended_camera": "Side view and an elevated view if possible to see body orientation.",
+      "phases": [
+        "scan",
+        "body shape",
+        "first touch"
+      ],
+      "checkpoints": [
+        {
+          "id": "so-first-touch-c01",
+          "description": "Open body orientation (half-turned) before the ball arrives, so the receiver can see the field and play forward.",
+          "phase": "body shape",
+          "body_landmarks": [
+            "lead_shoulder",
+            "rear_shoulder",
+            "lead_hip",
+            "rear_hip"
+          ],
+          "measurable_angle_or_rule": "hip line angled ~30-60 deg to the incoming pass line (not square to it)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "top",
+          "source_ids": [
+            "SO4",
+            "SO1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-first-touch-c02",
+          "description": "Directional first touch away from pressure and into space, without stopping the ball dead.",
+          "phase": "first touch",
+          "body_landmarks": [
+            "kick_foot_index",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "ball travels > ~1 m in the intended direction after the first touch",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "low",
+          "camera_view": "top",
+          "source_ids": [
+            "SO4",
+            "SO1"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-first-touch-c03",
+          "description": "Scan (head turns) before receiving.",
+          "phase": "scan",
+          "body_landmarks": [
+            "nose"
+          ],
+          "measurable_angle_or_rule": "one or more head turns away from the ball in the seconds before reception",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SO1",
+            "SO4"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "so-first-touch-f01",
+          "name": "Square/closed body shape",
+          "video_signs": "Receiver faces the passer squarely and must take extra touches to turn.",
+          "correction_cue": "'Open up - receive on the back foot.'",
+          "why_it_matters": "An open stance lets the first touch go forward.",
+          "drill_ids": [
+            "SO-D-DIRTOUCH"
+          ],
+          "source_ids": [
+            "SO4",
+            "SO1"
+          ]
+        },
+        {
+          "id": "so-first-touch-f02",
+          "name": "Stopping the ball dead",
+          "video_signs": "First touch kills the ball under the feet; second touch needed to move.",
+          "correction_cue": "'Take it with you - touch into space.'",
+          "why_it_matters": "A directional touch saves time and beats pressure.",
+          "drill_ids": [
+            "SO-D-DIRTOUCH"
+          ],
+          "source_ids": [
+            "SO4"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SO-D-DIRTOUCH",
+          "name": "Directional first-touch gates",
+          "origin": "adapted",
+          "setup": "Receiver in a central zone with cone gates on each side; a passive defender points to one side.",
+          "steps": [
+            "Server passes in.",
+            "Receiver scans to see where the defender is.",
+            "First touch through the gate away from pressure.",
+            "Progress to an active defender."
+          ],
+          "dosage": "4 x 2 min per player",
+          "fixes": "Closed body shape; ball stopped dead; no scanning",
+          "why": "The defender's cue makes scanning necessary and rewards touching away from pressure, mirroring match demands.",
+          "equipment": [
+            "cones",
+            "balls",
+            "bibs"
+          ],
+          "source_ids": [
+            "SO4"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "FIFA's elite sessions treat the first touch as a decision: direct it toward the next action, not just under control.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SO4"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "so-dribble-1v1",
+      "name": "Dribbling and 1v1 feints",
+      "category": "dribbling",
+      "recommended_camera": "Front view (from the defender's perspective) and side view.",
+      "phases": [
+        "approach",
+        "feint",
+        "exit / acceleration"
+      ],
+      "checkpoints": [
+        {
+          "id": "so-dribble-1v1-c01",
+          "description": "The touch before the feint sets it up: if the ball is too close or too far from the body, the feint is hard to execute.",
+          "phase": "approach",
+          "body_landmarks": [
+            "kick_foot_index",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "ball roughly 0.5-1 m ahead of the feet at the moment of the feint",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SO12"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-dribble-1v1-c02",
+          "description": "Body feint: drop the shoulder and shift weight onto one leg to sell the fake.",
+          "phase": "feint",
+          "body_landmarks": [
+            "lead_shoulder",
+            "rear_shoulder",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "clear lateral shoulder dip/hip shift (> ~10 cm) toward the fake direction",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SO12"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-dribble-1v1-c03",
+          "description": "Explosive acceleration out of the move - once the defender is beaten, explode away.",
+          "phase": "exit",
+          "body_landmarks": [
+            "mid_hip",
+            "ball"
+          ],
+          "measurable_angle_or_rule": "step frequency/velocity increases immediately after the feint",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "front",
+          "source_ids": [
+            "SO12"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "so-dribble-1v1-f01",
+          "name": "Poor set-up touch (too close or too far)",
+          "video_signs": "Ball is jammed under the feet or runs too far ahead right before the move.",
+          "correction_cue": "'Set the ball - one good touch, then the move.'",
+          "why_it_matters": "Close control keeps options open.",
+          "drill_ids": [
+            "SO-D-1V1-PROG"
+          ],
+          "source_ids": [
+            "SO12"
+          ]
+        },
+        {
+          "id": "so-dribble-1v1-f02",
+          "name": "Weak feint / no acceleration",
+          "video_signs": "Fake is small and the player doesn't speed up afterward.",
+          "correction_cue": "'Sell it, then explode.'",
+          "why_it_matters": "A feint only works if the attacker accelerates while the defender is off balance.",
+          "drill_ids": [
+            "SO-D-1V1-PROG"
+          ],
+          "source_ids": [
+            "SO12"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SO-D-1V1-PROG",
+          "name": "1v1 feint progression (Coerver style)",
+          "origin": "adapted",
+          "setup": "Cone channel ~10 x 20 m.",
+          "steps": [
+            "Repeat the move against a cone without pressure.",
+            "Then against a passive helper defender.",
+            "Then live 1v1 with full tackling to an end line."
+          ],
+          "dosage": "6-10 reps per stage",
+          "fixes": "Ball too far ahead; weak feint",
+          "why": "Progressing from no pressure to full pressure builds a reliable move before it is tested live.",
+          "equipment": [
+            "cones",
+            "balls"
+          ],
+          "source_ids": [
+            "SO12"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Coerver breaks 1v1 play into three parts - changes of direction, feints, and stops-and-starts - and stresses that acceleration after the move is what actually beats the defender.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "SO12"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "so-heading",
+      "name": "Heading (age 11+ only)",
+      "category": "heading",
+      "recommended_camera": "Side view at head height.",
+      "phases": [
+        "approach",
+        "contact"
+      ],
+      "checkpoints": [
+        {
+          "id": "so-heading-c01",
+          "description": "Contact the ball with the forehead (hairline), eyes open, neck braced, power from the trunk.",
+          "phase": "contact",
+          "body_landmarks": [
+            "nose",
+            "mid_shoulder",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "trunk extends then flexes forward into contact; head and trunk move together",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "SO10"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "so-heading-f01",
+          "name": "Heading with the top of the head / eyes closed",
+          "video_signs": "Ball contacts the crown; head flinches.",
+          "correction_cue": "'Forehead, eyes open, attack the ball.'",
+          "why_it_matters": "Correct contact improves control and comfort.",
+          "drill_ids": [],
+          "source_ids": [
+            "SO10"
+          ]
+        }
+      ],
+      "drills": [],
+      "pro_tips": [
+        {
+          "tip": "Youth heading rules (US Youth Soccer Rule 305, aligned with the US Soccer Concussion Initiative): age 10 and under - no heading in matches or organized practice; ages 11-12 - may head in matches, practice heading capped at 25 headers per player per week; 13+ - no age restriction. Check your league's current rules.",
+          "kind": "safety",
+          "source_ids": [
+            "SO13",
+            "SO7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "so-cut-land",
+      "name": "Cutting and landing mechanics (FIFA 11+)",
+      "category": "injury_prevention",
+      "recommended_camera": "Front view (to see knee alignment) at 60+ fps.",
+      "phases": [
+        "landing",
+        "cutting"
+      ],
+      "checkpoints": [
+        {
+          "id": "so-cut-land-c01",
+          "description": "Knee stays over the toes (no inward collapse / dynamic knee valgus) when landing, squatting on one leg or planting to cut.",
+          "phase": "landing",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "frontal-plane projection angle of the knee < ~10-15 deg of valgus; knee stays between hip and 2nd toe line",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "SO5",
+            "SO6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "so-cut-land-c02",
+          "description": "Soft landings on the balls of the feet with hip and knee flexion.",
+          "phase": "landing",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "lead_ankle"
+          ],
+          "measurable_angle_or_rule": "knee flexion increases to > ~45-60 deg during landing absorption",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "SO5"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "so-cut-land-f01",
+          "name": "Knee valgus collapse",
+          "video_signs": "Knee moves inward toward the midline on landing or plant.",
+          "correction_cue": "'Knee over toes - knees apart.'",
+          "why_it_matters": "Dynamic knee valgus is a recognized ACL injury mechanism and is reduced by the FIFA 11+ program.",
+          "drill_ids": [
+            "SO-D-11PLUS"
+          ],
+          "source_ids": [
+            "SO5",
+            "SO6"
+          ]
+        },
+        {
+          "id": "so-cut-land-f02",
+          "name": "Stiff landing",
+          "video_signs": "Little knee/hip flexion; loud landings.",
+          "correction_cue": "'Land soft and quiet.'",
+          "why_it_matters": "Stiff landings increase impact loads.",
+          "drill_ids": [
+            "SO-D-11PLUS"
+          ],
+          "source_ids": [
+            "SO5"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "SO-D-11PLUS",
+          "name": "FIFA 11+ part 2 strength/plyometric/balance block",
+          "origin": "from_source",
+          "setup": "Field area; partner for some exercises.",
+          "steps": [
+            "Single-leg stance with ball exchanges.",
+            "Single-leg squats with knee over toe.",
+            "Vertical, lateral and box jumps with soft landings.",
+            "Plant-and-cut running with controlled knee alignment."
+          ],
+          "dosage": "Full FIFA 11+ warm-up ~20 min, at least 2x per week",
+          "fixes": "Knee valgus; stiff landing",
+          "why": "Repeated, cued practice of knee alignment under progressively harder balance and jump tasks builds neuromuscular control; trials show reduced dynamic knee valgus after 8-10 weeks.",
+          "equipment": [
+            "ball",
+            "cones"
+          ],
+          "source_ids": [
+            "SO5",
+            "SO6"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Use FIFA 11+ (or 11+ Kids for younger players) as the standard warm-up at least twice per week.",
+          "kind": "safety",
+          "source_ids": [
+            "SO5"
+          ]
+        }
+      ],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}

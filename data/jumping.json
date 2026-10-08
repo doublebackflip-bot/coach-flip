@@ -1,0 +1,932 @@
+{
+  "sport": "Jumping events (long jump, triple jump, high jump)",
+  "sport_id": "jumping",
+  "kb_version": "1.0",
+  "generated_on": "2026-10-07",
+  "scope_notes": "Covers the approach run, long jump penultimate step/take-off, long jump flight & landing, triple jump phases, high jump curved approach/take-off and bar clearance, plus general jump-landing mechanics for plyometric training. Pole vault is not covered.",
+  "source_gap_notes": "Good research base (World Athletics biomechanics reports, Dapena's high jump work, Hay's triple jump review, Linthorne's take-off angle study). Coaching drill sources are thinner online; long jump flight styles and landing rely more on coaching consensus.",
+  "sources": [
+    {
+      "id": "JP1",
+      "name": "World Athletics - Biomechanical Report, Men's Long Jump, 2017 IAAF World Championships London",
+      "type": "international_federation",
+      "url": "https://worldathletics.org/download/download?filename=541b2212-f18d-4960-af2f-11d84609cfaa.pdf&urlslug=Men%27s+long+jump+-+2017+IAAF+World+Championships+Biomechanical+report",
+      "author_or_org": "World Athletics",
+      "year": 2017,
+      "credibility": "Official elite data: penultimate stride ~6% longer, final stride ~9% shorter; take-off contact ~0.12-0.13 s.",
+      "verification": "search_snippet",
+      "covers": [
+        "long jump",
+        "penultimate",
+        "take-off"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP2",
+      "name": "Myers B - Improving the penultimate step in the jumping events (IAAF New Studies in Athletics 1989)",
+      "type": "coaching_journal",
+      "url": "https://worldathletics.org/download/downloadnsa?filename=7f56fbf6-35f2-45b4-9ec2-d1afe80584a7.pdf&urlslug=improving-the-penultimate-step-in-the-jumping",
+      "author_or_org": "Bob Myers",
+      "year": 1989,
+      "credibility": "University of Arizona head coach; take-off goals (<10% horizontal velocity loss, 15-25 deg take-off), penultimate mechanics and analysis by sound.",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "penultimate step",
+        "take-off",
+        "long jump",
+        "triple jump",
+        "high jump"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP3",
+      "name": "Linthorne NP, Guzman MS, Bridgett LA - Optimum take-off angle in the long jump (J Sports Sci 2005)",
+      "type": "peer_reviewed",
+      "url": "https://bura.brunel.ac.uk/handle/2438/544",
+      "author_or_org": "Linthorne NP et al.",
+      "year": 2005,
+      "credibility": "Athlete-specific optimum take-off angle ~23 deg (competition 19-25 deg) because speed drops at steeper angles.",
+      "verification": "search_snippet",
+      "covers": [
+        "long jump",
+        "take-off angle"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP4",
+      "name": "Dapena J - Mechanics of rotation in the Fosbury-flop (Med Sci Sports Exerc 1980)",
+      "type": "peer_reviewed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7392902/",
+      "author_or_org": "Dapena J",
+      "year": 1980,
+      "credibility": "Most angular momentum for bar clearance is generated during take-off.",
+      "verification": "search_snippet",
+      "covers": [
+        "high jump",
+        "rotation"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP5",
+      "name": "Dapena J et al. - Why do high jumpers use a curved approach?",
+      "type": "peer_reviewed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16195029/",
+      "author_or_org": "Dapena J",
+      "year": null,
+      "credibility": "Curve lets the jumper lean away from the bar (lowering the COM without deep knee flexion) and helps generate somersault rotation.",
+      "verification": "search_snippet",
+      "covers": [
+        "high jump",
+        "curved approach"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP6",
+      "name": "Dapena J - The evolution of high jumping technique: biomechanical analysis (overview PDF)",
+      "type": "peer_reviewed",
+      "url": "http://large.stanford.edu/courses/2018/ph240/williams-h2/docs/dapena.pdf",
+      "author_or_org": "Dapena J",
+      "year": null,
+      "credibility": "Overview of bar-clearance principles, run-up speed vs free-limb actions (double-arm, lead leg).",
+      "verification": "full_text_reviewed",
+      "covers": [
+        "high jump",
+        "bar clearance",
+        "free limbs"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP7",
+      "name": "Hay JG - The biomechanics of the triple jump: a review (J Sports Sci 1992)",
+      "type": "peer_reviewed",
+      "url": "https://d.docksci.com/the-biomechanics-of-the-triple-jump-a-review_5ebb6d0d097c478c6a8b4595.html",
+      "author_or_org": "Hay JG",
+      "year": 1992,
+      "credibility": "Phase-ratio framework (hop-, balanced-, jump-dominated) and determinants of distance.",
+      "verification": "search_snippet",
+      "covers": [
+        "triple jump",
+        "phase ratio"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP8",
+      "name": "Optimisation of phase ratio in the triple jump using computer simulation (Human Movement Science 2016)",
+      "type": "peer_reviewed",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0167945715300816",
+      "author_or_org": null,
+      "year": 2016,
+      "credibility": "Simulation: optimal phase ratio depends on the athlete's strength/velocity conversion; no universal ideal.",
+      "verification": "search_snippet",
+      "covers": [
+        "triple jump",
+        "phase ratio"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP9",
+      "name": "Biomechanical Evaluation of the Phases of the Triple Jump Take-Off in a Top Female Athlete (J Hum Kinet, PMC)",
+      "type": "peer_reviewed",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4096103/",
+      "author_or_org": null,
+      "year": null,
+      "credibility": "Case analysis of take-off kinematics across hop, step and jump.",
+      "verification": "search_snippet",
+      "covers": [
+        "triple jump",
+        "take-off"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP10",
+      "name": "NSCA - Plyometric Implementation: Setup and Execution of Jump Landing Positions to Decrease Likelihood of Injuries",
+      "type": "professional_body",
+      "url": "https://www.nsca.com/education/videos/plyometric-implementation-setup-and-execution-of-jump-landing-positions-to-decrease-likelihood-of-injuries/",
+      "author_or_org": "NSCA",
+      "year": null,
+      "credibility": "National Strength and Conditioning Association education on landing positions.",
+      "verification": "search_snippet",
+      "covers": [
+        "landing",
+        "plyometrics"
+      ],
+      "usage_note": null
+    },
+    {
+      "id": "JP11",
+      "name": "SimpliFaster - Building a Better Technical Model for the Long Jump",
+      "type": "practitioner_article",
+      "url": "https://simplifaster.com/articles/better-long-jump-technical-models/",
+      "author_or_org": "SimpliFaster",
+      "year": null,
+      "credibility": "Coach-written technical model article.",
+      "verification": "search_snippet",
+      "covers": [
+        "long jump"
+      ],
+      "usage_note": null
+    }
+  ],
+  "skills": [
+    {
+      "id": "jp-approach",
+      "name": "Approach run (long/triple jump)",
+      "category": "approach",
+      "recommended_camera": "Side view panning or fixed at the last 6 strides; plus board-level camera.",
+      "phases": [
+        "acceleration",
+        "rhythm",
+        "last strides"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-approach-c01",
+          "description": "Consistent, accelerating approach that reaches controllable near-maximal speed at the board, with posture rising to upright in the final strides.",
+          "phase": "last strides",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "trunk near vertical in last 4-6 strides; step-length pattern consistent between trials (+/- ~5-10 cm at check marks)",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "JP2",
+            "JP11"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "jp-approach-c02",
+          "description": "Rhythm increases in the last two steps (quicker turnover).",
+          "phase": "last strides",
+          "body_landmarks": [
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "last two contact-to-contact times shorter than preceding strides",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-approach-f01",
+          "name": "Inconsistent approach / stutter to hit the board",
+          "video_signs": "Visible stride adjustment (chopping or reaching) in the last strides.",
+          "correction_cue": "'Run the same rhythm every time - trust the mark.'",
+          "why_it_matters": "Late adjustments cost speed and disrupt the penultimate step.",
+          "drill_ids": [
+            "JP-D-CHECKMARK"
+          ],
+          "source_ids": [
+            "JP2"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "JP-D-CHECKMARK",
+          "name": "Check-mark approach runs",
+          "origin": "adapted",
+          "setup": "Runway with a start mark and a coach check mark ~6 strides out.",
+          "steps": [
+            "Run full approaches without jumping, running through the board.",
+            "Coach records where the take-off foot lands relative to the board and the check mark.",
+            "Adjust the start mark; repeat until consistent."
+          ],
+          "dosage": "4-6 approaches per session",
+          "fixes": "Inconsistent approach",
+          "why": "Repeated run-throughs build a reproducible stride pattern so the athlete arrives at the board without adjustments.",
+          "equipment": [
+            "tape measure",
+            "markers"
+          ],
+          "source_ids": [
+            "JP2"
+          ]
+        }
+      ],
+      "pro_tips": [],
+      "notes": null
+    },
+    {
+      "id": "jp-lj-takeoff",
+      "name": "Long jump penultimate step and take-off",
+      "category": "takeoff",
+      "recommended_camera": "Side view at board level, perpendicular, 120-240 fps.",
+      "phases": [
+        "penultimate step",
+        "take-off contact",
+        "toe-off"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-lj-takeoff-c01",
+          "description": "Penultimate stride slightly longer and the final stride shorter (elite: ~6% longer and ~9% shorter than prior strides); final steps 'pulled' under the body, not reached.",
+          "phase": "penultimate step",
+          "body_landmarks": [
+            "stance_ankle",
+            "swing_ankle",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "penultimate step length > final step length by ~5-10%",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP1",
+            "JP2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "jp-lj-takeoff-c02",
+          "description": "Centre of mass lowered slightly on the penultimate step (flat, slightly heel-first contact), then rising through take-off.",
+          "phase": "penultimate step",
+          "body_landmarks": [
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "hip height dips a few cm on the penultimate contact, then rises at take-off",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP2"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "jp-lj-takeoff-c03",
+          "description": "Take-off foot plants quickly and actively, nearly flat, with a brief contact (~0.12-0.13 s in elite men).",
+          "phase": "take-off contact",
+          "body_landmarks": [
+            "takeoff_ankle",
+            "takeoff_heel",
+            "takeoff_foot_index"
+          ],
+          "measurable_angle_or_rule": "take-off contact frames x (1/fps) ~0.11-0.14 s for elite; shin slightly behind vertical at touchdown",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP1",
+            "JP2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "jp-lj-takeoff-c04",
+          "description": "Take-off angle well below 45 degrees - typically ~18-25 deg (athlete-specific optimum ~23 deg) - while losing less than ~10% horizontal velocity.",
+          "phase": "toe-off",
+          "body_landmarks": [
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "angle of hip trajectory in the first frames after toe-off ~18-25 deg",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP3",
+            "JP2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "jp-lj-takeoff-c05",
+          "description": "At toe-off: take-off leg fully extended, free thigh driven up to ~horizontal, trunk upright, arms blocking.",
+          "phase": "toe-off",
+          "body_landmarks": [
+            "takeoff_hip",
+            "takeoff_knee",
+            "free_hip",
+            "free_knee",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "take-off knee ~170-180 deg; free thigh near horizontal; trunk within ~10 deg of vertical",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP2",
+            "JP11"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-lj-takeoff-f01",
+          "name": "Reaching final step (braking take-off)",
+          "video_signs": "Long last stride with the foot planted far ahead; obvious braking and loss of speed.",
+          "correction_cue": "'Shorten the last step - quick-quick off the board.'",
+          "why_it_matters": "A reaching take-off kills horizontal velocity, the main determinant of distance.",
+          "drill_ids": [
+            "JP-D-SHORTAPP"
+          ],
+          "source_ids": [
+            "JP2",
+            "JP1"
+          ]
+        },
+        {
+          "id": "jp-lj-takeoff-f02",
+          "name": "No penultimate lowering (running off the board)",
+          "video_signs": "No change in rhythm or COM height; athlete runs through with a flat trajectory.",
+          "correction_cue": "'Long-short rhythm: lower on the penultimate, up through the board.'",
+          "why_it_matters": "Without the penultimate preparation there is little vertical velocity.",
+          "drill_ids": [
+            "JP-D-SHORTAPP"
+          ],
+          "source_ids": [
+            "JP2"
+          ]
+        },
+        {
+          "id": "jp-lj-takeoff-f03",
+          "name": "Jumping too steep",
+          "video_signs": "Athlete slows and 'pops' up at a high angle.",
+          "correction_cue": "'Run off the board, not up into the sky.'",
+          "why_it_matters": "Steeper take-offs reduce take-off speed; the optimum is far below 45 deg.",
+          "drill_ids": [
+            "JP-D-SHORTAPP"
+          ],
+          "source_ids": [
+            "JP3"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "JP-D-SHORTAPP",
+          "name": "Short-approach (4-6 stride) take-off drill",
+          "origin": "adapted",
+          "setup": "Short approach into the pit; coach stands beside the board listening.",
+          "steps": [
+            "Run 4-6 strides emphasizing a long-short rhythm on the last two steps.",
+            "Take off into a tall 'take-off position' and land in the pit.",
+            "Coach listens to the last two contacts: loud, blocking contacts = braking (over-long step); ordinary sprint sound = running through with no conversion; correct = a resonant penultimate contact followed by a quicker take-off step (a distinct speed-up of the rhythm)."
+          ],
+          "dosage": "6-10 jumps per session",
+          "fixes": "Reaching final step; no penultimate lowering; jumping too steep",
+          "why": "Short approaches allow many quality take-off repetitions; Myers shows coaches can detect correct penultimate mechanics by the sound/rhythm of the last two contacts.",
+          "equipment": [
+            "pit",
+            "board"
+          ],
+          "source_ids": [
+            "JP2"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "Coach the take-off by ear as well as by eye: correct penultimate mechanics produce a distinctive quick rhythm on the last two contacts.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "JP2"
+          ]
+        },
+        {
+          "tip": "The athlete-specific optimum take-off angle (~23 deg in experienced jumpers) is low because jumping steeper costs more take-off speed than it gains in height.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "JP3"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "jp-lj-landing",
+      "name": "Long jump flight and landing",
+      "category": "landing",
+      "recommended_camera": "Side view at pit level.",
+      "phases": [
+        "flight",
+        "landing"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-lj-landing-c01",
+          "description": "Heels extended forward at landing with hips brought forward/collapsed past the heels to avoid falling back.",
+          "phase": "landing",
+          "body_landmarks": [
+            "lead_heel",
+            "rear_heel",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "heels ahead of the hip at first sand contact; hips then move forward over the heels",
+          "rule_basis": "coaching_heuristic_unsourced",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-lj-landing-f01",
+          "name": "Sitting back on landing",
+          "video_signs": "Athlete falls back into the sand behind the heel marks.",
+          "correction_cue": "'Feet out, then drive the hips forward through the knees.'",
+          "why_it_matters": "Measurement is from the closest mark - falling back loses distance.",
+          "drill_ids": [],
+          "source_ids": []
+        }
+      ],
+      "drills": [],
+      "pro_tips": [],
+      "notes": null
+    },
+    {
+      "id": "jp-triple",
+      "name": "Triple jump (hop-step-jump)",
+      "category": "triple_jump",
+      "recommended_camera": "Side view panning along the runway, 120+ fps.",
+      "phases": [
+        "hop",
+        "step",
+        "jump"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-triple-c01",
+          "description": "Phase distribution is individual: elite jumpers commonly show roughly 35-37% hop, ~30% step, 33-36% jump; avoid an over-long hop that collapses the step.",
+          "phase": null,
+          "body_landmarks": [
+            "takeoff_ankle"
+          ],
+          "measurable_angle_or_rule": "phase % = phase distance / total; flag if step < ~28% (collapsed step)",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP7",
+            "JP8"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "jp-triple-c02",
+          "description": "Flat, low hop take-off (lower angle than the long jump) to preserve horizontal speed.",
+          "phase": "hop",
+          "body_landmarks": [
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "hop take-off trajectory angle lower than the athlete's long jump take-off angle",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP7",
+            "JP9"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "jp-triple-c03",
+          "description": "Active, 'pawing' landings under the body for each phase with an upright trunk.",
+          "phase": null,
+          "body_landmarks": [
+            "stance_ankle",
+            "mid_hip",
+            "mid_shoulder"
+          ],
+          "measurable_angle_or_rule": "touchdown foot close to below hip; trunk within ~10-15 deg of vertical at each contact",
+          "rule_basis": "coaching_consensus",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP7",
+            "JP2"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-triple-f01",
+          "name": "Over-big hop / collapsed step",
+          "video_signs": "Very high/long hop followed by a short step as the leg collapses on landing.",
+          "correction_cue": "'Hop flat and fast - save something for the step.'",
+          "why_it_matters": "Excess hop height increases landing load and the step collapses.",
+          "drill_ids": [
+            "JP-D-BOUNDS"
+          ],
+          "source_ids": [
+            "JP7",
+            "JP8"
+          ]
+        },
+        {
+          "id": "jp-triple-f02",
+          "name": "Leaning forward on landings",
+          "video_signs": "Trunk tips forward at hop/step landings.",
+          "correction_cue": "'Chest up - land tall.'",
+          "why_it_matters": "Forward lean disrupts the next take-off.",
+          "drill_ids": [
+            "JP-D-BOUNDS"
+          ],
+          "source_ids": [
+            "JP7"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "JP-D-BOUNDS",
+          "name": "Rhythm bounding (hop-hop-step-step)",
+          "origin": "adapted",
+          "setup": "Runway or grass; cones at even spacing.",
+          "steps": [
+            "Short approach (4-6 strides).",
+            "Alternate patterns: R-R-L-L-R-R (hops and steps).",
+            "Land actively under the hips with upright trunk; keep rhythm even."
+          ],
+          "dosage": "3-4 sets x 20-30 m, full recovery",
+          "fixes": "Collapsed step; forward lean",
+          "why": "Even-rhythm bounding builds the elastic strength and landing posture needed for balanced phases.",
+          "equipment": [
+            "cones"
+          ],
+          "source_ids": [
+            "JP7"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "There is no universal optimal phase ratio; it depends on how efficiently the athlete converts horizontal to vertical velocity.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "JP8",
+            "JP7"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "jp-hj-approach-takeoff",
+      "name": "High jump (Fosbury flop) curved approach and take-off",
+      "category": "high_jump",
+      "recommended_camera": "Rear/front view along the curve and side view at take-off, 120+ fps.",
+      "phases": [
+        "straight approach",
+        "curve",
+        "take-off"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-hj-approach-takeoff-c01",
+          "description": "J-shaped approach: straight run then a curve of ~4-5 strides; on the curve the body leans away from the bar (inward lean).",
+          "phase": "curve",
+          "body_landmarks": [
+            "mid_hip",
+            "mid_shoulder",
+            "stance_ankle"
+          ],
+          "measurable_angle_or_rule": "whole-body lean toward curve centre ~ visible (e.g., > ~10 deg from vertical in front view) on curve strides",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "JP5",
+            "JP6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "jp-hj-approach-takeoff-c02",
+          "description": "Curve allows a low COM without deep knee bend; the jumper moves from inward lean to vertical at take-off.",
+          "phase": "take-off",
+          "body_landmarks": [
+            "mid_hip",
+            "takeoff_knee"
+          ],
+          "measurable_angle_or_rule": "take-off knee flexion moderate (not deep squat); body near vertical at toe-off",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "JP5",
+            "JP4"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "jp-hj-approach-takeoff-c03",
+          "description": "Quick, flat, pulling penultimate step with deeper knee flexion than in the long jump, and an EARLY take-off plant (take-off leg used like a vault pole); take-off angle much steeper (~45-55 deg) than the horizontal jumps.",
+          "phase": "take-off",
+          "body_landmarks": [
+            "takeoff_ankle",
+            "takeoff_knee",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "take-off foot ahead of the hip at touchdown; take-off trajectory ~45-55 deg",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "JP2"
+          ],
+          "threshold_confidence": "source_stated"
+        },
+        {
+          "id": "jp-hj-approach-takeoff-c04",
+          "description": "Double-arm action: during the penultimate step both arms pull back to about hip level, then drive up through take-off.",
+          "phase": "take-off",
+          "body_landmarks": [
+            "lead_wrist",
+            "rear_wrist",
+            "mid_hip"
+          ],
+          "measurable_angle_or_rule": "both wrists behind the hip line on the penultimate contact; above shoulder height at toe-off",
+          "rule_basis": "expert_coach",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP2",
+            "JP6"
+          ],
+          "threshold_confidence": "estimated"
+        },
+        {
+          "id": "jp-hj-approach-takeoff-c05",
+          "description": "Drive the free knee and arms upward forcefully at take-off.",
+          "phase": "take-off",
+          "body_landmarks": [
+            "free_knee",
+            "lead_wrist",
+            "rear_wrist"
+          ],
+          "measurable_angle_or_rule": "free thigh near horizontal and arms above shoulder height at toe-off",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "side",
+          "source_ids": [
+            "JP6"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-hj-approach-takeoff-f01",
+          "name": "Running straight at the bar / drifting",
+          "video_signs": "Approach flattens; jumper turns into the bar at take-off and drifts along it.",
+          "correction_cue": "'Run the curve - lean away from the bar.'",
+          "why_it_matters": "Without the curve the athlete must squat to lower the COM and cannot rotate efficiently.",
+          "drill_ids": [
+            "JP-D-CIRCLE"
+          ],
+          "source_ids": [
+            "JP5"
+          ]
+        },
+        {
+          "id": "jp-hj-approach-takeoff-f02",
+          "name": "Over-long take-off step",
+          "video_signs": "Final step reaches far ahead; loud blocking contact; jumper drives into the bar rather than up.",
+          "correction_cue": "'Quick last two - plant early, not far.'",
+          "why_it_matters": "Myers notes this is where many young high jumpers go wrong: it hinders converting horizontal to vertical velocity and blunts the stretch reflex.",
+          "drill_ids": [
+            "JP-D-CIRCLE"
+          ],
+          "source_ids": [
+            "JP2"
+          ]
+        },
+        {
+          "id": "jp-hj-approach-takeoff-f03",
+          "name": "Leaning into the bar at take-off",
+          "video_signs": "Shoulders lean toward the bar during take-off.",
+          "correction_cue": "'Stay tall - go up, let the rotation come.'",
+          "why_it_matters": "Most rotation is generated during take-off; leaning in disrupts it and brings the body down onto the bar.",
+          "drill_ids": [
+            "JP-D-CIRCLE"
+          ],
+          "source_ids": [
+            "JP5",
+            "JP4"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "JP-D-CIRCLE",
+          "name": "Circle runs with pop-ups",
+          "origin": "adapted",
+          "setup": "Mark a circle or J-curve (~5 strides) on the track/apron.",
+          "steps": [
+            "Run the circle leaning inward from the ankles.",
+            "Every few strides, perform a pop-up take-off driving the free knee and arms.",
+            "Progress to curve approach + scissor jump, then full flop at low height."
+          ],
+          "dosage": "4-6 runs x 1-2 pop-ups",
+          "fixes": "Running straight; leaning into the bar",
+          "why": "Circle running builds the inward lean the curve is supposed to create, and pop-ups rehearse transitioning to vertical at take-off.",
+          "equipment": [
+            "cones/markers"
+          ],
+          "source_ids": [
+            "JP5"
+          ]
+        }
+      ],
+      "pro_tips": [
+        {
+          "tip": "High jump style trade-off: some jumpers rely on a faster run-up, others on stronger double-arm or lead-leg actions to increase take-off force.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "JP6"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "jp-hj-clearance",
+      "name": "High jump bar clearance",
+      "category": "high_jump",
+      "recommended_camera": "Side view perpendicular to the bar.",
+      "phases": [
+        "layout",
+        "clearance",
+        "landing"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-hj-clearance-c01",
+          "description": "Arch over the bar so body parts are lowered around the bar while the centre of mass peaks; then lift the legs as the hips pass.",
+          "phase": "clearance",
+          "body_landmarks": [
+            "mid_hip",
+            "lead_knee",
+            "nose"
+          ],
+          "measurable_angle_or_rule": "hip highest point with head and knees lower (arch) as hips cross the bar",
+          "rule_basis": "research",
+          "pose_detectability": "medium",
+          "camera_view": "side",
+          "source_ids": [
+            "JP6"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-hj-clearance-f01",
+          "name": "Early leg lift / sitting",
+          "video_signs": "Hips drop onto the bar because legs lift too early.",
+          "correction_cue": "'Hips up - wait, then kick the legs.'",
+          "why_it_matters": "Mistimed segment movements lower the hips relative to the bar.",
+          "drill_ids": [],
+          "source_ids": [
+            "JP6"
+          ]
+        }
+      ],
+      "drills": [],
+      "pro_tips": [
+        {
+          "tip": "Dapena: more effective bar clearance means lowering some body parts so the bar can be higher for a given centre-of-mass peak.",
+          "kind": "pro_tip",
+          "source_ids": [
+            "JP6"
+          ]
+        }
+      ],
+      "notes": null
+    },
+    {
+      "id": "jp-landing-mech",
+      "name": "Jump landing mechanics (plyometric / training)",
+      "category": "injury_prevention",
+      "recommended_camera": "Front view for knee alignment and side view for flexion.",
+      "phases": [
+        "landing"
+      ],
+      "checkpoints": [
+        {
+          "id": "jp-landing-mech-c01",
+          "description": "Quiet, soft landings with hips back and knees tracking over the midfoot/second toe; no inward knee collapse.",
+          "phase": "landing",
+          "body_landmarks": [
+            "lead_hip",
+            "lead_knee",
+            "lead_ankle",
+            "rear_hip",
+            "rear_knee",
+            "rear_ankle"
+          ],
+          "measurable_angle_or_rule": "knee valgus angle < ~10-15 deg in front view; knee flexion > ~60 deg during absorption",
+          "rule_basis": "research",
+          "pose_detectability": "high",
+          "camera_view": "front",
+          "source_ids": [
+            "JP10"
+          ],
+          "threshold_confidence": "estimated"
+        }
+      ],
+      "faults": [
+        {
+          "id": "jp-landing-mech-f01",
+          "name": "Knee valgus / stiff landing",
+          "video_signs": "Knees cave inward; loud heel slaps; locked knees.",
+          "correction_cue": "'Knees apart, hips back, land quiet.'",
+          "why_it_matters": "These are the cues NSCA uses to stop a plyometric set.",
+          "drill_ids": [
+            "JP-D-STICK-LAND"
+          ],
+          "source_ids": [
+            "JP10"
+          ]
+        }
+      ],
+      "drills": [
+        {
+          "id": "JP-D-STICK-LAND",
+          "name": "Low drop-landing 'stick' progression",
+          "origin": "from_source",
+          "setup": "Low box (15-30 cm).",
+          "steps": [
+            "Step off and land on both feet, holding the landing 2 s.",
+            "Check knees over toes, hips back, quiet landing.",
+            "Progress to jumps, then single-leg, and only later to reactive drop jumps."
+          ],
+          "dosage": "3 sets x 5 landings",
+          "fixes": "Knee valgus; stiff landing",
+          "why": "Mastering landing positions at low heights before reactive jumps reduces injury risk.",
+          "equipment": [
+            "low box"
+          ],
+          "source_ids": [
+            "JP10"
+          ]
+        }
+      ],
+      "pro_tips": [],
+      "notes": null
+    }
+  ],
+  "general_tips": []
+}
