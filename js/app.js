@@ -2,7 +2,8 @@
 import { analyze, buildConfig } from './engine/core.js';
 import { indexKb, coachingFor } from './kb.js';
 import { SPORTS, sportEntry, loadSportModule } from './sports/registry.js';
-import { trackVideo, trackImage, loadVideo } from './pose.js';
+import { trackVideo, trackImage, loadVideo, releaseVideo } from './pose.js';
+import { canRecordInApp, cameraSupport, openCamera, startRecording, stopStream, isIOS } from './recorder.js';
 import { renderFrame, sizeCanvas } from './render.js';
 import { store, uid } from './store.js';
 
@@ -20,6 +21,8 @@ const S = {
   overrides: {}, player: null, abort: null,
 };
 window.__coach = S; // handy for debugging / automated tests
+export const APP_VERSION = '0.3.1';
+const isStandalone = () => window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
 
 // ---------------------------------------------------------------- boot
 async function boot() {
@@ -29,10 +32,25 @@ async function boot() {
   S.athletes = (await store.athletes()).sort((a, b) => a.name.localeCompare(b.name));
   S.athleteId = await store.getSetting('lastAthlete', S.athletes[0]?.id ?? null);
   if (!S.athletes.some((a) => a.id === S.athleteId)) S.athleteId = S.athletes[0]?.id ?? null;
+  if (window.caches) caches.keys().then((k) => { S.swVersion = k.filter((x) => x.startsWith('coachflip')).join(',') || null; }).catch(() => {});
+  // if we come back from a picker / camera app and the page survived, forget the "picker open" marker
+  const clearPending = () => setTimeout(() => store.setSetting('pendingPicker', null), 2000);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') clearPending(); });
+  const SRC = { 'pick-record': 'phone camera app', 'pick-video': 'upload', 'pick-photo': 'photo picker' };
   for (const [id, kind] of [['pick-record', 'video'], ['pick-video', 'video'], ['pick-photo', 'photo']]) {
-    $('#' + id).addEventListener('change', (e) => { const f = e.target.files[0]; e.target.value = ''; if (f) runAnalysis(f, kind); });
+    $('#' + id).addEventListener('change', (e) => {
+      const f = e.target.files[0]; e.target.value = ''; store.setSetting('pendingPicker', null);
+      if (f) runAnalysis(f, kind, { source: SRC[id] });
+    });
+    $('#' + id).addEventListener('cancel', () => store.setSetting('pendingPicker', null));
   }
+  // Android can kill the page while the phone's camera app is open (low memory) and reload it, losing the clip.
+  const pend = await store.getSetting('pendingPicker', null);
+  await store.setSetting('pendingPicker', null);
   home();
+  if (pend && Date.now() - pend.at < 10 * 60 * 1000 && pend.id === 'pick-record') {
+    app.insertAdjacentHTML('afterbegin', `<div class="notes warn" id="reload-note">The app restarted while the camera app was open (the phone freed memory), so the clip was lost. Use the <b>Record video</b> button: it records inside the app, so this can't happen.</div>`);
+  }
 }
 
 /** switch sport: rules module + its knowledge base(s) + this sport's saved choices */
@@ -114,6 +132,7 @@ async function home() {
   <p class="hint">Pick slow-mo only if the clip plays back slowed down (e.g. a phone slo-mo video). It makes timing checks (contact time, sequencing) real-time accurate.</p>
 
   <button class="big primary" id="rec"><span class="em">🎥</span> Record video</button>
+  <p class="hint center"><a href="#" id="rec-native">Use the phone's camera app instead</a></p>
   <button class="big" id="upl"><span class="em">🎞️</span> Upload a video</button>
   <button class="big" id="pho"><span class="em">📷</span> Photo / screenshot</button>
 
@@ -138,9 +157,10 @@ async function home() {
   }));
   $$('[data-view]').forEach((b) => (b.onclick = async () => { S.view = b.dataset.view; await store.setSetting('lastView:' + S.sportId, S.view); home(); }));
   $$('[data-slowmo]').forEach((b) => (b.onclick = async () => { S.slowmo = +b.dataset.slowmo; await store.setSetting('slowmo:' + S.sportId, S.slowmo); home(); }));
-  $('#rec').onclick = () => $('#pick-record').click();
-  $('#upl').onclick = () => $('#pick-video').click();
-  $('#pho').onclick = () => $('#pick-photo').click();
+  $('#rec').onclick = () => (canRecordInApp() ? recorder() : openPicker('pick-record'));
+  $('#rec-native').onclick = (e) => { e.preventDefault(); openPicker('pick-record'); };
+  $('#upl').onclick = () => openPicker('pick-video');
+  $('#pho').onclick = () => openPicker('pick-photo');
   $('#go-history')?.addEventListener('click', history);
   bindSessionRows();
 }
@@ -164,12 +184,100 @@ function bindSessionRows() {
   $$('[data-session]').forEach((li) => (li.onclick = async () => openSession(await store.session(li.dataset.session))));
 }
 
+// ---------------------------------------------------------------- pickers, recorder, errors
+function openPicker(id) {
+  store.setSetting('pendingPicker', { id, at: Date.now() });
+  $('#' + id).click();
+}
+
+/** environment info for the "Debug info" box (so a coach can screenshot it for support) */
+function baseDebug(extra = {}) {
+  const sup = cameraSupport();
+  return { app: APP_VERSION, sw: S.swVersion || null, ua: navigator.userAgent, standalone: isStandalone(), ios: isIOS(),
+    screen: `${screen.width}x${screen.height}@${devicePixelRatio}`, secureContext: sup.secureContext, getUserMedia: sup.getUserMedia,
+    mediaRecorder: sup.mediaRecorder, recorderMime: sup.mime, sport: S.sportId, skill: S.skillId, view: S.view, ...extra };
+}
+function errorScreen(title, message, debug, { retry } = {}) {
+  stopCamera(); stopPlayer();
+  window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>${esc(title)}</h1></header>
+    <p class="notes bad" id="err-msg">${esc(message)}</p>
+    ${retry ? '<button class="big primary" id="err-retry">Try again</button>' : ''}
+    <button class="big" id="err-native"><span class="em">📱</span> Use the phone's camera app</button>
+    <button class="big" id="err-upload"><span class="em">🎞️</span> Upload a video</button>
+    <button class="btn" id="back" style="width:100%">Back to start</button>
+    <details class="debug" id="debug"><summary>Debug info (screenshot this for support)</summary><pre>${esc(JSON.stringify(debug, null, 1))}</pre></details>`;
+  $('#back').onclick = home;
+  $('#err-native').onclick = () => openPicker('pick-record');
+  $('#err-upload').onclick = () => openPicker('pick-video');
+  if (retry) $('#err-retry').onclick = retry;
+  console.warn('Coach Flip error', title, message, debug);
+}
+
+function stopCamera() {
+  if (S.cam) { try { S.cam.rec?.stop(); } catch (_) { /* ignore */ } stopStream(S.cam.stream); clearInterval(S.cam.timer); S.cam = null; }
+}
+
+// ---------------------------------------------------------------- in-app recorder
+async function recorder(facing = S.prefs.facing || 'environment') {
+  stopPlayer(); stopCamera();
+  if (!athlete()) await addAthlete('My athlete');
+  const sk = skillDef(), maxS = S.prefs.maxSeconds || 20;
+  window.scrollTo(0, 0); app.innerHTML = `<header class="top"><button class="icon-btn" id="back" aria-label="Back">←</button>
+    <div style="flex:1"><h1 style="font-size:1.25rem">Record · ${esc(sk.label)}</h1><div class="sub">${esc(S.sport.name)} · ${esc(athlete().name)} · ${esc(S.view)} view</div></div></header>
+  <div class="rec-stage" id="rc-stage"><video id="rc-prev" playsinline webkit-playsinline muted autoplay></video>
+    <div class="rec-badge" id="rc-badge">Starting camera…</div>
+    <div class="rec-bar"><div id="rc-bar"></div></div></div>
+  <p class="hint" id="rc-tip">Whole body in frame, head to feet. Phone still (lean it on something). Up to ${maxS} s; it stops by itself.</p>
+  <button class="big primary rec-btn" id="rc-go" disabled><span class="em">⏺</span> Start recording</button>
+  <div class="row" style="margin-top:8px"><button class="btn" id="rc-flip">🔄 Flip camera</button><button class="btn" id="rc-native">📱 Phone camera app</button></div>
+  <button class="btn" id="rc-upload" style="width:100%;margin-top:8px">🎞️ Upload a video instead</button>`;
+  $('#back').onclick = () => { stopCamera(); home(); };
+  $('#rc-native').onclick = () => { stopCamera(); openPicker('pick-record'); };
+  $('#rc-upload').onclick = () => { stopCamera(); openPicker('pick-video'); };
+  $('#rc-flip').onclick = async () => { const f = facing === 'environment' ? 'user' : 'environment'; S.prefs.facing = f; recorder(f); };
+  const dbg = baseDebug({ path: 'in-app recorder', facing });
+  let stream;
+  try { stream = await openCamera(facing); }
+  catch (e) { errorScreen('Camera not available', e.message, { ...dbg, stage: 'getUserMedia', kind: e.kind, ...e.details }, { retry: () => recorder(facing) }); return; }
+  if (!$('#rc-prev')) { stopStream(stream); return; } // user left meanwhile
+  S.cam = { stream };
+  const v = $('#rc-prev'); v.muted = true; v.srcObject = stream;
+  try { await v.play(); } catch (_) { /* autoplay with a camera stream is allowed; ignore */ }
+  const st = stream.getVideoTracks()[0]?.getSettings?.() || {};
+  dbg.camera = { width: st.width, height: st.height, frameRate: st.frameRate, facingMode: st.facingMode, label: stream.getVideoTracks()[0]?.label };
+  $('#rc-badge').textContent = `Ready · ${st.width || '?'}x${st.height || '?'}${st.frameRate ? ' · ' + Math.round(st.frameRate) + ' fps' : ''}`;
+  const go = $('#rc-go'); go.disabled = false;
+  go.onclick = () => {
+    if (S.cam?.rec) { S.cam.rec.stop(); return; }
+    let ctl;
+    try {
+      ctl = startRecording(stream, { maxSeconds: maxS, onTick: (t) => {
+        const b = $('#rc-badge'); if (b) b.textContent = `● REC ${t.toFixed(1)} s · ${Math.max(0, maxS - t).toFixed(0)} s left`;
+        const bar = $('#rc-bar'); if (bar) bar.style.width = `${Math.min(100, (100 * t) / maxS)}%`;
+      } });
+    } catch (e) { errorScreen('Recording not supported', e.message, { ...dbg, stage: 'MediaRecorder', ...e.details }); return; }
+    S.cam.rec = ctl; dbg.recorderMime = ctl.mime;
+    $('#rc-stage').classList.add('recording');
+    go.innerHTML = '<span class="em">⏹</span> Stop'; go.classList.add('stop');
+    $('#rc-flip').disabled = true;
+    ctl.done.then(({ file, seconds, mime }) => {
+      stopCamera();
+      runAnalysis(file, 'video', { source: 'in-app recorder', durationHint: seconds, mime, camera: dbg.camera });
+    }).catch((e) => errorScreen('Recording failed', e.message, { ...dbg, stage: 'recording', ...(e.details || { error: String(e) }) }, { retry: () => recorder(facing) }));
+  };
+}
+
 // ---------------------------------------------------------------- analysis
-async function runAnalysis(file, kind) {
-  stopPlayer();
+async function runAnalysis(file, kind, extra = {}) {
+  stopPlayer(); stopCamera();
   if (!athlete()) await addAthlete('My athlete');
   const a = athlete();
   const isPhoto = kind === 'photo';
+  const debug = baseDebug({ path: extra.source || (isPhoto ? 'photo picker' : 'upload'), file: { name: file.name, type: file.type || '(none)', size: file.size },
+    durationHint: extra.durationHint ?? null, recorderMime: extra.mime ?? cameraSupport().mime, camera: extra.camera });
+  if (!isPhoto && file.type && !file.type.startsWith('video/')) {
+    errorScreen("That isn't a video", `The file picked is "${file.type}". Pick a video file, or use Photo / screenshot for pictures.`, { ...debug, stage: 'file-type' }); return;
+  }
   const url = URL.createObjectURL(file);
   S.abort = new AbortController();
   window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>Checking…</h1></header>
@@ -181,30 +289,39 @@ async function runAnalysis(file, kind) {
   $('#cancel').onclick = () => { S.abort.abort(); home(); };
   try {
     const opts = { model: S.prefs.model };
+    debug.stage = isPhoto ? 'track-image' : 'track-video';
     const track = isPhoto ? await trackImage(url, opts) : await trackVideo(url, {
-      ...opts, fps: analysisFps(skillDef()), maxSeconds: S.prefs.maxSeconds, signal: S.abort.signal,
+      ...opts, fps: analysisFps(skillDef()), maxSeconds: S.prefs.maxSeconds, signal: S.abort.signal, durationHint: extra.durationHint, debug,
       onProgress: (p, k, n) => { $('#bar') && ($('#bar').style.width = `${Math.round(p * 100)}%`); $('#stage') && ($('#stage').textContent = 'Tracking joints frame by frame…'); $('#count') && ($('#count').textContent = `${k} / ${n} frames`); },
     });
+    debug.stage = 'analyze';
     $('#stage') && ($('#stage').textContent = 'Comparing with the expert checklist…');
     const stance = stanceOf(a);
     const slowmo = isPhoto ? 1 : S.slowmo;
     const result = analyze(track, { sport: S.sport, skillId: S.skillId, view: S.view, stance, overrides: S.overrides, isPhoto, slowmo });
     if (isPhoto && result.events.length && S.sportId === 'boxing') result.notes.push('Extension is judged as if this photo is the moment of impact.');
     if (track.meta.truncated) result.notes.push(`Only the first ${S.prefs.maxSeconds} s were analysed (change in Settings).`);
+    if (!isPhoto && !track.frames.some((f) => f.lm)) result.notes.push('No athlete was found in any frame. Film the whole body, well lit, from 3-5 m away.');
     const session = {
       id: uid(), athleteId: a.id, athleteName: a.name, createdAt: Date.now(), sport: S.sportId,
       skillId: S.skillId, skillLabel: skillDef().label, view: S.view, stance, slowmo, isPhoto, checklist: {},
-      mediaType: file.type, fileName: file.name, track, result, hasMedia: !!S.prefs.keepVideos,
+      mediaType: file.type, fileName: file.name, source: debug.path, track, result, hasMedia: !!S.prefs.keepVideos,
     };
-    if (S.prefs.keepVideos) await store.putMedia(session.id, file, file.type);
+    debug.stage = 'save';
+    if (S.prefs.keepVideos) {
+      // a long 4K clip can exceed the phone's storage quota: keep the results, drop the video
+      try { await store.putMedia(session.id, file, file.type); }
+      catch (e) { session.hasMedia = false; result.notes.push("The video was too big to keep on this phone; the results are saved."); console.warn('putMedia failed', e); }
+    }
     await store.putSession(session);
     await openSession(session, url);
   } catch (e) {
     if (e.name === 'AbortError') return;
-    console.error(e);
-    window.scrollTo(0, 0); app.innerHTML = `<header class="top"><h1>Something went wrong</h1></header><p class="notes">${esc(e.message || e)}</p>
-      <p>Try a shorter clip (5-10 s), recorded on this phone, with the whole body in frame.</p><button class="big" id="back">Back</button>`;
-    $('#back').onclick = home;
+    (e.name === 'VideoError' ? console.warn : console.error)(e);
+    URL.revokeObjectURL(url);
+    errorScreen(e.name === 'VideoError' ? "Couldn't read this video" : 'Something went wrong',
+      e.name === 'VideoError' ? e.message : `${e.message || e}. Try a shorter clip (5-10 s) with the whole body in frame, or the in-app Record button.`,
+      { ...debug, error: `${e.name}: ${e.message}`, ...(e.details || {}) });
   }
 }
 
@@ -285,7 +402,14 @@ async function openSession(session, url = null) {
     await store.putSession(session);
   }));
   $$('[data-focus]').forEach((b) => (b.onclick = () => { S.player?.focus(b.dataset.focus || null); const c = r.checks.find((x) => x.id === b.dataset.focus); if (c?.instances?.length) S.player?.seek(c.instances[0].t); }));
-  if (url) await startPlayer(session, url);
+  if (url) {
+    // replay is a bonus: if this phone can't reopen the clip, still show the full results
+    try { await startPlayer(session, url); }
+    catch (e) {
+      console.warn('player failed', e); stopPlayer();
+      $('#cv')?.insertAdjacentHTML('beforebegin', `<p class="notes" id="player-note">Video replay isn't available for this clip on this phone (${esc(e.message || e)}). The results below are complete.</p>`);
+    }
+  }
 }
 
 const drillHtml = (d) => `<div class="drill"><h4>Drill: ${esc(d.name)}</h4>
@@ -370,7 +494,7 @@ async function startPlayer(session, url) {
     await ensureThumb(session, cv);
     return;
   }
-  const v = await loadVideo(url);
+  const v = await loadVideo(url, { durationHint: session.track?.meta?.duration });
   sizeCanvas(cv, v.videoWidth, v.videoHeight);
   const fps = r.meta.fps, maxT = frames.at(-1).t + 1 / fps;
   const idxAt = (t) => { let lo = 0, hi = frames.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (frames[m].t <= t + 1e-3) lo = m; else hi = m - 1; } return lo; };
@@ -401,7 +525,7 @@ async function startPlayer(session, url) {
   $('#next').onclick = () => seek(v.currentTime + 1 / fps);
   $$('[data-speed]').forEach((b) => (b.onclick = () => { v.playbackRate = +b.dataset.speed; $$('[data-speed]').forEach((x) => x.setAttribute('aria-pressed', x === b)); }));
   $('#skel').onclick = (e) => { skeleton = !skeleton; e.target.setAttribute('aria-pressed', skeleton); draw(); };
-  S.player = { stop() { stopped = true; cancelAnimationFrame(raf); v.pause(); v.removeAttribute('src'); v.load(); }, seek, video: v, canvas: cv,
+  S.player = { stop() { stopped = true; cancelAnimationFrame(raf); releaseVideo(v); }, seek, video: v, canvas: cv,
     focus(id) { focus = id; paintTimeline(); draw(); } };
 
   // open on the worst moment of the most important fault so the coach sees it immediately
@@ -470,7 +594,7 @@ async function settings() {
   <ul class="list">${S.athletes.map((a) => `<li><div class="grow"><b>${esc(a.name)}</b><span class="hint">${esc(stanceOf(a) || '')}</span></div><button class="btn small danger" data-del-ath="${esc(a.id)}">Delete</button></li>`).join('')}</ul>
   <p class="hint">${est ? `Using ${(est.usage / 1e6).toFixed(1)} MB of ${(est.quota / 1e6).toFixed(0)} MB available.` : ''}</p>
   <h2>About</h2>
-  <p class="hint">Coach Flip v0.3 · ${esc(S.sport.name)}. Expert knowledge base: ${S.kbx.kb.sources.length} sources (${esc(S.kbx.kb.sources.filter((s) => s.verification === 'full_text_reviewed').map((s) => s.author_or_org).filter(Boolean).join(', '))} reviewed in full). Pose tracking: Google MediaPipe Pose Landmarker (Apache-2.0), running on this phone.</p>`;
+  <p class="hint">Coach Flip v${APP_VERSION} · ${esc(S.sport.name)}. Expert knowledge base: ${S.kbx.kb.sources.length} sources (${esc(S.kbx.kb.sources.filter((s) => s.verification === 'full_text_reviewed').map((s) => s.author_or_org).filter(Boolean).join(', '))} reviewed in full). Pose tracking: Google MediaPipe Pose Landmarker (Apache-2.0), running on this phone.</p>`;
   $('#back').onclick = home;
   $('#reset').onclick = async () => { S.overrides = {}; await store.setSetting('overrides:' + S.sportId, {}); settings(); };
   $$('[data-del-ath]').forEach((b) => (b.onclick = async () => {

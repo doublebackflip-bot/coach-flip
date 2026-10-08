@@ -1,9 +1,9 @@
 // Offline support: precache the app shell, pose model and WASM so the app works at the gym
 // with no signal after the first visit.
-const VERSION = 'coachflip-v0.3.0';
+const VERSION = 'coachflip-v0.3.1';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
-  'js/app.js', 'js/kb.js', 'js/pose.js', 'js/render.js', 'js/store.js',
+  'js/app.js', 'js/kb.js', 'js/pose.js', 'js/recorder.js', 'js/render.js', 'js/store.js',
   'js/engine/core.js', 'js/engine/geom.js', 'js/engine/landmarks.js', 'js/engine/kit.js',
   'js/sports/registry.js',
   ...['boxing', 'softball', 'sprinting', 'distance_running', 'soccer', 'jumping', 'kickboxing', 'mma', 'bjj'].flatMap((s) => [`js/sports/${s}/module.js`, `data/${s}.json`]),

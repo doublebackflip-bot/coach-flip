@@ -16,9 +16,9 @@
 <body>
   <main id="app" aria-live="polite"><p class="loading">Loading Coach Flip…</p></main>
   <!-- hidden pickers: capture opens the camera directly on phones -->
-  <input id="pick-record" type="file" accept="video/*" capture="environment" hidden />
-  <input id="pick-video" type="file" accept="video/*" hidden />
-  <input id="pick-photo" type="file" accept="image/*" hidden />
+  <input id="pick-record" type="file" accept="video/*" capture="environment" class="vh" tabindex="-1" aria-hidden="true" />
+  <input id="pick-video" type="file" accept="video/*" class="vh" tabindex="-1" aria-hidden="true" />
+  <input id="pick-photo" type="file" accept="image/*" class="vh" tabindex="-1" aria-hidden="true" />
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
